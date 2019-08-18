@@ -8,7 +8,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wafersystems/react-rotate-menu.git"
+    "url": "git+https://github.com/wafersystems/react-contacts.git"
   },
   "files": [
     "dist"

@@ -1,6 +1,20 @@
 import React, {PureComponent} from 'react';
-import {Card, Checkbox, Col, Form, Input, List, Pagination, Row, Tree, Spin, Tag, Icon} from 'antd';
-import {makeTreeNode} from './utils';
+import {
+  Card,
+  Checkbox,
+  Col,
+  Form,
+  Input,
+  List,
+  Pagination,
+  Row,
+  Tree,
+  Spin,
+  Tag,
+  Icon,
+  message,
+} from 'antd';
+import {makeTreeNode} from '@/utils/utils';
 
 import styles from './contacts.less';
 
@@ -20,18 +34,58 @@ const searchByKey = (key, deptTree, dataList) => {
     if (item.children && item.children.length > 0) {
       searchByKey(key, item.children, dataList);
     }
-  })
+  });
 };
 
 class Contacts extends PureComponent {
-
   state = {
-    selectedKeys: null,
+    deptId: null,
+    nameKey: null,
     onSearch: false,
     deptTreeNode: [],
     selectUser: [],
     deptSearchResult: [],
-    onDeptSearch: false
+    onDeptSearch: false,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    const {userInfRole} = nextProps;
+    const {selectUser} = this.state;
+    if (selectUser.length === 0 && userInfRole.length > 0) {
+      this.setState({selectUser: userInfRole});
+    }
+  }
+
+  /**
+   * 翻页查询处理
+   * @param page
+   */
+  onPageChange = page => {
+    const {handleSearchUser} = this.props;
+    const {deptId, nameKey} = this.state;
+    if (handleSearchUser) {
+      handleSearchUser(page, nameKey, deptId);
+      this.setState({onSearch: true});
+    } else {
+      message.error('搜索function not found.');
+    }
+  };
+
+  /**
+   * 姓名搜索为空时处理
+   * @param e
+   */
+  handleSearchChange = e => {
+    if (!e.target.value) {
+      const {handleSearchUser} = this.props;
+      const {deptId} = this.state;
+      if (handleSearchUser) {
+        handleSearchUser(0, null, deptId);
+        this.setState({onSearch: true, nameKey: null});
+      } else {
+        message.error('搜索function not found.');
+      }
+    }
   };
 
   /**
@@ -39,11 +93,14 @@ class Contacts extends PureComponent {
    * @param nameKey 名字搜索关键字
    * @param deptId 部门id
    */
-  handleSearch = (nameKey = null, deptId = null) => {
+  handleSearch = (nameKey = null) => {
     const {handleSearchUser} = this.props;
-    if(handleSearchUser){
-      handleSearchUser(nameKey, deptId);
-      this.setState({onSearch: true})
+    const {deptId} = this.state;
+    if (handleSearchUser) {
+      handleSearchUser(0, nameKey, deptId);
+      this.setState({onSearch: true, nameKey});
+    } else {
+      message.error('搜索function not found.');
     }
   };
 
@@ -51,11 +108,15 @@ class Contacts extends PureComponent {
    * 点击部门树时传递部门id到回调里面
    * @param selectedKeys 选择的部门id
    */
-  onTreeSelect = (selectedKeys) => {
+  onTreeSelect = selectedKeys => {
     const {handleSearchUser} = this.props;
-    const [deptId] = selectedKeys;
-    handleSearchUser(null, deptId);
-    this.setState({onSearch: true})
+    if (handleSearchUser) {
+      const [deptId] = selectedKeys;
+      handleSearchUser(0, null, deptId);
+      this.setState({onSearch: true, deptId});
+    } else {
+      message.error('搜索function not found.');
+    }
   };
 
   /**
@@ -70,11 +131,15 @@ class Contacts extends PureComponent {
     const {deptTreeNode} = this.state;
     if (checked) {
       const [one] = checkedNodes;
-      const {props: {data}} = one;
+      const {
+        props: {data},
+      } = one;
       tmp.push(data);
-      this.setState({deptTreeNode: deptTreeNode.concat(tmp)})
+      this.setState({deptTreeNode: deptTreeNode.concat(tmp)});
     } else {
-      const {props: {data}} = node;
+      const {
+        props: {data},
+      } = node;
       const result = deptTreeNode.filter(value => value.id !== data.id);
       this.setState({deptTreeNode: result.concat(tmp)});
     }
@@ -84,15 +149,20 @@ class Contacts extends PureComponent {
    * 点击用户列表的回调
    * @param e
    */
-  onUserCheck = (e) => {
-    const {target: {checked, data}} = e;
+  onUserCheck = e => {
+    const {updateSelectUsers} = this.props;
+    const {
+      target: {checked, data},
+    } = e;
     const {selectUser} = this.state;
     const tmp = [];
     if (checked) {
       tmp.push(data);
-      this.setState({selectUser: selectUser.concat(tmp)})
+      const newSelectUser = selectUser.concat(tmp);
+      this.setState({selectUser: newSelectUser});
+      updateSelectUsers(newSelectUser);
     } else {
-      const result = selectUser.filter(value => value.id !== data.id);
+      const result = selectUser.filter(value => value.userId !== data.userId);
       this.setState({selectUser: result.concat(tmp)});
     }
   };
@@ -101,8 +171,10 @@ class Contacts extends PureComponent {
    * 点击用户全选的回调
    * @param e
    */
-  onCheckAll = (e) => {
-    const {target: {checked}} = e;
+  onCheckAll = e => {
+    const {
+      target: {checked},
+    } = e;
     const tmp = [];
     if (checked) {
       const {onSearch} = this.state;
@@ -125,25 +197,24 @@ class Contacts extends PureComponent {
    * @param v
    * @return {*}
    */
-  makeDeptTag = (v) => {
-    return (<Tag
+  makeDeptTag = v => (
+    <Tag
+      key={v.id}
       className={styles.deptTag}
       onClick={e => {
-                   e.preventDefault();
-                   this.unCheckDept(v);
-                 }}
-    >{v.name} <Icon
-      type="close-circle"
-      theme="filled"
-    />
-    </Tag>)
-  };
+        e.preventDefault();
+        this.unCheckDept(v);
+      }}
+    >
+      {v.name} <Icon type="close-circle" theme="filled" />
+    </Tag>
+  );
 
   /**
    *
    * @param data
    */
-  unCheckDept = (data) => {
+  unCheckDept = data => {
     const tmp = [];
     const {deptTreeNode} = this.state;
     const result = deptTreeNode.filter(value => value.id !== data.id);
@@ -155,28 +226,29 @@ class Contacts extends PureComponent {
    * @param v
    * @return {*}
    */
-  makeUserTag = (v) => {
-    return (<Tag
-      className={styles.userTag}
-      onClick={e => {
-                   e.preventDefault();
-                   this.unCHeckUser(v);
-                 }}
-    >{v.username} <Icon
-      type="close-circle"
-      theme="filled"
-    />
-    </Tag>)
+  makeUserTag = v => {
+    return (
+      <Tag
+        key={v.userId}
+        className={styles.userTag}
+        onClick={e => {
+          e.preventDefault();
+          this.unCHeckUser(v);
+        }}
+      >
+        {v.username} <Icon type="close-circle" theme="filled" />
+      </Tag>
+    );
   };
 
   /**
    * 点击用户Tag时取消选择
    * @param data
    */
-  unCHeckUser = (data) => {
+  unCHeckUser = data => {
     const tmp = [];
     const {selectUser} = this.state;
-    const result = selectUser.filter(value => value.id !== data.id);
+    const result = selectUser.filter(value => value.userId !== data.userId);
     this.setState({selectUser: result.concat(tmp)});
   };
 
@@ -185,10 +257,10 @@ class Contacts extends PureComponent {
    * @param data
    * @return {boolean}
    */
-  isUserCheck = (data) => {
+  isUserCheck = data => {
     const {selectUser} = this.state;
-    const result = selectUser.find(value => value.id === data.id);
-    return !!result
+    const result = selectUser.find(value => value.userId === data.userId);
+    return !!result;
   };
 
   /**
@@ -196,10 +268,10 @@ class Contacts extends PureComponent {
    * @param data
    * @return {boolean}
    */
-  isDeptCheck = (data) => {
+  isDeptCheck = data => {
     const {deptTreeNode} = this.state;
     const result = deptTreeNode.find(value => value.id === data.id);
-    return !!result
+    return !!result;
   };
 
   /**
@@ -207,7 +279,7 @@ class Contacts extends PureComponent {
    * @param data
    * @return {*}
    */
-  makeCheckedKeys = (data) => {
+  makeCheckedKeys = data => {
     return data.map(v => v.id);
   };
 
@@ -231,22 +303,24 @@ class Contacts extends PureComponent {
    * 点击部门查询结果后，传递部门ID给外部查询
    * @param item
    */
-  onDeptSelect = (item) => {
+  onDeptSelect = item => {
     this.handleSearch(null, item.id);
-    this.setState({onSearch: true})
+    this.setState({onSearch: true});
   };
 
   /**
    * 部门查询结果点击checkbox
    * @param e
    */
-  onDeptCheck = (e) => {
-    const {target: {checked, data}} = e;
+  onDeptCheck = e => {
+    const {
+      target: {checked, data},
+    } = e;
     const {deptTreeNode} = this.state;
     const tmp = [];
     if (checked) {
       tmp.push(data);
-      this.setState({deptTreeNode: deptTreeNode.concat(tmp)})
+      this.setState({deptTreeNode: deptTreeNode.concat(tmp)});
     } else {
       const result = deptTreeNode.filter(value => value.id !== data.id);
       this.setState({deptTreeNode: result.concat(tmp)});
@@ -254,10 +328,17 @@ class Contacts extends PureComponent {
   };
 
   render() {
-    const {deptTree = [], users, loading = false, searchResult, deptSearch=false,userSearch=false,deptCheckBox=false} = this.props;
+    const {
+      deptTree = [],
+      users,
+      loading = false,
+      searchResult,
+      deptSearch = false,
+      userSearch = false,
+      deptCheckBox = false,
+    } = this.props;
     const {deptTreeNode, selectUser, onSearch, onDeptSearch, deptSearchResult} = this.state;
     let userData;
-    console.log(styles)
     if (onSearch) {
       userData = searchResult;
     } else {
@@ -266,84 +347,103 @@ class Contacts extends PureComponent {
     return (
       <div style={{height: '100%'}}>
         <Spin spinning={loading}>
-          {userSearch && <Row>
-            <Search placeholder="请输入搜索姓名" onSearch={value => this.handleSearch(value)} />
-          </Row>}
+          {userSearch && (
+            <Row>
+              <Search placeholder="请输入搜索姓名" onSearch={value => this.handleSearch(value)} />
+            </Row>
+          )}
           {userSearch && <br />}
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Card className={styles.card}>
                 {deptSearch && <Search placeholder="请输入搜索部门" onChange={this.onSearchDept} />}
                 {deptSearch && <br />}
-                {!onDeptSearch && <Tree
-                  checkable={deptCheckBox}
-                  checkedKeys={this.makeCheckedKeys(deptTreeNode)}
-                  onSelect={this.onTreeSelect}
-                  onCheck={this.onDeptTreeCheck}
-                >
-                  {makeTreeNode(deptTree)}
-                </Tree>}
-                {onDeptSearch && <List
-                  size="small"
-                  bordered={false}
-                  dataSource={deptSearchResult}
-                  split={false}
-                  renderItem={item => {
-                    return <List.Item>
-                      <div className={styles.itemDiv}>
-                        <Checkbox
-                          className={styles.checkbox}
-                          data={item}
-                          checked={this.isDeptCheck(item)}
-                          onChange={this.onDeptCheck}
-                        /><span onClick={() => this.onDeptSelect(item)}>{item.name}</span>
-                      </div>
-                    </List.Item>
-                  }
-                  }
-                />}
+                {!onDeptSearch && (
+                  <Tree
+                    checkable={deptCheckBox}
+                    checkedKeys={this.makeCheckedKeys(deptTreeNode)}
+                    onSelect={this.onTreeSelect}
+                    onCheck={this.onDeptTreeCheck}
+                  >
+                    {makeTreeNode(deptTree)}
+                  </Tree>
+                )}
+                {onDeptSearch && (
+                  <List
+                    size="small"
+                    bordered={false}
+                    dataSource={deptSearchResult}
+                    split={false}
+                    renderItem={item => {
+                      return (
+                        <List.Item>
+                          <div className={styles.itemDiv}>
+                            <Checkbox
+                              className={styles.checkbox}
+                              data={item}
+                              checked={this.isDeptCheck(item)}
+                              onChange={this.onDeptCheck}
+                            />
+                            <span onClick={() => this.onDeptSelect(item)}>{item.name}</span>
+                          </div>
+                        </List.Item>
+                      );
+                    }}
+                  />
+                )}
               </Card>
             </Col>
             <Col xs={12} sm={12} md={12} lg={12} xl={12} className={styles.treeLeft}>
               <Card className={styles.card}>
-                {deptSearch && <Search placeholder="请输入搜索姓名" onSearch={this.handleSearch} />}
-                {deptSearch &&  <br />}
+                {deptSearch && (
+                  <Search
+                    placeholder="请输入搜索姓名"
+                    onSearch={this.handleSearch}
+                    onChange={this.handleSearchChange}
+                  />
+                )}
+                {deptSearch && <br />}
                 <List
                   size="small"
                   bordered={false}
                   dataSource={userData.records}
                   split={false}
                   renderItem={item => {
-                    return <List.Item>
-                      <div className={styles.itemDiv}>
-                        <Checkbox
-                          className={styles.checkbox}
-                          data={item}
-                          checked={this.isUserCheck(item)}
-                          onChange={this.onUserCheck}
-                        >{item.username}
-                        </Checkbox>
-                        <div className={styles.deptName}>{item.deptName}</div>
-                      </div>
-                    </List.Item>
-                  }
-                  }
+                    return (
+                      <List.Item>
+                        <div className={styles.itemDiv}>
+                          <Checkbox
+                            className={styles.checkbox}
+                            data={item}
+                            checked={this.isUserCheck(item)}
+                            onChange={this.onUserCheck}
+                          >
+                            {item.username}
+                          </Checkbox>
+                          <div className={styles.deptName}>{item.deptName}</div>
+                        </div>
+                      </List.Item>
+                    );
+                  }}
                 />
               </Card>
               <div className={styles.pagination}>
-                <Checkbox onChange={this.onCheckAll} className={styles.checkbox}>全选</Checkbox>
+                <Checkbox onChange={this.onCheckAll} className={styles.checkbox}>
+                  全选
+                </Checkbox>
                 <Pagination
                   className={styles.pageNoe}
                   simple
-                  current={userData.current}
+                  current={userData.current || userData.current === 0 ? userData.current + 1 : 0}
                   pageSize={userData.size}
                   total={userData.total}
+                  onChange={this.onPageChange}
                 />
               </div>
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Form colon={false}>
-                <Form.Item label={`共选择了${deptTreeNode.length+selectUser.length}个`}>
+                <Form.Item label={`共选择了${deptTreeNode.length + selectUser.length}个`}>
                   <div className={styles.resultDiv}>
                     {deptTreeNode && deptTreeNode.map(v => this.makeDeptTag(v))}
                     {selectUser && selectUser.map(v => this.makeUserTag(v))}
@@ -358,6 +458,28 @@ class Contacts extends PureComponent {
   }
 }
 
-Contacts.propTypes = {};
+Contacts.propTypes = {
+  deptTree: PropTypes.array.isRequired,
+  users: PropTypes.object,
+  loading: PropTypes.bool,
+  searchResult: PropTypes.object,
+  handleSearchUser: PropTypes.func.isRequired,
+  deptSearch: PropTypes.bool,
+  updateSelectUsers: PropTypes.func.isRequired,
+  deptCheckBox: PropTypes.bool
+};
+
+Contacts.defaultProps={
+  deptTree: [],
+  users: {
+    records: [],
+  },
+  loading: false,
+  searchResult: {
+    records: [],
+  },
+  deptSearch: true,
+  deptCheckBox: true
+};
 
 export default Contacts;
