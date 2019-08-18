@@ -11,7 +11,7 @@ React Rotate Menu
 
 ## Example
 
-![Example](./example.gif)
+![Example](./example.png)
 
 ## How to use
 
