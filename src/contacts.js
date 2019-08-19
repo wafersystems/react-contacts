@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import {
   Card,
   Checkbox,
@@ -14,7 +15,7 @@ import {
   Icon,
   message,
 } from 'antd';
-import {makeTreeNode} from '@/utils/utils';
+import {makeTreeNode} from './utils';
 
 import styles from './contacts.less';
 
