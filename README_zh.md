@@ -3,8 +3,9 @@ contacts  &amp; department select
 
 威发微服务选人组件/Wafer microservice selection component
 
-[![npm](https://img.shields.io/npm/v/react-contacts.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/react-rotate-menu)
-[![NPM downloads](http://img.shields.io/npm/dm/react-conacts.svg?style=flat-plastic)](https://npmjs.org/package/react-rotate-menu)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/wafersystems/react-contacts)
+[![npm](https://img.shields.io/npm/v/react-contacts.svg)](https://www.npmjs.com/package/react-contacts)
+[![NPM downloads](https://img.shields.io/npm/dm/react-contacts.svg)](https://www.npmjs.com/package/react-contacts)
 
 ## 示例图片
 
