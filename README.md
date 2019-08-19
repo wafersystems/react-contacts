@@ -16,7 +16,7 @@ contacts  &amp; department select
 
 ### install
 
-`yarn react-contacts`
+`yarn add react-contacts`
 
 ### React 
 
