@@ -1,20 +1,18 @@
 # react-contacts
 contacts  &amp; department select
 
-[中文文档](./README_zh.md)
-
 威发微服务选人组件/Wafer microservice selection component
 
 [![npm](https://img.shields.io/npm/v/react-contacts.svg?maxAge=2592000?style=plastic)](https://www.npmjs.com/package/react-rotate-menu)
 [![NPM downloads](http://img.shields.io/npm/dm/react-conacts.svg?style=flat-plastic)](https://npmjs.org/package/react-rotate-menu)
 
-## Example
+## 示例图片
 
 ![Example](./example.png)
 
-## How to use
+## 如何使用
 
-### install
+### 安装
 
 `yarn react-contacts`
 
@@ -27,19 +25,19 @@ import Contacts from 'react-contacts'
 
 ```
 
-Properties  | Description | Type | Default Values
+属性  | 描述 | 类型 | 默认值
 ------------- | ------------- | --------------| ------------- 
-deptTree  | Department of Tree（[Department Data](###Department Data)） | array | []
-users  | User data （[User & Search Result Data](###User & Search Result Data)） | object | { records: []}
-loading | Loading status | bool | false
-searchResult | Query user data return results （[User & Search Result Data](###User & Search Result Data)） | object | { records: []}
-handleSearchUser | Handle search user function | func | function(page,nameKey,depId)
-deptSearch | Show department search input | bool | tree
-updateSelectUsers | Update user list when select user | func | function(userSelected)
-deptCheckBox | Show department checkbox | bool | true
+deptTree  | 部门树数据（[数据](###部门树数据)） | array | []
+users  | 用户数据 （[数据](### 用户和搜索结果数据)） | object | { records: []}
+loading | 加载状态 | bool | false
+searchResult | 用户查询结果 （[数据](### 用户和搜索结果数据)） | object | { records: []}
+handleSearchUser | 搜索用户和反应回调 | func | function(page,nameKey,depId)，三个参数，page（页码），nameKey（用户名搜索关键字），depId（部门id）
+deptSearch | 部门搜索框显示 | bool | tree
+updateSelectUsers | 更新选定用户数据 | func | function(userSelected)
+deptCheckBox | 部门checkbox显示 | bool | true
 
 
-### Department Data
+### 部门树数据
 
 ````
 [
@@ -73,7 +71,7 @@ deptCheckBox | Show department checkbox | bool | true
   ]
 ````
 
-### User & Search Result Data
+### 用户和搜索结果数据
 
 ```
 
@@ -121,7 +119,7 @@ deptCheckBox | Show department checkbox | bool | true
 
 ```
 
-### Development
+### 开发
 
 ````
 $ git clone https://github.com/wafersystems/react-contacts.git
