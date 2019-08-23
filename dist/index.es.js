@@ -194,7 +194,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".contacts_rightAlign__1mttw {\n  text-align: right;\n}\n.contacts_treeLeft__9KVxi {\n  padding-left: 10px;\n}\n.contacts_card__Ep1tT {\n  min-height: 452px;\n}\n.contacts_deptInfo__2Cm6N {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv__3duTh {\n  width: 100%;\n}\n.contacts_itemDiv__3duTh .contacts_checkbox__1wE1n {\n  float: left;\n}\n.contacts_itemDiv__3duTh .contacts_deptName__1OpqT {\n  float: right;\n}\n.contacts_itemDiv__3duTh:hover {\n  background: #E6F7FF;\n}\n.contacts_pagination__YKURI {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__YKURI .contacts_checkbox__1wE1n {\n  padding-left: 24px;\n  float: left;\n}\n.contacts_pagination__YKURI .contacts_pageNoe__2lx4q {\n  float: right;\n}\n.contacts_resultDiv__lIHQW {\n  border: 1px solid #d9d9d9;\n  background: white;\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv__lIHQW .contacts_deptTag__3X662 {\n  color: #1890FF;\n  background-color: #E6F7FF;\n  border: 1px solid #91D5FF;\n  margin-left: 10px;\n}\n.contacts_resultDiv__lIHQW .contacts_userTag__1nUBr {\n  color: #375EEE;\n  background-color: rgba(55, 94, 238, 0.09);\n  border-radius: 4px;\n  border: 1px solid #375EEE;\n  margin-left: 10px;\n}\n";
+var css = ".contacts_rightAlign__1mttw {\n  text-align: right;\n}\n.contacts_treeLeft__9KVxi {\n  padding-left: 10px;\n}\n.contacts_card__Ep1tT {\n  min-height: 452px;\n  max-height: 452px;\n  overflow-y: auto;\n}\n.contacts_deptInfo__2Cm6N {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv__3duTh {\n  width: 100%;\n}\n.contacts_itemDiv__3duTh .contacts_checkbox__1wE1n {\n  float: left;\n}\n.contacts_itemDiv__3duTh .contacts_deptName__1OpqT {\n  float: right;\n}\n.contacts_itemDiv__3duTh:hover {\n  background: #E6F7FF;\n}\n.contacts_pagination__YKURI {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__YKURI .contacts_checkbox__1wE1n {\n  padding-left: 24px;\n  float: left;\n}\n.contacts_pagination__YKURI .contacts_pageNoe__2lx4q {\n  float: right;\n}\n.contacts_resultDiv__lIHQW {\n  border: 1px solid #d9d9d9;\n  background: white;\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv__lIHQW .contacts_deptTag__3X662 {\n  color: #1890FF;\n  background-color: #E6F7FF;\n  border: 1px solid #91D5FF;\n  margin-left: 10px;\n}\n.contacts_resultDiv__lIHQW .contacts_userTag__1nUBr {\n  color: #375EEE;\n  background-color: rgba(55, 94, 238, 0.09);\n  border-radius: 4px;\n  border: 1px solid #375EEE;\n  margin-left: 10px;\n}\n";
 var styles = {"rightAlign":"contacts_rightAlign__1mttw","treeLeft":"contacts_treeLeft__9KVxi","card":"contacts_card__Ep1tT","deptInfo":"contacts_deptInfo__2Cm6N","itemDiv":"contacts_itemDiv__3duTh","checkbox":"contacts_checkbox__1wE1n","deptName":"contacts_deptName__1OpqT","pagination":"contacts_pagination__YKURI","pageNoe":"contacts_pageNoe__2lx4q","resultDiv":"contacts_resultDiv__lIHQW","deptTag":"contacts_deptTag__3X662","userTag":"contacts_userTag__1nUBr"};
 styleInject(css);
 
@@ -247,7 +247,14 @@ function (_PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onPageChange", function (page) {
-      var handleSearchUser = _this.props.handleSearchUser;
+      var _this$props = _this.props,
+          handleSearchUser = _this$props.handleSearchUser,
+          debug = _this$props.debug;
+
+      if (debug) {
+        window.console.log(page);
+      }
+
       var _this$state = _this.state,
           deptId = _this$state.deptId,
           nameKey = _this$state.nameKey;
@@ -377,9 +384,9 @@ function (_PureComponent) {
 
       if (checked) {
         var onSearch = _this.state.onSearch;
-        var _this$props = _this.props,
-            users = _this$props.users,
-            searchResult = _this$props.searchResult;
+        var _this$props2 = _this.props,
+            users = _this$props2.users,
+            searchResult = _this$props2.searchResult;
         var userData;
 
         if (onSearch) {
@@ -474,9 +481,7 @@ function (_PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onSearchDept", function (e) {
-      var value = e.target.value;
-
+    _defineProperty(_assertThisInitialized(_this), "onSearchDept", function (value) {
       if (!value) {
         _this.setState({
           deptSearchResult: [],
@@ -491,6 +496,15 @@ function (_PureComponent) {
         _this.setState({
           deptSearchResult: dataList,
           onDeptSearch: !!value
+        });
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSearchDeptChange", function (e) {
+      if (!e.target.value) {
+        _this.setState({
+          deptSearchResult: [],
+          onDeptSearch: false
         });
       }
     });
@@ -552,33 +566,38 @@ function (_PureComponent) {
     value: function render() {
       var _this2 = this;
 
-      var _this$props2 = this.props,
-          _this$props2$deptTree = _this$props2.deptTree,
-          deptTree = _this$props2$deptTree === void 0 ? [] : _this$props2$deptTree,
-          users = _this$props2.users,
-          _this$props2$loading = _this$props2.loading,
-          loading = _this$props2$loading === void 0 ? false : _this$props2$loading,
-          searchResult = _this$props2.searchResult,
-          _this$props2$deptSear = _this$props2.deptSearch,
-          deptSearch = _this$props2$deptSear === void 0 ? false : _this$props2$deptSear,
-          _this$props2$userSear = _this$props2.userSearch,
-          userSearch = _this$props2$userSear === void 0 ? false : _this$props2$userSear,
-          _this$props2$deptChec = _this$props2.deptCheckBox,
-          deptCheckBox = _this$props2$deptChec === void 0 ? false : _this$props2$deptChec,
-          searchDeptPlaceholder = _this$props2.searchDeptPlaceholder,
-          searchUserPlaceholder = _this$props2.searchUserPlaceholder;
+      var _this$props3 = this.props,
+          _this$props3$deptTree = _this$props3.deptTree,
+          deptTree = _this$props3$deptTree === void 0 ? [] : _this$props3$deptTree,
+          users = _this$props3.users,
+          _this$props3$loading = _this$props3.loading,
+          loading = _this$props3$loading === void 0 ? false : _this$props3$loading,
+          searchResult = _this$props3.searchResult,
+          _this$props3$deptSear = _this$props3.deptSearch,
+          deptSearch = _this$props3$deptSear === void 0 ? false : _this$props3$deptSear,
+          _this$props3$userSear = _this$props3.userSearch,
+          userSearch = _this$props3$userSear === void 0 ? false : _this$props3$userSear,
+          _this$props3$deptChec = _this$props3.deptCheckBox,
+          deptCheckBox = _this$props3$deptChec === void 0 ? false : _this$props3$deptChec,
+          searchDeptPlaceholder = _this$props3.searchDeptPlaceholder,
+          searchUserPlaceholder = _this$props3.searchUserPlaceholder;
       var _this$state2 = this.state,
           deptTreeNode = _this$state2.deptTreeNode,
           selectUser = _this$state2.selectUser,
           onSearch = _this$state2.onSearch,
           onDeptSearch = _this$state2.onDeptSearch,
-          deptSearchResult = _this$state2.deptSearchResult;
+          deptSearchResult = _this$state2.deptSearchResult,
+          debug = _this$state2.debug;
       var userData;
 
       if (onSearch) {
         userData = searchResult;
       } else {
         userData = users;
+      }
+
+      if (debug) {
+        window.console.log(userData);
       }
 
       return React.createElement("div", {
@@ -589,9 +608,7 @@ function (_PureComponent) {
         spinning: loading
       }, userSearch && React.createElement(_Row, null, React.createElement(Search, {
         placeholder: searchUserPlaceholder,
-        onChange: function onChange(value) {
-          return _this2.handleSearch(value);
-        }
+        onSearch: this.handleSearch
       })), userSearch && React.createElement("br", null), React.createElement(_Row, null, React.createElement(_Col, {
         xs: 12,
         sm: 12,
@@ -602,7 +619,8 @@ function (_PureComponent) {
         className: styles.card
       }, deptSearch && React.createElement(Search, {
         placeholder: searchDeptPlaceholder,
-        onChange: this.onSearchDept
+        onSelect: this.onSearchDeptChange,
+        onSearch: this.onSearchDept
       }), deptSearch && React.createElement("br", null), !onDeptSearch && React.createElement(_Tree, {
         checkable: deptCheckBox,
         checkedKeys: this.makeCheckedKeys(deptTreeNode),
@@ -702,10 +720,10 @@ Contacts.propTypes = {
   updateSelectUsers: PropTypes.func.isRequired,
   deptCheckBox: PropTypes.bool,
   searchDeptPlaceholder: PropTypes.string,
-  searchUserPlaceholder: PropTypes.string
+  searchUserPlaceholder: PropTypes.string,
+  debug: PropTypes.bool
 };
 Contacts.defaultProps = {
-  deptTree: [],
   users: {
     records: []
   },
@@ -716,7 +734,8 @@ Contacts.defaultProps = {
   deptSearch: true,
   deptCheckBox: true,
   searchDeptPlaceholder: '请输入搜索部门',
-  searchUserPlaceholder: '请输入搜索姓名'
+  searchUserPlaceholder: '请输入搜索姓名',
+  debug: false
 };
 
 export default Contacts;
