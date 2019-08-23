@@ -295,7 +295,7 @@ class Contacts extends PureComponent {
     } else {
       const {deptTree = []} = this.props;
       const dataList = [];
-      searchByKey(value, deptTree, dataList);
+      searchByKey(value.trim(), deptTree, dataList);
       this.setState({deptSearchResult: dataList, onDeptSearch: !!value});
     }
   };
