@@ -65,7 +65,7 @@ class Contacts extends PureComponent {
     const {handleSearchUser} = this.props;
     const {deptId, nameKey} = this.state;
     if (handleSearchUser) {
-      handleSearchUser(page, nameKey, deptId);
+      handleSearchUser(page-1, nameKey, deptId);
       this.setState({onSearch: true});
     } else {
       message.error('搜索function not found.');
