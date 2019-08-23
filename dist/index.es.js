@@ -253,7 +253,7 @@ function (_PureComponent) {
           nameKey = _this$state.nameKey;
 
       if (handleSearchUser) {
-        handleSearchUser(page, nameKey, deptId);
+        handleSearchUser(page - 1, nameKey, deptId);
 
         _this.setState({
           onSearch: true
@@ -352,25 +352,23 @@ function (_PureComponent) {
           data = _e$target.data;
       var selectUser = _this.state.selectUser;
       var tmp = [];
+      var newSelectUser = [];
 
       if (checked) {
         tmp.push(data);
-        var newSelectUser = selectUser.concat(tmp);
-
-        _this.setState({
-          selectUser: newSelectUser
-        });
-
-        updateSelectUsers(newSelectUser);
+        newSelectUser = selectUser.concat(tmp);
       } else {
         var result = selectUser.filter(function (value) {
           return value.userId !== data.userId;
         });
-
-        _this.setState({
-          selectUser: result.concat(tmp)
-        });
+        newSelectUser = result.concat(tmp);
       }
+
+      _this.setState({
+        selectUser: newSelectUser
+      });
+
+      updateSelectUsers(newSelectUser);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onCheckAll", function (e) {
@@ -488,7 +486,7 @@ function (_PureComponent) {
         var _this$props$deptTree = _this.props.deptTree,
             deptTree = _this$props$deptTree === void 0 ? [] : _this$props$deptTree;
         var dataList = [];
-        searchByKey(value, deptTree, dataList);
+        searchByKey(value.trim(), deptTree, dataList);
 
         _this.setState({
           deptSearchResult: dataList,
@@ -566,7 +564,9 @@ function (_PureComponent) {
           _this$props2$userSear = _this$props2.userSearch,
           userSearch = _this$props2$userSear === void 0 ? false : _this$props2$userSear,
           _this$props2$deptChec = _this$props2.deptCheckBox,
-          deptCheckBox = _this$props2$deptChec === void 0 ? false : _this$props2$deptChec;
+          deptCheckBox = _this$props2$deptChec === void 0 ? false : _this$props2$deptChec,
+          searchDeptPlaceholder = _this$props2.searchDeptPlaceholder,
+          searchUserPlaceholder = _this$props2.searchUserPlaceholder;
       var _this$state2 = this.state,
           deptTreeNode = _this$state2.deptTreeNode,
           selectUser = _this$state2.selectUser,
@@ -588,8 +588,8 @@ function (_PureComponent) {
       }, React.createElement(_Spin, {
         spinning: loading
       }, userSearch && React.createElement(_Row, null, React.createElement(Search, {
-        placeholder: "\u8BF7\u8F93\u5165\u641C\u7D22\u59D3\u540D",
-        onSearch: function onSearch(value) {
+        placeholder: searchUserPlaceholder,
+        onChange: function onChange(value) {
           return _this2.handleSearch(value);
         }
       })), userSearch && React.createElement("br", null), React.createElement(_Row, null, React.createElement(_Col, {
@@ -601,7 +601,7 @@ function (_PureComponent) {
       }, React.createElement(_Card, {
         className: styles.card
       }, deptSearch && React.createElement(Search, {
-        placeholder: "\u8BF7\u8F93\u5165\u641C\u7D22\u90E8\u95E8",
+        placeholder: searchDeptPlaceholder,
         onChange: this.onSearchDept
       }), deptSearch && React.createElement("br", null), !onDeptSearch && React.createElement(_Tree, {
         checkable: deptCheckBox,
@@ -637,7 +637,7 @@ function (_PureComponent) {
       }, React.createElement(_Card, {
         className: styles.card
       }, deptSearch && React.createElement(Search, {
-        placeholder: "\u8BF7\u8F93\u5165\u641C\u7D22\u59D3\u540D",
+        placeholder: searchUserPlaceholder,
         onSearch: this.handleSearch,
         onChange: this.handleSearchChange
       }), deptSearch && React.createElement("br", null), React.createElement(_List, {
@@ -700,7 +700,9 @@ Contacts.propTypes = {
   handleSearchUser: PropTypes.func.isRequired,
   deptSearch: PropTypes.bool,
   updateSelectUsers: PropTypes.func.isRequired,
-  deptCheckBox: PropTypes.bool
+  deptCheckBox: PropTypes.bool,
+  searchDeptPlaceholder: PropTypes.string,
+  searchUserPlaceholder: PropTypes.string
 };
 Contacts.defaultProps = {
   deptTree: [],
@@ -712,7 +714,9 @@ Contacts.defaultProps = {
     records: []
   },
   deptSearch: true,
-  deptCheckBox: true
+  deptCheckBox: true,
+  searchDeptPlaceholder: '请输入搜索部门',
+  searchUserPlaceholder: '请输入搜索姓名'
 };
 
 export default Contacts;
