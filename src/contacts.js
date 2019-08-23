@@ -62,7 +62,10 @@ class Contacts extends PureComponent {
    * @param page
    */
   onPageChange = page => {
-    const {handleSearchUser} = this.props;
+    const {handleSearchUser,debug} = this.props;
+    if(debug){
+      window.console.log(page)
+    }
     const {deptId, nameKey} = this.state;
     if (handleSearchUser) {
       handleSearchUser(page - 1, nameKey, deptId);
@@ -287,10 +290,9 @@ class Contacts extends PureComponent {
 
   /**
    * 根据关键字搜索部门
-   * @param e
+   * @param value
    */
-  onSearchDept = e => {
-    const {value} = e.target;
+  onSearchDept = value => {
     if (!value) {
       this.setState({deptSearchResult: [], onDeptSearch: !!value});
     } else {
@@ -298,6 +300,12 @@ class Contacts extends PureComponent {
       const dataList = [];
       searchByKey(value.trim(), deptTree, dataList);
       this.setState({deptSearchResult: dataList, onDeptSearch: !!value});
+    }
+  };
+
+  onSearchDeptChange=e=>{
+    if (!e.target.value) {
+      this.setState({deptSearchResult: [], onDeptSearch: false});
     }
   };
 
@@ -341,20 +349,22 @@ class Contacts extends PureComponent {
       searchDeptPlaceholder,
       searchUserPlaceholder
     } = this.props;
-    const {deptTreeNode, selectUser, onSearch, onDeptSearch, deptSearchResult} = this.state;
+    const {deptTreeNode, selectUser, onSearch, onDeptSearch, deptSearchResult, debug} = this.state;
     let userData;
     if (onSearch) {
       userData = searchResult;
     } else {
       userData = users;
     }
+    if (debug) {
+      window.console.log(userData)
+    }
     return (
       <div style={{height: '100%'}}>
         <Spin spinning={loading}>
           {userSearch && (
             <Row>
-              <Search placeholder={searchUserPlaceholder}
-                      onChange={value => this.handleSearch(value)} />
+              <Search placeholder={searchUserPlaceholder} onSearch={this.handleSearch} />
             </Row>
           )}
           {userSearch && <br />}
@@ -362,7 +372,7 @@ class Contacts extends PureComponent {
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Card className={styles.card}>
                 {deptSearch &&
-                <Search placeholder={searchDeptPlaceholder} onChange={this.onSearchDept} />}
+                <Search placeholder={searchDeptPlaceholder} onSelect={this.onSearchDeptChange} onSearch={this.onSearchDept} />}
                 {deptSearch && <br />}
                 {!onDeptSearch && (
                   <Tree
@@ -474,11 +484,11 @@ Contacts.propTypes = {
   updateSelectUsers: PropTypes.func.isRequired,
   deptCheckBox: PropTypes.bool,
   searchDeptPlaceholder: PropTypes.string,
-  searchUserPlaceholder: PropTypes.string
+  searchUserPlaceholder: PropTypes.string,
+  debug: PropTypes.bool
 };
 
 Contacts.defaultProps = {
-  deptTree: [],
   users: {
     records: [],
   },
@@ -489,7 +499,8 @@ Contacts.defaultProps = {
   deptSearch: true,
   deptCheckBox: true,
   searchDeptPlaceholder: '请输入搜索部门',
-  searchUserPlaceholder: '请输入搜索姓名'
+  searchUserPlaceholder: '请输入搜索姓名',
+  debug: false
 };
 
 export default Contacts;

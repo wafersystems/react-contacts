@@ -7,7 +7,6 @@ const updateSelectUsers = userList => {
   console.log(userList)
 };
 
-
 ReactDOM.render(<div className="App" style={{'padding': '10px', 'margin': '10px', height: '100%'}}>
   <header className="App-header">
     <h1 className="App-title">Welcome to React</h1>
@@ -18,6 +17,6 @@ ReactDOM.render(<div className="App" style={{'padding': '10px', 'margin': '10px'
   <div style={{'padding': '10px', 'margin': '10px', height: '100%'}}>
     <Contacts deptTree={deptTree} users={userList} loading={false} searchResult={[]}
               deptSearch={true} userSearch={true} deptCheckBox={false} searchUserPlaceholder={'HI'}
-              updateSelectUsers={updateSelectUsers} />
+              updateSelectUsers={updateSelectUsers} handleSearchUser={()=>userList} />
   </div>
 </div>, document.getElementById('root'));
