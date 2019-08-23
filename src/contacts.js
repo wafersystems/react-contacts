@@ -65,7 +65,7 @@ class Contacts extends PureComponent {
     const {handleSearchUser} = this.props;
     const {deptId, nameKey} = this.state;
     if (handleSearchUser) {
-      handleSearchUser(page-1, nameKey, deptId);
+      handleSearchUser(page - 1, nameKey, deptId);
       this.setState({onSearch: true});
     } else {
       message.error('搜索function not found.');
@@ -157,15 +157,16 @@ class Contacts extends PureComponent {
     } = e;
     const {selectUser} = this.state;
     const tmp = [];
+    let newSelectUser = [];
     if (checked) {
       tmp.push(data);
-      const newSelectUser = selectUser.concat(tmp);
-      this.setState({selectUser: newSelectUser});
-      updateSelectUsers(newSelectUser);
+      newSelectUser = selectUser.concat(tmp);
     } else {
       const result = selectUser.filter(value => value.userId !== data.userId);
-      this.setState({selectUser: result.concat(tmp)});
+      newSelectUser = result.concat(tmp);
     }
+    this.setState({selectUser: newSelectUser});
+    updateSelectUsers(newSelectUser);
   };
 
   /**
@@ -352,14 +353,16 @@ class Contacts extends PureComponent {
         <Spin spinning={loading}>
           {userSearch && (
             <Row>
-              <Search placeholder={searchUserPlaceholder} onChange={value => this.handleSearch(value)} />
+              <Search placeholder={searchUserPlaceholder}
+                      onChange={value => this.handleSearch(value)} />
             </Row>
           )}
           {userSearch && <br />}
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Card className={styles.card}>
-                {deptSearch && <Search placeholder={searchDeptPlaceholder} onChange={this.onSearchDept} />}
+                {deptSearch &&
+                <Search placeholder={searchDeptPlaceholder} onChange={this.onSearchDept} />}
                 {deptSearch && <br />}
                 {!onDeptSearch && (
                   <Tree
@@ -470,11 +473,11 @@ Contacts.propTypes = {
   deptSearch: PropTypes.bool,
   updateSelectUsers: PropTypes.func.isRequired,
   deptCheckBox: PropTypes.bool,
-  searchDeptPlaceholder:PropTypes.string,
-  searchUserPlaceholder:PropTypes.string
+  searchDeptPlaceholder: PropTypes.string,
+  searchUserPlaceholder: PropTypes.string
 };
 
-Contacts.defaultProps={
+Contacts.defaultProps = {
   deptTree: [],
   users: {
     records: [],
@@ -485,8 +488,8 @@ Contacts.defaultProps={
   },
   deptSearch: true,
   deptCheckBox: true,
-  searchDeptPlaceholder:'请输入搜索部门',
-  searchUserPlaceholder:'请输入搜索姓名'
+  searchDeptPlaceholder: '请输入搜索部门',
+  searchUserPlaceholder: '请输入搜索姓名'
 };
 
 export default Contacts;

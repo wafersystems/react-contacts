@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import Contacts from './contacts';
 import {deptTree, userList} from "./mockData";
 
+const updateSelectUsers = userList => {
+  console.log(userList)
+};
+
 
 ReactDOM.render(<div className="App" style={{'padding': '10px', 'margin': '10px', height: '100%'}}>
   <header className="App-header">
@@ -13,6 +17,7 @@ ReactDOM.render(<div className="App" style={{'padding': '10px', 'margin': '10px'
   </p>
   <div style={{'padding': '10px', 'margin': '10px', height: '100%'}}>
     <Contacts deptTree={deptTree} users={userList} loading={false} searchResult={[]}
-              deptSearch={true} userSearch={true} deptCheckBox={false} searchUserPlaceholder={'HI'} />
+              deptSearch={true} userSearch={true} deptCheckBox={false} searchUserPlaceholder={'HI'}
+              updateSelectUsers={updateSelectUsers} />
   </div>
 </div>, document.getElementById('root'));
