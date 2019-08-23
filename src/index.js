@@ -13,6 +13,6 @@ ReactDOM.render(<div className="App" style={{'padding': '10px', 'margin': '10px'
   </p>
   <div style={{'padding': '10px', 'margin': '10px', height: '100%'}}>
     <Contacts deptTree={deptTree} users={userList} loading={false} searchResult={[]}
-              deptSearch={false} userSearch={true} deptCheckBox={false} />
+              deptSearch={true} userSearch={true} deptCheckBox={false} searchUserPlaceholder={'HI'} />
   </div>
 </div>, document.getElementById('root'));

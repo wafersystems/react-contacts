@@ -36,6 +36,8 @@ handleSearchUser | 搜索用户和反应回调 | func | function(page,nameKey,de
 deptSearch | 部门搜索框显示 | bool | tree
 updateSelectUsers | 更新选定用户数据 | func | function(userSelected)
 deptCheckBox | 部门checkbox显示 | bool | true
+searchDeptPlaceholder | 搜索部门输入框提示 | string | '请输入搜索部门'
+searchUserPlaceholder | 搜索用户输入框提示 | string | '请输入搜索姓名'
 
 
 ### 部门树数据

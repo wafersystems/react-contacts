@@ -337,6 +337,8 @@ class Contacts extends PureComponent {
       deptSearch = false,
       userSearch = false,
       deptCheckBox = false,
+      searchDeptPlaceholder,
+      searchUserPlaceholder
     } = this.props;
     const {deptTreeNode, selectUser, onSearch, onDeptSearch, deptSearchResult} = this.state;
     let userData;
@@ -350,14 +352,14 @@ class Contacts extends PureComponent {
         <Spin spinning={loading}>
           {userSearch && (
             <Row>
-              <Search placeholder="请输入搜索姓名" onChange={value => this.handleSearch(value)} />
+              <Search placeholder={searchUserPlaceholder} onChange={value => this.handleSearch(value)} />
             </Row>
           )}
           {userSearch && <br />}
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Card className={styles.card}>
-                {deptSearch && <Search placeholder="请输入搜索部门" onChange={this.onSearchDept} />}
+                {deptSearch && <Search placeholder={searchDeptPlaceholder} onChange={this.onSearchDept} />}
                 {deptSearch && <br />}
                 {!onDeptSearch && (
                   <Tree
@@ -398,7 +400,7 @@ class Contacts extends PureComponent {
               <Card className={styles.card}>
                 {deptSearch && (
                   <Search
-                    placeholder="请输入搜索姓名"
+                    placeholder={searchUserPlaceholder}
                     onSearch={this.handleSearch}
                     onChange={this.handleSearchChange}
                   />
@@ -467,7 +469,9 @@ Contacts.propTypes = {
   handleSearchUser: PropTypes.func.isRequired,
   deptSearch: PropTypes.bool,
   updateSelectUsers: PropTypes.func.isRequired,
-  deptCheckBox: PropTypes.bool
+  deptCheckBox: PropTypes.bool,
+  searchDeptPlaceholder:PropTypes.string,
+  searchUserPlaceholder:PropTypes.string
 };
 
 Contacts.defaultProps={
@@ -480,7 +484,9 @@ Contacts.defaultProps={
     records: [],
   },
   deptSearch: true,
-  deptCheckBox: true
+  deptCheckBox: true,
+  searchDeptPlaceholder:'请输入搜索部门',
+  searchUserPlaceholder:'请输入搜索姓名'
 };
 
 export default Contacts;

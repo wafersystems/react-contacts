@@ -38,6 +38,8 @@ handleSearchUser | Handle search user function | func | function(page,nameKey,de
 deptSearch | Show department search input | bool | tree
 updateSelectUsers | Update user list when select user | func | function(userSelected)
 deptCheckBox | Show department checkbox | bool | true
+searchDeptPlaceholder | search department placeholder | string | '请输入搜索部门'
+searchUserPlaceholder | search department placeholder | string | '请输入搜索姓名'
 
 
 ### Department Data
