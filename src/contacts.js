@@ -350,7 +350,7 @@ class Contacts extends PureComponent {
         <Spin spinning={loading}>
           {userSearch && (
             <Row>
-              <Search placeholder="请输入搜索姓名" onSearch={value => this.handleSearch(value)} />
+              <Search placeholder="请输入搜索姓名" onChange={value => this.handleSearch(value)} />
             </Row>
           )}
           {userSearch && <br />}
