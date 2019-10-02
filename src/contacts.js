@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -15,11 +15,11 @@ import {
   Icon,
   message,
 } from 'antd';
-import {makeTreeNode} from './utils';
+import { makeTreeNode } from './utils';
 
 import styles from './contacts.less';
 
-const {Search} = Input;
+const { Search } = Input;
 
 /**
  * 根据关键字搜索部门树
@@ -44,16 +44,17 @@ class Contacts extends PureComponent {
     nameKey: null,
     onSearch: false,
     deptTreeNode: [],
-    selectUser: [],
+    selectUser: this.props.defaultUserSelected,
     deptSearchResult: [],
     onDeptSearch: false,
   };
 
   componentWillReceiveProps(nextProps) {
-    const {userInfRole} = nextProps;
-    const {selectUser} = this.state;
-    if (selectUser.length === 0 && userInfRole.length > 0) {
-      this.setState({selectUser: userInfRole});
+    const { defaultUserSelected } = nextProps;
+    console.log(defaultUserSelected)
+    const { selectUser } = this.state;
+    if (selectUser.length === 0 && defaultUserSelected.length > 0) {
+      this.setState({ selectUser: defaultUserSelected });
     }
   }
 
@@ -62,14 +63,14 @@ class Contacts extends PureComponent {
    * @param page
    */
   onPageChange = page => {
-    const {handleSearchUser,debug} = this.props;
-    if(debug){
+    const { handleSearchUser, debug } = this.props;
+    if (debug) {
       window.console.log(page)
     }
-    const {deptId, nameKey} = this.state;
+    const { deptId, nameKey } = this.state;
     if (handleSearchUser) {
       handleSearchUser(page - 1, nameKey, deptId);
-      this.setState({onSearch: true});
+      this.setState({ onSearch: true });
     } else {
       message.error('搜索function not found.');
     }
@@ -81,11 +82,11 @@ class Contacts extends PureComponent {
    */
   handleSearchChange = e => {
     if (!e.target.value) {
-      const {handleSearchUser} = this.props;
-      const {deptId} = this.state;
+      const { handleSearchUser } = this.props;
+      const { deptId } = this.state;
       if (handleSearchUser) {
         handleSearchUser(0, null, deptId);
-        this.setState({onSearch: true, nameKey: null});
+        this.setState({ onSearch: true, nameKey: null });
       } else {
         message.error('搜索function not found.');
       }
@@ -98,11 +99,11 @@ class Contacts extends PureComponent {
    * @param deptId 部门id
    */
   handleSearch = (nameKey = null) => {
-    const {handleSearchUser} = this.props;
-    const {deptId} = this.state;
+    const { handleSearchUser } = this.props;
+    const { deptId } = this.state;
     if (handleSearchUser) {
       handleSearchUser(0, nameKey, deptId);
-      this.setState({onSearch: true, nameKey});
+      this.setState({ onSearch: true, nameKey });
     } else {
       message.error('搜索function not found.');
     }
@@ -113,11 +114,11 @@ class Contacts extends PureComponent {
    * @param selectedKeys 选择的部门id
    */
   onTreeSelect = selectedKeys => {
-    const {handleSearchUser} = this.props;
+    const { handleSearchUser } = this.props;
     if (handleSearchUser) {
       const [deptId] = selectedKeys;
       handleSearchUser(0, null, deptId);
-      this.setState({onSearch: true, deptId});
+      this.setState({ onSearch: true, deptId });
     } else {
       message.error('搜索function not found.');
     }
@@ -130,22 +131,22 @@ class Contacts extends PureComponent {
    * @param checkedNodes
    * @param node
    */
-  onDeptTreeCheck = (checkedKeys, {checked, checkedNodes, node}) => {
+  onDeptTreeCheck = (checkedKeys, { checked, checkedNodes, node }) => {
     const tmp = [];
-    const {deptTreeNode} = this.state;
+    const { deptTreeNode } = this.state;
     if (checked) {
       const [one] = checkedNodes;
       const {
-        props: {data},
+        props: { data },
       } = one;
       tmp.push(data);
-      this.setState({deptTreeNode: deptTreeNode.concat(tmp)});
+      this.setState({ deptTreeNode: deptTreeNode.concat(tmp) });
     } else {
       const {
-        props: {data},
+        props: { data },
       } = node;
       const result = deptTreeNode.filter(value => value.id !== data.id);
-      this.setState({deptTreeNode: result.concat(tmp)});
+      this.setState({ deptTreeNode: result.concat(tmp) });
     }
   };
 
@@ -154,11 +155,11 @@ class Contacts extends PureComponent {
    * @param e
    */
   onUserCheck = e => {
-    const {updateSelectUsers} = this.props;
+    const { updateSelectUsers } = this.props;
     const {
-      target: {checked, data},
+      target: { checked, data },
     } = e;
-    const {selectUser} = this.state;
+    const { selectUser } = this.state;
     const tmp = [];
     let newSelectUser = [];
     if (checked) {
@@ -168,7 +169,7 @@ class Contacts extends PureComponent {
       const result = selectUser.filter(value => value.userId !== data.userId);
       newSelectUser = result.concat(tmp);
     }
-    this.setState({selectUser: newSelectUser});
+    this.setState({ selectUser: newSelectUser });
     updateSelectUsers(newSelectUser);
   };
 
@@ -178,12 +179,12 @@ class Contacts extends PureComponent {
    */
   onCheckAll = e => {
     const {
-      target: {checked},
+      target: { checked },
     } = e;
     const tmp = [];
     if (checked) {
-      const {onSearch} = this.state;
-      const {users, searchResult} = this.props;
+      const { onSearch } = this.state;
+      const { users, searchResult } = this.props;
       let userData;
       if (onSearch) {
         userData = searchResult;
@@ -194,7 +195,9 @@ class Contacts extends PureComponent {
         tmp.push(value);
       });
     }
-    this.setState({selectUser: tmp});
+    const { updateSelectUsers } = this.props;
+    updateSelectUsers(tmp);
+    this.setState({ selectUser: tmp });
   };
 
   /**
@@ -221,9 +224,9 @@ class Contacts extends PureComponent {
    */
   unCheckDept = data => {
     const tmp = [];
-    const {deptTreeNode} = this.state;
+    const { deptTreeNode } = this.state;
     const result = deptTreeNode.filter(value => value.id !== data.id);
-    this.setState({deptTreeNode: result.concat(tmp)});
+    this.setState({ deptTreeNode: result.concat(tmp) });
   };
 
   /**
@@ -252,9 +255,12 @@ class Contacts extends PureComponent {
    */
   unCHeckUser = data => {
     const tmp = [];
-    const {selectUser} = this.state;
+    const { selectUser } = this.state;
     const result = selectUser.filter(value => value.userId !== data.userId);
-    this.setState({selectUser: result.concat(tmp)});
+    const { updateSelectUsers } = this.props;
+    const userList = result.concat(tmp);
+    updateSelectUsers(userList);
+    this.setState({ selectUser: userList });
   };
 
   /**
@@ -263,7 +269,7 @@ class Contacts extends PureComponent {
    * @return {boolean}
    */
   isUserCheck = data => {
-    const {selectUser} = this.state;
+    const { selectUser } = this.state;
     const result = selectUser.find(value => value.userId === data.userId);
     return !!result;
   };
@@ -274,7 +280,7 @@ class Contacts extends PureComponent {
    * @return {boolean}
    */
   isDeptCheck = data => {
-    const {deptTreeNode} = this.state;
+    const { deptTreeNode } = this.state;
     const result = deptTreeNode.find(value => value.id === data.id);
     return !!result;
   };
@@ -294,18 +300,18 @@ class Contacts extends PureComponent {
    */
   onSearchDept = value => {
     if (!value) {
-      this.setState({deptSearchResult: [], onDeptSearch: !!value});
+      this.setState({ deptSearchResult: [], onDeptSearch: !!value });
     } else {
-      const {deptTree = []} = this.props;
+      const { deptTree = [] } = this.props;
       const dataList = [];
       searchByKey(value.trim(), deptTree, dataList);
-      this.setState({deptSearchResult: dataList, onDeptSearch: !!value});
+      this.setState({ deptSearchResult: dataList, onDeptSearch: !!value });
     }
   };
 
-  onSearchDeptChange=e=>{
+  onSearchDeptChange = e => {
     if (!e.target.value) {
-      this.setState({deptSearchResult: [], onDeptSearch: false});
+      this.setState({ deptSearchResult: [], onDeptSearch: false });
     }
   };
 
@@ -315,7 +321,7 @@ class Contacts extends PureComponent {
    */
   onDeptSelect = item => {
     this.handleSearch(null, item.id);
-    this.setState({onSearch: true});
+    this.setState({ onSearch: true });
   };
 
   /**
@@ -324,16 +330,16 @@ class Contacts extends PureComponent {
    */
   onDeptCheck = e => {
     const {
-      target: {checked, data},
+      target: { checked, data },
     } = e;
-    const {deptTreeNode} = this.state;
+    const { deptTreeNode } = this.state;
     const tmp = [];
     if (checked) {
       tmp.push(data);
-      this.setState({deptTreeNode: deptTreeNode.concat(tmp)});
+      this.setState({ deptTreeNode: deptTreeNode.concat(tmp) });
     } else {
       const result = deptTreeNode.filter(value => value.id !== data.id);
-      this.setState({deptTreeNode: result.concat(tmp)});
+      this.setState({ deptTreeNode: result.concat(tmp) });
     }
   };
 
@@ -347,9 +353,10 @@ class Contacts extends PureComponent {
       userSearch = false,
       deptCheckBox = false,
       searchDeptPlaceholder,
-      searchUserPlaceholder
+      searchUserPlaceholder,
+      numberColor
     } = this.props;
-    const {deptTreeNode, selectUser, onSearch, onDeptSearch, deptSearchResult, debug} = this.state;
+    const { deptTreeNode, selectUser, onSearch, onDeptSearch, deptSearchResult, debug } = this.state;
     let userData;
     if (onSearch) {
       userData = searchResult;
@@ -360,7 +367,7 @@ class Contacts extends PureComponent {
       window.console.log(userData)
     }
     return (
-      <div style={{height: '100%'}}>
+      <div style={{ height: '100%' }}>
         <Spin spinning={loading}>
           {userSearch && (
             <Row>
@@ -372,7 +379,8 @@ class Contacts extends PureComponent {
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Card className={styles.card}>
                 {deptSearch &&
-                <Search placeholder={searchDeptPlaceholder} onSelect={this.onSearchDeptChange} onSearch={this.onSearchDept} />}
+                <Search placeholder={searchDeptPlaceholder} onSelect={this.onSearchDeptChange}
+                        onSearch={this.onSearchDept} />}
                 {deptSearch && <br />}
                 {!onDeptSearch && (
                   <Tree
@@ -459,7 +467,9 @@ class Contacts extends PureComponent {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Form colon={false}>
-                <Form.Item label={`共选择了${deptTreeNode.length + selectUser.length}个`}>
+                <Form.Item label={(
+                  <div>共选择了 <span style={{color:numberColor}}>{deptTreeNode.length + selectUser.length}</span> 个</div>
+                )}>
                   <div className={styles.resultDiv}>
                     {deptTreeNode && deptTreeNode.map(v => this.makeDeptTag(v))}
                     {selectUser && selectUser.map(v => this.makeUserTag(v))}
@@ -485,7 +495,9 @@ Contacts.propTypes = {
   deptCheckBox: PropTypes.bool,
   searchDeptPlaceholder: PropTypes.string,
   searchUserPlaceholder: PropTypes.string,
-  debug: PropTypes.bool
+  defaultUserSelected: PropTypes.array,
+  debug: PropTypes.bool,
+  numberColor:PropTypes.string
 };
 
 Contacts.defaultProps = {
@@ -500,6 +512,8 @@ Contacts.defaultProps = {
   deptCheckBox: true,
   searchDeptPlaceholder: '请输入搜索部门',
   searchUserPlaceholder: '请输入搜索姓名',
+  defaultUserSelected: [],
+  numberColor:'#1B9AFF',
   debug: false
 };
 
