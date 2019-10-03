@@ -51,7 +51,6 @@ class Contacts extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { defaultUserSelected } = nextProps;
-    console.log(defaultUserSelected)
     const { selectUser } = this.state;
     if (selectUser.length === 0 && defaultUserSelected.length > 0) {
       this.setState({ selectUser: defaultUserSelected });
@@ -72,7 +71,7 @@ class Contacts extends PureComponent {
       handleSearchUser(page - 1, nameKey, deptId);
       this.setState({ onSearch: true });
     } else {
-      message.error('搜索function not found.');
+      message.error('search function not found.');
     }
   };
 
@@ -88,7 +87,7 @@ class Contacts extends PureComponent {
         handleSearchUser(0, null, deptId);
         this.setState({ onSearch: true, nameKey: null });
       } else {
-        message.error('搜索function not found.');
+        message.error('search function not found.');
       }
     }
   };
@@ -105,7 +104,7 @@ class Contacts extends PureComponent {
       handleSearchUser(0, nameKey, deptId);
       this.setState({ onSearch: true, nameKey });
     } else {
-      message.error('搜索function not found.');
+      message.error('search function not found.');
     }
   };
 
@@ -120,7 +119,7 @@ class Contacts extends PureComponent {
       handleSearchUser(0, null, deptId);
       this.setState({ onSearch: true, deptId });
     } else {
-      message.error('搜索function not found.');
+      message.error('search function not found.');
     }
   };
 
@@ -354,7 +353,7 @@ class Contacts extends PureComponent {
       deptCheckBox = false,
       searchDeptPlaceholder,
       searchUserPlaceholder,
-      numberColor
+      numberColor, selectAllText, totalShowText
     } = this.props;
     const { deptTreeNode, selectUser, onSearch, onDeptSearch, deptSearchResult, debug } = this.state;
     let userData;
@@ -365,6 +364,15 @@ class Contacts extends PureComponent {
     }
     if (debug) {
       window.console.log(userData)
+    }
+    const tmp = totalShowText.split('$');
+    let font = '';
+    let end = '';
+    if (tmp.length === 2) {
+      font = tmp[0];
+      end = tmp[1];
+    }else {
+      font=totalShowText;
     }
     return (
       <div style={{ height: '100%' }}>
@@ -453,7 +461,7 @@ class Contacts extends PureComponent {
               </Card>
               <div className={styles.pagination}>
                 <Checkbox onChange={this.onCheckAll} className={styles.checkbox}>
-                  全选
+                  {selectAllText}
                 </Checkbox>
                 <Pagination
                   className={styles.pageNoe}
@@ -468,7 +476,9 @@ class Contacts extends PureComponent {
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Form colon={false}>
                 <Form.Item label={(
-                  <div>共选择了 <span style={{color:numberColor}}>{deptTreeNode.length + selectUser.length}</span> 个</div>
+                  <div>{font} <span
+                    style={{ color: numberColor }}>{deptTreeNode.length + selectUser.length}</span> {end}
+                  </div>
                 )}>
                   <div className={styles.resultDiv}>
                     {deptTreeNode && deptTreeNode.map(v => this.makeDeptTag(v))}
@@ -497,7 +507,9 @@ Contacts.propTypes = {
   searchUserPlaceholder: PropTypes.string,
   defaultUserSelected: PropTypes.array,
   debug: PropTypes.bool,
-  numberColor:PropTypes.string
+  numberColor: PropTypes.string,
+  selectAllText: PropTypes.string,
+  totalShowText: PropTypes.string
 };
 
 Contacts.defaultProps = {
@@ -513,8 +525,10 @@ Contacts.defaultProps = {
   searchDeptPlaceholder: '请输入搜索部门',
   searchUserPlaceholder: '请输入搜索姓名',
   defaultUserSelected: [],
-  numberColor:'#1B9AFF',
-  debug: false
+  numberColor: '#1B9AFF',
+  debug: false,
+  selectAllText: '全选',
+  totalShowText: '共选择了$个'
 };
 
 export default Contacts;
