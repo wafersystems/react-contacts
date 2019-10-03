@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Contacts from './contacts';
-import { deptTree, userList } from './mockData';
+import Contacts from '../components/contacts';
+import { deptTree, userList } from '../mockData';
 
 const updateSelectUsers = userList => {
   console.log(userList)
