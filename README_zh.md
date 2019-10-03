@@ -39,6 +39,9 @@ deptCheckBox | 部门checkbox显示 | bool | true
 searchDeptPlaceholder | 搜索部门输入框提示 | string | '请输入搜索部门'
 searchUserPlaceholder | 搜索用户输入框提示 | string | '请输入搜索姓名'
 defaultUserSelected   | 默认选择用户 | array | [] 
+numberColor   | 选择的总数字颜色 | sring | #1B9AFF 
+selectAllText   | 全选框描述文字 | string | 全选 
+totalShowText   | 选择的总数文字 | string | 共选择了$个 
 
 
 ### 部门树数据

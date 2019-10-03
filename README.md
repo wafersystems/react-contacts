@@ -41,6 +41,9 @@ deptCheckBox | Show department checkbox | bool | true
 searchDeptPlaceholder | search department placeholder | string | '请输入搜索部门'
 searchUserPlaceholder | search department placeholder | string | '请输入搜索姓名'
 defaultUserSelected   | default user selected | array | [] 
+numberColor   | total number color | sring | #1B9AFF 
+selectAllText   | select all text | string | 全选 
+totalShowText   | totalShowText | string | 共选择了$个 
 
 
 ### Department Data
