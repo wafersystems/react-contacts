@@ -10,10 +10,10 @@ import pkg from './package.json'
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 
-const externalIds = ['antd', 'prop-types', 'moment', 'react', 'react-dom']
+const externalIds = ['antd', 'prop-types', 'moment', 'react', 'react-dom'];
 
 export default {
-  input: 'src/contacts.js',
+  input: 'src/components/contacts.js',
   output: [
     {
       file: 'dist/index.js',
