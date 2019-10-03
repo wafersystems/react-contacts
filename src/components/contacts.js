@@ -17,23 +17,6 @@ import styles from './contacts.less';
 
 const { Search } = Input;
 
-/**
- * 根据关键字搜索部门树
- * @param key
- * @param deptTree
- * @param dataList
- */
-const searchByKey = (key, deptTree, dataList) => {
-  deptTree.forEach(item => {
-    if (item.name.indexOf(key) > -1) {
-      dataList.push(item);
-    }
-    if (item.children && item.children.length > 0) {
-      searchByKey(key, item.children, dataList);
-    }
-  });
-};
-
 const Contacts = (props) => {
 
   const {
