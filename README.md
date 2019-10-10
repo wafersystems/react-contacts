@@ -1,7 +1,7 @@
 # react-contacts
 contacts  &amp; department select
 
-[中文文档](./README_zh.md)
+[中文文档](https://github.com/vkingw/react-contacts/blob/master/README_zh.md)
 
 威发微服务选人组件/Wafer microservice selection component
 
