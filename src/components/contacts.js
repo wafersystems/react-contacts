@@ -25,7 +25,7 @@ const Contacts = (props) => {
     searchResult,
     userSearch = false,
     searchUserPlaceholder,
-    numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected
+    numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected, updateSelectDept
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -76,9 +76,10 @@ const Contacts = (props) => {
    */
   const unCheckDept = data => {
     const tmp = [];
-    const { deptTreeNode } = this.state;
     const result = deptTreeNode.filter(value => value.id !== data.id);
-    setDeptTreeNode(result.concat(tmp));
+    const dept = result.concat(tmp);
+    updateSelectDept(dept);
+    setDeptTreeNode(dept);
   };
 
   /**
@@ -140,7 +141,7 @@ const Contacts = (props) => {
         {userSearch && <br />}
         <Row>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
-                deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode} />
+                deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode} updateSelectDept={updateSelectDept} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
                  handleSearch={handleSearch}
@@ -174,6 +175,7 @@ Contacts.propTypes = {
   handleSearchUser: PropTypes.func.isRequired,
   deptSearch: PropTypes.bool,
   updateSelectUsers: PropTypes.func.isRequired,
+  updateSelectDept: PropTypes.func,
   deptCheckBox: PropTypes.bool,
   searchDeptPlaceholder: PropTypes.string,
   searchUserPlaceholder: PropTypes.string,

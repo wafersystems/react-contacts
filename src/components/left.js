@@ -5,7 +5,7 @@ import { makeTreeNode } from '../utils';
 
 const { Search } = Input;
 
-export default ({ searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox, deptTree = [], handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode }) => {
+export default ({ searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox, deptTree = [], handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,updateSelectDept }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
   const [onDeptSearch, setOnDeptSearch] = useState(false);
@@ -89,12 +89,14 @@ export default ({ searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox,
         props: { data },
       } = one;
       tmp.push(data);
+      updateSelectDept(deptTreeNode.concat(tmp));
       setDeptTreeNode(deptTreeNode.concat(tmp));
     } else {
       const {
         props: { data },
       } = node;
       const result = deptTreeNode.filter(value => value.id !== data.id);
+      updateSelectDept(result.concat(tmp));
       setDeptTreeNode(result.concat(tmp));
     }
   };
@@ -120,9 +122,11 @@ export default ({ searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox,
     const tmp = [];
     if (checked) {
       tmp.push(data);
+      updateSelectDept(deptTreeNode.concat(tmp));
       setDeptTreeNode(deptTreeNode.concat(tmp));
     } else {
       const result = deptTreeNode.filter(value => value.id !== data.id);
+      updateSelectDept(result.concat(tmp));
       setDeptTreeNode(result.concat(tmp));
     }
   };

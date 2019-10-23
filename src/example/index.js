@@ -22,7 +22,7 @@ ReactDOM.render(<div className="App"
   <div style={{ 'padding': '10px', 'margin': '10px', height: '100%' }}>
     <Contacts deptTree={deptTree} users={userList} loading={false}
               defaultUserSelected={users}
-              deptSearch={true} userSearch={true} deptCheckBox={false} searchUserPlaceholder={'HI'}
-              updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} />
+              deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
+              updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectUsers} />
   </div>
 </div>, document.getElementById('root'));
