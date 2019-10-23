@@ -35,6 +35,7 @@ searchResult | 用户查询结果 （[数据](### 用户和搜索结果数据)�
 handleSearchUser | 搜索用户和反应回调 | func | function(page,nameKey,depId)，三个参数，page（页码），nameKey（用户名搜索关键字），depId（部门id）
 deptSearch | 部门搜索框显示 | bool | tree
 updateSelectUsers | 更新选定用户数据 | func | function(userSelected)
+updateSelectDept | 更新选定部门数据 | func | function(deptSelected)
 deptCheckBox | 部门checkbox显示 | bool | true
 searchDeptPlaceholder | 搜索部门输入框提示 | string | '请输入搜索部门'
 searchUserPlaceholder | 搜索用户输入框提示 | string | '请输入搜索姓名'

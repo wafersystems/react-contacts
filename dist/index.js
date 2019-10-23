@@ -322,7 +322,8 @@ var Left = (function (_ref) {
       setDeptId = _ref.setDeptId,
       setOnSearch = _ref.setOnSearch,
       deptTreeNode = _ref.deptTreeNode,
-      setDeptTreeNode = _ref.setDeptTreeNode;
+      setDeptTreeNode = _ref.setDeptTreeNode,
+      updateSelectDept = _ref.updateSelectDept;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -427,12 +428,14 @@ var Left = (function (_ref) {
 
       var data = one.props.data;
       tmp.push(data);
+      updateSelectDept(deptTreeNode.concat(tmp));
       setDeptTreeNode(deptTreeNode.concat(tmp));
     } else {
       var _data = node.props.data;
       var result = deptTreeNode.filter(function (value) {
         return value.id !== _data.id;
       });
+      updateSelectDept(result.concat(tmp));
       setDeptTreeNode(result.concat(tmp));
     }
   };
@@ -463,11 +466,13 @@ var Left = (function (_ref) {
 
     if (checked) {
       tmp.push(data);
+      updateSelectDept(deptTreeNode.concat(tmp));
       setDeptTreeNode(deptTreeNode.concat(tmp));
     } else {
       var result = deptTreeNode.filter(function (value) {
         return value.id !== data.id;
       });
+      updateSelectDept(result.concat(tmp));
       setDeptTreeNode(result.concat(tmp));
     }
   };
@@ -521,7 +526,6 @@ var Left = (function (_ref) {
   })));
 });
 
-var _this = undefined;
 var Search$2 = _Input.Search;
 
 var Contacts = function Contacts(props) {
@@ -536,7 +540,8 @@ var Contacts = function Contacts(props) {
       totalShowText = props.totalShowText,
       handleSearchUser = props.handleSearchUser,
       updateSelectUsers = props.updateSelectUsers,
-      defaultUserSelected = props.defaultUserSelected;
+      defaultUserSelected = props.defaultUserSelected,
+      updateSelectDept = props.updateSelectDept;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -610,11 +615,12 @@ var Contacts = function Contacts(props) {
 
   var unCheckDept = function unCheckDept(data) {
     var tmp = [];
-    var deptTreeNode = _this.state.deptTreeNode;
     var result = deptTreeNode.filter(function (value) {
       return value.id !== data.id;
     });
-    setDeptTreeNode(result.concat(tmp));
+    var dept = result.concat(tmp);
+    updateSelectDept(dept);
+    setDeptTreeNode(dept);
   };
   /**
    * 生成显示的用户Tag
@@ -684,7 +690,8 @@ var Contacts = function Contacts(props) {
     setDeptId: setDeptId,
     setOnSearch: setOnSearch,
     deptTreeNode: deptTreeNode,
-    setDeptTreeNode: setDeptTreeNode
+    setDeptTreeNode: setDeptTreeNode,
+    updateSelectDept: updateSelectDept
   })), React__default.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,
@@ -726,6 +733,7 @@ Contacts.propTypes = {
   handleSearchUser: PropTypes.func.isRequired,
   deptSearch: PropTypes.bool,
   updateSelectUsers: PropTypes.func.isRequired,
+  updateSelectDept: PropTypes.func,
   deptCheckBox: PropTypes.bool,
   searchDeptPlaceholder: PropTypes.string,
   searchUserPlaceholder: PropTypes.string,
