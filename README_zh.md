@@ -39,10 +39,13 @@ updateSelectDept | 更新选定部门数据 | func | function(deptSelected)
 deptCheckBox | 部门checkbox显示 | bool | true
 searchDeptPlaceholder | 搜索部门输入框提示 | string | '请输入搜索部门'
 searchUserPlaceholder | 搜索用户输入框提示 | string | '请输入搜索姓名'
-defaultUserSelected   | 默认选择用户 | array | [] 
+defaultUserSelected   | 默认选择用户 | array | [{userId:'abc',username:'CCC'}] 
+defaultDeptSelected   | 默认选择部门节点 | array | [{id:1,name:'ABC'}] 
 numberColor   | 选择的总数字颜色 | sring | #1B9AFF 
 selectAllText   | 全选框描述文字 | string | 全选 
 totalShowText   | 选择的总数文字 | string | 共选择了$个 
+userNameKey   | 取用户名称和选中的key | string | 'username'
+deptNameKey   | 取部门树和选中名称的key | string | 'name' 
 
 
 ### 部门树数据

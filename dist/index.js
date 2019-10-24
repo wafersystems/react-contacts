@@ -142,7 +142,8 @@ var Right = (function (_ref) {
       nameKey = _ref.nameKey,
       setNameKey = _ref.setNameKey,
       selectUser = _ref.selectUser,
-      setSelectUser = _ref.setSelectUser;
+      setSelectUser = _ref.setSelectUser,
+      userNameKey = _ref.userNameKey;
 
   /**
    * 姓名搜索为空时处理
@@ -273,7 +274,7 @@ var Right = (function (_ref) {
         data: item,
         checked: isUserCheck(item),
         onChange: onUserCheck
-      }, item.username), React__default.createElement("div", {
+      }, item[userNameKey]), React__default.createElement("div", {
         className: styles.deptName
       }, item.deptName)));
     }
@@ -296,17 +297,18 @@ var TreeNode = _Tree.TreeNode;
 /**
  *
  * @param nodes
+ * @param deptNameKey
  * @returns {*} tree nodes.
  */
 
-function makeTreeNode(nodes) {
+function makeTreeNode(nodes, deptNameKey) {
   return nodes.map(function (v) {
     var nodeKey = v.id;
     return React__default.createElement(TreeNode, {
       data: v,
-      title: v.name,
+      title: v[deptNameKey],
       key: nodeKey
-    }, v.children.length > 0 && makeTreeNode(v.children));
+    }, v.children.length > 0 && makeTreeNode(v.children, deptNameKey));
   });
 }
 
@@ -323,7 +325,8 @@ var Left = (function (_ref) {
       setOnSearch = _ref.setOnSearch,
       deptTreeNode = _ref.deptTreeNode,
       setDeptTreeNode = _ref.setDeptTreeNode,
-      updateSelectDept = _ref.updateSelectDept;
+      updateSelectDept = _ref.updateSelectDept,
+      deptNameKey = _ref.deptNameKey;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -504,7 +507,7 @@ var Left = (function (_ref) {
     checkedKeys: makeCheckedKeys(deptTreeNode),
     onSelect: onTreeSelect,
     onCheck: onDeptTreeCheck
-  }, makeTreeNode(deptTree)), onDeptSearch && React__default.createElement(_List, {
+  }, makeTreeNode(deptTree, deptNameKey)), onDeptSearch && React__default.createElement(_List, {
     size: "small",
     bordered: false,
     dataSource: deptSearchResult,
@@ -521,7 +524,7 @@ var Left = (function (_ref) {
         onClick: function onClick() {
           return onDeptSelect(item);
         }
-      }, item.name)));
+      }, item[deptNameKey])));
     }
   })));
 });
@@ -541,7 +544,10 @@ var Contacts = function Contacts(props) {
       handleSearchUser = props.handleSearchUser,
       updateSelectUsers = props.updateSelectUsers,
       defaultUserSelected = props.defaultUserSelected,
-      updateSelectDept = props.updateSelectDept;
+      defaultDeptSelected = props.defaultDeptSelected,
+      updateSelectDept = props.updateSelectDept,
+      userNameKey = props.userNameKey,
+      deptNameKey = props.deptNameKey;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -571,6 +577,9 @@ var Contacts = function Contacts(props) {
   React.useEffect(function () {
     setSelectUser(defaultUserSelected);
   }, [defaultUserSelected]);
+  React.useEffect(function () {
+    setDeptTreeNode(defaultDeptSelected);
+  }, [defaultDeptSelected]);
   /**
    *  点击查询回调，会把name key 和 dept id 回传，外部调用查询用
    * @param nameKey 名字搜索关键字
@@ -602,7 +611,7 @@ var Contacts = function Contacts(props) {
         e.preventDefault();
         unCheckDept(v);
       }
-    }, v.name, " ", React__default.createElement(_Icon, {
+    }, v[deptNameKey], " ", React__default.createElement(_Icon, {
       type: "close-circle",
       theme: "filled"
     }));
@@ -637,7 +646,7 @@ var Contacts = function Contacts(props) {
         e.preventDefault();
         unCheckUser(v);
       }
-    }, v.username, " ", React__default.createElement(_Icon, {
+    }, v[userNameKey], " ", React__default.createElement(_Icon, {
       type: "close-circle",
       theme: "filled"
     }));
@@ -691,7 +700,8 @@ var Contacts = function Contacts(props) {
     setOnSearch: setOnSearch,
     deptTreeNode: deptTreeNode,
     setDeptTreeNode: setDeptTreeNode,
-    updateSelectDept: updateSelectDept
+    updateSelectDept: updateSelectDept,
+    deptNameKey: deptNameKey
   })), React__default.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,
@@ -700,6 +710,7 @@ var Contacts = function Contacts(props) {
     setNameKey: setNameKey,
     selectUser: selectUser,
     handleSearch: handleSearch,
+    userNameKey: userNameKey,
     setSelectUser: setSelectUser
   })), React__default.createElement(_Col, {
     xs: 24,
@@ -738,10 +749,13 @@ Contacts.propTypes = {
   searchDeptPlaceholder: PropTypes.string,
   searchUserPlaceholder: PropTypes.string,
   defaultUserSelected: PropTypes.array,
+  defaultDeptSelected: PropTypes.array,
   debug: PropTypes.bool,
   numberColor: PropTypes.string,
   selectAllText: PropTypes.string,
-  totalShowText: PropTypes.string
+  totalShowText: PropTypes.string,
+  userNameKey: PropTypes.string,
+  deptNameKey: PropTypes.string
 };
 Contacts.defaultProps = {
   users: {
@@ -756,10 +770,13 @@ Contacts.defaultProps = {
   searchDeptPlaceholder: '请输入搜索部门',
   searchUserPlaceholder: '请输入搜索姓名',
   defaultUserSelected: [],
+  defaultDeptSelected: [],
   numberColor: '#1B9AFF',
   debug: false,
   selectAllText: '全选',
-  totalShowText: '共选择了$个'
+  totalShowText: '共选择了$个',
+  userNameKey: 'username',
+  deptNameKey: 'name'
 };
 
 module.exports = Contacts;
