@@ -25,7 +25,8 @@ const Contacts = (props) => {
     searchResult,
     userSearch = false,
     searchUserPlaceholder,
-    numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected, updateSelectDept
+    numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
+    defaultDeptSelected, updateSelectDept, userNameKey,deptNameKey
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -37,6 +38,10 @@ const Contacts = (props) => {
   useEffect(() => {
     setSelectUser(defaultUserSelected);
   }, [defaultUserSelected]);
+
+  useEffect(() => {
+    setDeptTreeNode(defaultDeptSelected);
+  }, [defaultDeptSelected]);
 
   /**
    *  点击查询回调，会把name key 和 dept id 回传，外部调用查询用
@@ -66,7 +71,7 @@ const Contacts = (props) => {
         unCheckDept(v);
       }}
     >
-      {v.name} <Icon type="close-circle" theme="filled" />
+      {v[deptNameKey]} <Icon type="close-circle" theme="filled" />
     </Tag>
   );
 
@@ -97,7 +102,7 @@ const Contacts = (props) => {
           unCheckUser(v);
         }}
       >
-        {v.username} <Icon type="close-circle" theme="filled" />
+        {v[userNameKey]} <Icon type="close-circle" theme="filled" />
       </Tag>
     );
   };
@@ -141,10 +146,11 @@ const Contacts = (props) => {
         {userSearch && <br />}
         <Row>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
-                deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode} updateSelectDept={updateSelectDept} />
+                deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
+                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
-                 handleSearch={handleSearch}
+                 handleSearch={handleSearch} userNameKey={userNameKey}
                  setSelectUser={setSelectUser} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false}>
@@ -180,10 +186,13 @@ Contacts.propTypes = {
   searchDeptPlaceholder: PropTypes.string,
   searchUserPlaceholder: PropTypes.string,
   defaultUserSelected: PropTypes.array,
+  defaultDeptSelected: PropTypes.array,
   debug: PropTypes.bool,
   numberColor: PropTypes.string,
   selectAllText: PropTypes.string,
-  totalShowText: PropTypes.string
+  totalShowText: PropTypes.string,
+  userNameKey: PropTypes.string,
+  deptNameKey: PropTypes.string,
 };
 
 Contacts.defaultProps = {
@@ -199,10 +208,13 @@ Contacts.defaultProps = {
   searchDeptPlaceholder: '请输入搜索部门',
   searchUserPlaceholder: '请输入搜索姓名',
   defaultUserSelected: [],
+  defaultDeptSelected: [],
   numberColor: '#1B9AFF',
   debug: false,
   selectAllText: '全选',
-  totalShowText: '共选择了$个'
+  totalShowText: '共选择了$个',
+  userNameKey: 'username',
+  deptNameKey:'name'
 };
 
 export default Contacts;

@@ -5,7 +5,11 @@ import { makeTreeNode } from '../utils';
 
 const { Search } = Input;
 
-export default ({ searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox, deptTree = [], handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,updateSelectDept }) => {
+export default ({
+                  searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox, deptTree = [],
+                  handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
+                  updateSelectDept, deptNameKey
+                }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
   const [onDeptSearch, setOnDeptSearch] = useState(false);
@@ -154,7 +158,7 @@ export default ({ searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox,
             onSelect={onTreeSelect}
             onCheck={onDeptTreeCheck}
           >
-            {makeTreeNode(deptTree)}
+            {makeTreeNode(deptTree, deptNameKey)}
           </Tree>
         )}
         {onDeptSearch && (
@@ -173,7 +177,7 @@ export default ({ searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox,
                       checked={isDeptCheck(item)}
                       onChange={onDeptCheck}
                     />
-                    <span onClick={() => onDeptSelect(item)}>{item.name}</span>
+                    <span onClick={() => onDeptSelect(item)}>{item[deptNameKey]}</span>
                   </div>
                 </List.Item>
               );

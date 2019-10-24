@@ -23,6 +23,8 @@ ReactDOM.render(<div className="App"
     <Contacts deptTree={deptTree} users={userList} loading={false}
               defaultUserSelected={users}
               deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
-              updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectUsers} />
+              updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectUsers}
+              defaultDeptSelected={[{id:1}]}
+    />
   </div>
 </div>, document.getElementById('root'));

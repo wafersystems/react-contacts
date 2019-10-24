@@ -4,7 +4,11 @@ import styles from './contacts.less';
 
 const { Search } = Input;
 
-export default ({ selectAllText, searchUserPlaceholder, deptSearch, userData, searchResult, users, handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false, onSearch, setOnSearch, nameKey, setNameKey, selectUser, setSelectUser }) => {
+export default ({
+                  selectAllText, searchUserPlaceholder, deptSearch, userData, searchResult, users,
+                  handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
+                  onSearch, setOnSearch, nameKey, setNameKey, selectUser, setSelectUser, userNameKey
+                }) => {
 
   /**
    * 姓名搜索为空时处理
@@ -122,7 +126,7 @@ export default ({ selectAllText, searchUserPlaceholder, deptSearch, userData, se
                     checked={isUserCheck(item)}
                     onChange={onUserCheck}
                   >
-                    {item.username}
+                    {item[userNameKey]}
                   </Checkbox>
                   <div className={styles.deptName}>{item.deptName}</div>
                 </div>
