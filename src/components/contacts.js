@@ -36,10 +36,12 @@ const Contacts = (props) => {
   const [nameKey, setNameKey] = useState(null);
 
   useEffect(() => {
+    updateSelectUsers(defaultUserSelected);
     setSelectUser(defaultUserSelected);
   }, [defaultUserSelected]);
 
   useEffect(() => {
+    updateSelectDept(defaultDeptSelected);
     setDeptTreeNode(defaultDeptSelected);
   }, [defaultDeptSelected]);
 
