@@ -570,9 +570,11 @@ var Contacts = function Contacts(props) {
       setNameKey = _useState10[1];
 
   useEffect(function () {
+    updateSelectUsers(defaultUserSelected);
     setSelectUser(defaultUserSelected);
   }, [defaultUserSelected]);
   useEffect(function () {
+    updateSelectDept(defaultDeptSelected);
     setDeptTreeNode(defaultDeptSelected);
   }, [defaultDeptSelected]);
   /**
