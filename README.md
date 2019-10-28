@@ -48,6 +48,8 @@ selectAllText   | select all text | string | 全选
 totalShowText   | totalShowText | string | 共选择了$个
 userNameKey | fetch user name and selected key | string | 'username'
 deptNameKey | Take the department tree and select the name of the key | string | 'name' 
+radio   | show radio on user selected | bool | false
+radioShowText   | when user selected on radio, show tip text. | string | '已经选择' 
 
 
 ### Department Data
