@@ -24,7 +24,7 @@ ReactDOM.render(<div className="App"
               defaultUserSelected={users}
               deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
               updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectUsers}
-              defaultDeptSelected={[{id:1}]}
+              defaultDeptSelected={[{id:1}]} radio={true}
     />
   </div>
 </div>, document.getElementById('root'));

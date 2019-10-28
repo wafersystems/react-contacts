@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Checkbox, Col, Input, List, message, Pagination } from 'antd';
+import { Card, Checkbox, Radio, Col, Input, List, message, Pagination } from 'antd';
 import styles from './contacts.less';
 
 const { Search } = Input;
@@ -7,7 +7,8 @@ const { Search } = Input;
 export default ({
                   selectAllText, searchUserPlaceholder, deptSearch, userData, searchResult, users,
                   handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
-                  onSearch, setOnSearch, nameKey, setNameKey, selectUser, setSelectUser, userNameKey
+                  onSearch, setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
+                  userNameKey, radio
                 }) => {
 
   /**
@@ -55,6 +56,23 @@ export default ({
     } else {
       const result = selectUser.filter(value => value.userId !== data.userId);
       newSelectUser = result.concat(tmp);
+    }
+    setSelectUser(newSelectUser);
+    updateSelectUsers(newSelectUser);
+  };
+
+  /**
+   * Radio时点击用户列表的回调
+   * @param e
+   */
+  const onUserRadioCheck = e => {
+    const {
+      target: { checked, data },
+    } = e;
+    let newSelectUser = [];
+    if (checked) {
+      newSelectUser.push(data);
+    } else {
     }
     setSelectUser(newSelectUser);
     updateSelectUsers(newSelectUser);
@@ -120,6 +138,17 @@ export default ({
             return (
               <List.Item>
                 <div className={styles.itemDiv}>
+                  {radio &&
+                  <Radio
+                    className={styles.checkbox}
+                    checked={isUserCheck(item)}
+                    data={item}
+                    onChange={onUserRadioCheck}
+                  >
+                    {item[userNameKey]}
+                  </Radio>
+                  }
+                  {!radio &&
                   <Checkbox
                     className={styles.checkbox}
                     data={item}
@@ -127,7 +156,7 @@ export default ({
                     onChange={onUserCheck}
                   >
                     {item[userNameKey]}
-                  </Checkbox>
+                  </Checkbox>}
                   <div className={styles.deptName}>{item.deptName}</div>
                 </div>
               </List.Item>
@@ -136,9 +165,11 @@ export default ({
         />
       </Card>
       <div className={styles.pagination}>
+        {!radio &&
         <Checkbox onChange={onCheckAll} className={styles.checkbox}>
           {selectAllText}
         </Checkbox>
+        }
         <Pagination
           className={styles.pageNoe}
           simple

@@ -8,7 +8,7 @@ const { Search } = Input;
 export default ({
                   searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox, deptTree = [],
                   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-                  updateSelectDept, deptNameKey
+                  updateSelectDept, deptNameKey, radio
                 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -153,7 +153,7 @@ export default ({
         {deptSearch && <br />}
         {!onDeptSearch && (
           <Tree
-            checkable={deptCheckBox}
+            checkable={deptCheckBox && !radio}
             checkedKeys={makeCheckedKeys(deptTreeNode)}
             onSelect={onTreeSelect}
             onCheck={onDeptTreeCheck}

@@ -26,7 +26,7 @@ const Contacts = (props) => {
     userSearch = false,
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
-    defaultDeptSelected, updateSelectDept, userNameKey,deptNameKey
+    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -121,21 +121,43 @@ const Contacts = (props) => {
     setSelectUser(userList);
   };
 
+  const makeShowMsg = () => {
+    if (!radio) {
+      const tmp = totalShowText.split('$');
+      let font = '';
+      let end = '';
+      if (tmp.length === 2) {
+        font = tmp[0];
+        end = tmp[1];
+      } else {
+        font = totalShowText;
+      }
+      return (
+        <div>{font} <span
+          style={{ color: numberColor }}>{deptTreeNode.length + selectUser.length}</span> {end}
+        </div>
+      );
+    } else {
+      let name = '';
+      if (selectUser.length > 0) {
+        const [use] = selectUser;
+        name = use[userNameKey];
+      }
+      return (
+        <div>{radioShowText} <span
+          style={{ color: numberColor }}>{name}</span>
+        </div>
+      );
+    }
+  };
+
   let userData;
   if (onSearch) {
     userData = searchResult;
   } else {
     userData = users;
   }
-  const tmp = totalShowText.split('$');
-  let font = '';
-  let end = '';
-  if (tmp.length === 2) {
-    font = tmp[0];
-    end = tmp[1];
-  } else {
-    font = totalShowText;
-  }
+
 
   return (
     <div style={{ height: '100%' }}>
@@ -149,22 +171,20 @@ const Contacts = (props) => {
         <Row>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
-                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} />
+                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
                  handleSearch={handleSearch} userNameKey={userNameKey}
-                 setSelectUser={setSelectUser} />
+                 setSelectUser={setSelectUser} radio={radio} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false}>
-              <Form.Item className={styles.label} label={(
-                <div>{font} <span
-                  style={{ color: numberColor }}>{deptTreeNode.length + selectUser.length}</span> {end}
-                </div>
-              )}>
+              <Form.Item className={styles.label} label={makeShowMsg()}>
+                {!radio &&
                 <div className={styles.resultDiv}>
                   {deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
                   {selectUser && selectUser.map(v => makeUserTag(v))}
                 </div>
+                }
               </Form.Item>
             </Form>
           </Col>
@@ -195,6 +215,8 @@ Contacts.propTypes = {
   totalShowText: PropTypes.string,
   userNameKey: PropTypes.string,
   deptNameKey: PropTypes.string,
+  radio: PropTypes.bool,
+  radioShowText: PropTypes.string
 };
 
 Contacts.defaultProps = {
@@ -216,7 +238,9 @@ Contacts.defaultProps = {
   selectAllText: '全选',
   totalShowText: '共选择了$个',
   userNameKey: 'username',
-  deptNameKey:'name'
+  deptNameKey: 'name',
+  radio: false,
+  radioShowText: '已经选择'
 };
 
 export default Contacts;
