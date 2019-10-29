@@ -29,6 +29,8 @@ require('antd/es/list/style');
 var _List = _interopDefault(require('antd/es/list'));
 require('antd/es/checkbox/style');
 var _Checkbox = _interopDefault(require('antd/es/checkbox'));
+require('antd/es/radio/style');
+var _Radio = _interopDefault(require('antd/es/radio'));
 require('antd/es/tree/style');
 var _Tree = _interopDefault(require('antd/es/tree'));
 
@@ -143,7 +145,8 @@ var Right = (function (_ref) {
       setNameKey = _ref.setNameKey,
       selectUser = _ref.selectUser,
       setSelectUser = _ref.setSelectUser,
-      userNameKey = _ref.userNameKey;
+      userNameKey = _ref.userNameKey,
+      radio = _ref.radio;
 
   /**
    * 姓名搜索为空时处理
@@ -197,6 +200,25 @@ var Right = (function (_ref) {
         return value.userId !== data.userId;
       });
       newSelectUser = result.concat(tmp);
+    }
+
+    setSelectUser(newSelectUser);
+    updateSelectUsers(newSelectUser);
+  };
+  /**
+   * Radio时点击用户列表的回调
+   * @param e
+   */
+
+
+  var onUserRadioCheck = function onUserRadioCheck(e) {
+    var _e$target2 = e.target,
+        checked = _e$target2.checked,
+        data = _e$target2.data;
+    var newSelectUser = [];
+
+    if (checked) {
+      newSelectUser.push(data);
     }
 
     setSelectUser(newSelectUser);
@@ -269,7 +291,12 @@ var Right = (function (_ref) {
     renderItem: function renderItem(item) {
       return React__default.createElement(_List.Item, null, React__default.createElement("div", {
         className: styles.itemDiv
-      }, React__default.createElement(_Checkbox, {
+      }, radio && React__default.createElement(_Radio, {
+        className: styles.checkbox,
+        checked: isUserCheck(item),
+        data: item,
+        onChange: onUserRadioCheck
+      }, item[userNameKey]), !radio && React__default.createElement(_Checkbox, {
         className: styles.checkbox,
         data: item,
         checked: isUserCheck(item),
@@ -280,7 +307,7 @@ var Right = (function (_ref) {
     }
   })), React__default.createElement("div", {
     className: styles.pagination
-  }, React__default.createElement(_Checkbox, {
+  }, !radio && React__default.createElement(_Checkbox, {
     onChange: onCheckAll,
     className: styles.checkbox
   }, selectAllText), React__default.createElement(_Pagination, {
@@ -326,7 +353,8 @@ var Left = (function (_ref) {
       deptTreeNode = _ref.deptTreeNode,
       setDeptTreeNode = _ref.setDeptTreeNode,
       updateSelectDept = _ref.updateSelectDept,
-      deptNameKey = _ref.deptNameKey;
+      deptNameKey = _ref.deptNameKey,
+      radio = _ref.radio;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -503,7 +531,7 @@ var Left = (function (_ref) {
     onSelect: onSearchDeptChange,
     onSearch: onSearchDept
   }), deptSearch && React__default.createElement("br", null), !onDeptSearch && React__default.createElement(_Tree, {
-    checkable: deptCheckBox,
+    checkable: deptCheckBox && !radio,
     checkedKeys: makeCheckedKeys(deptTreeNode),
     onSelect: onTreeSelect,
     onCheck: onDeptTreeCheck
@@ -547,7 +575,9 @@ var Contacts = function Contacts(props) {
       defaultDeptSelected = props.defaultDeptSelected,
       updateSelectDept = props.updateSelectDept,
       userNameKey = props.userNameKey,
-      deptNameKey = props.deptNameKey;
+      deptNameKey = props.deptNameKey,
+      radio = props.radio,
+      radioShowText = props.radioShowText;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -669,23 +699,48 @@ var Contacts = function Contacts(props) {
     setSelectUser(userList);
   };
 
+  var makeShowMsg = function makeShowMsg() {
+    if (!radio) {
+      var tmp = totalShowText.split('$');
+      var font = '';
+      var end = '';
+
+      if (tmp.length === 2) {
+        font = tmp[0];
+        end = tmp[1];
+      } else {
+        font = totalShowText;
+      }
+
+      return React__default.createElement("div", null, font, " ", React__default.createElement("span", {
+        style: {
+          color: numberColor
+        }
+      }, deptTreeNode.length + selectUser.length), " ", end);
+    } else {
+      var name = '';
+
+      if (selectUser.length > 0) {
+        var _selectUser = _slicedToArray(selectUser, 1),
+            use = _selectUser[0];
+
+        name = use[userNameKey];
+      }
+
+      return React__default.createElement("div", null, radioShowText, " ", React__default.createElement("span", {
+        style: {
+          color: numberColor
+        }
+      }, name));
+    }
+  };
+
   var userData;
 
   if (onSearch) {
     userData = searchResult;
   } else {
     userData = users;
-  }
-
-  var tmp = totalShowText.split('$');
-  var font = '';
-  var end = '';
-
-  if (tmp.length === 2) {
-    font = tmp[0];
-    end = tmp[1];
-  } else {
-    font = totalShowText;
   }
 
   return React__default.createElement("div", {
@@ -703,7 +758,8 @@ var Contacts = function Contacts(props) {
     deptTreeNode: deptTreeNode,
     setDeptTreeNode: setDeptTreeNode,
     updateSelectDept: updateSelectDept,
-    deptNameKey: deptNameKey
+    deptNameKey: deptNameKey,
+    radio: radio
   })), React__default.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,
@@ -713,7 +769,8 @@ var Contacts = function Contacts(props) {
     selectUser: selectUser,
     handleSearch: handleSearch,
     userNameKey: userNameKey,
-    setSelectUser: setSelectUser
+    setSelectUser: setSelectUser,
+    radio: radio
   })), React__default.createElement(_Col, {
     xs: 24,
     sm: 24,
@@ -724,12 +781,8 @@ var Contacts = function Contacts(props) {
     colon: false
   }, React__default.createElement(_Form.Item, {
     className: styles.label,
-    label: React__default.createElement("div", null, font, " ", React__default.createElement("span", {
-      style: {
-        color: numberColor
-      }
-    }, deptTreeNode.length + selectUser.length), " ", end)
-  }, React__default.createElement("div", {
+    label: makeShowMsg()
+  }, !radio && React__default.createElement("div", {
     className: styles.resultDiv
   }, deptTreeNode && deptTreeNode.map(function (v) {
     return makeDeptTag(v);
@@ -757,7 +810,9 @@ Contacts.propTypes = {
   selectAllText: PropTypes.string,
   totalShowText: PropTypes.string,
   userNameKey: PropTypes.string,
-  deptNameKey: PropTypes.string
+  deptNameKey: PropTypes.string,
+  radio: PropTypes.bool,
+  radioShowText: PropTypes.string
 };
 Contacts.defaultProps = {
   users: {
@@ -778,7 +833,9 @@ Contacts.defaultProps = {
   selectAllText: '全选',
   totalShowText: '共选择了$个',
   userNameKey: 'username',
-  deptNameKey: 'name'
+  deptNameKey: 'name',
+  radio: false,
+  radioShowText: '已经选择'
 };
 
 module.exports = Contacts;
