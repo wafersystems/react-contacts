@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Checkbox, Radio, Col, Input, List, message, Pagination } from 'antd';
 import styles from './contacts.less';
 
@@ -11,6 +11,8 @@ export default ({
                   userNameKey, radio
                 }) => {
 
+  const [selectAll, setSelectAll] = useState(false);
+
   /**
    * 姓名搜索为空时处理
    * @param e
@@ -19,13 +21,6 @@ export default ({
     if (!e.target.value) {
       setOnSearch(false);
       setNameKey(null);
-      // if (handleSearchUser) {
-      //   handleSearchUser(0, null, deptId);
-      //   setOnSearch(true);
-      //   setNameKey(null);
-      // } else {
-      //   message.error('search function not found.');
-      // }
     }
   };
 
@@ -58,6 +53,11 @@ export default ({
     }
     setSelectUser(newSelectUser);
     updateSelectUsers(newSelectUser);
+    if (checked) {
+      calculateSelectAll(newSelectUser);
+    } else {
+      setSelectAll(false);
+    }
   };
 
   /**
@@ -93,6 +93,29 @@ export default ({
     }
   };
 
+  const calculateSelectAll = (newSelectUser) => {
+    let userData;
+    if (onSearch) {
+      userData = searchResult;
+    } else {
+      userData = users;
+    }
+    let tmp = [];
+    userData.records.forEach(value => {
+      tmp.push(value);
+    });
+    let count = 0;
+    tmp.forEach(val => {
+      const result = newSelectUser.find(valUser => val.userId === valUser.userId);
+      if (result) {
+        count += 1;
+      }
+    });
+    if (count === tmp.length) {
+      setSelectAll(true)
+    }
+  };
+
   /**
    * 点击用户全选的回调
    * @param e
@@ -101,6 +124,7 @@ export default ({
     const {
       target: { checked },
     } = e;
+    setSelectAll(checked);
     const tmp = [];
     let userData;
     // 按照是否搜索结果，来取列表的值
@@ -185,7 +209,7 @@ export default ({
       </Card>
       <div className={styles.pagination}>
         {!radio &&
-        <Checkbox onChange={onCheckAll} className={styles.checkbox}>
+        <Checkbox onChange={onCheckAll} className={styles.checkbox} checked={selectAll}>
           {selectAllText}
         </Checkbox>
         }
