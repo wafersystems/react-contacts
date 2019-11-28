@@ -16,7 +16,6 @@ export default ({
    * @param e
    */
   const handleSearchChange = e => {
-    console.log(e.target.value)
     if (!e.target.value) {
       setOnSearch(false);
       setNameKey(null);
@@ -103,19 +102,39 @@ export default ({
       target: { checked },
     } = e;
     const tmp = [];
+    let userData;
+    // 按照是否搜索结果，来取列表的值
+    if (onSearch) {
+      userData = searchResult;
+    } else {
+      userData = users;
+    }
+    userData.records.forEach(value => {
+      tmp.push(value);
+    });
+
+    //
+    let newSelectUser = [];
     if (checked) {
-      let userData;
-      if (onSearch) {
-        userData = searchResult;
-      } else {
-        userData = users;
-      }
-      userData.records.forEach(value => {
-        tmp.push(value);
+      // 如果是选中，遍历添加，重复的不添加
+      tmp.forEach(val => {
+        const result = selectUser.find(valUser => val.userId === valUser.userId);
+        if (!result) {
+          newSelectUser.push(val);
+        }
+      });
+      newSelectUser = selectUser.concat(newSelectUser);
+    } else {
+      // 不选中的遍历删除
+      selectUser.forEach(val => {
+        const result = tmp.find(valUser => val.userId === valUser.userId);
+        if (!result) {
+          newSelectUser.push(val);
+        }
       });
     }
-    updateSelectUsers(tmp);
-    setSelectUser(tmp);
+    updateSelectUsers(newSelectUser);
+    setSelectUser(newSelectUser);
   };
 
   return (
