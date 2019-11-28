@@ -153,8 +153,6 @@ var Right = (function (_ref) {
    * @param e
    */
   var handleSearchChange = function handleSearchChange(e) {
-    console.log(e.target.value);
-
     if (!e.target.value) {
       setOnSearch(false);
       setNameKey(null); // if (handleSearchUser) {
@@ -251,23 +249,47 @@ var Right = (function (_ref) {
   var onCheckAll = function onCheckAll(e) {
     var checked = e.target.checked;
     var tmp = [];
+    var userData; // 按照是否搜索结果，来取列表的值
+
+    if (onSearch) {
+      userData = searchResult;
+    } else {
+      userData = users;
+    }
+
+    userData.records.forEach(function (value) {
+      tmp.push(value);
+    }); //
+
+    var newSelectUser = [];
 
     if (checked) {
-      var _userData;
+      // 如果是选中，遍历添加，重复的不添加
+      tmp.forEach(function (val) {
+        var result = selectUser.find(function (valUser) {
+          return val.userId === valUser.userId;
+        });
 
-      if (onSearch) {
-        _userData = searchResult;
-      } else {
-        _userData = users;
-      }
+        if (!result) {
+          newSelectUser.push(val);
+        }
+      });
+      newSelectUser = selectUser.concat(newSelectUser);
+    } else {
+      // 不选中的遍历删除
+      selectUser.forEach(function (val) {
+        var result = tmp.find(function (valUser) {
+          return val.userId === valUser.userId;
+        });
 
-      _userData.records.forEach(function (value) {
-        tmp.push(value);
+        if (!result) {
+          newSelectUser.push(val);
+        }
       });
     }
 
-    updateSelectUsers(tmp);
-    setSelectUser(tmp);
+    updateSelectUsers(newSelectUser);
+    setSelectUser(newSelectUser);
   };
 
   return React__default.createElement(_Col, {
@@ -543,12 +565,15 @@ var Left = (function (_ref) {
     renderItem: function renderItem(item) {
       return React__default.createElement(_List.Item, null, React__default.createElement("div", {
         className: styles.itemDiv
-      }, React__default.createElement(_Checkbox, {
+      }, deptCheckBox && React__default.createElement(_Checkbox, {
         className: styles.checkbox,
         data: item,
         checked: isDeptCheck(item),
         onChange: onDeptCheck
       }), React__default.createElement("span", {
+        style: {
+          marginLeft: '10px'
+        },
         onClick: function onClick() {
           return onDeptSelect(item);
         }
