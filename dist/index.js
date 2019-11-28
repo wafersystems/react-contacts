@@ -148,20 +148,20 @@ var Right = (function (_ref) {
       userNameKey = _ref.userNameKey,
       radio = _ref.radio;
 
+  var _useState = React.useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectAll = _useState2[0],
+      setSelectAll = _useState2[1];
   /**
    * 姓名搜索为空时处理
    * @param e
    */
+
+
   var handleSearchChange = function handleSearchChange(e) {
     if (!e.target.value) {
       setOnSearch(false);
-      setNameKey(null); // if (handleSearchUser) {
-      //   handleSearchUser(0, null, deptId);
-      //   setOnSearch(true);
-      //   setNameKey(null);
-      // } else {
-      //   message.error('search function not found.');
-      // }
+      setNameKey(null);
     }
   };
   /**
@@ -202,6 +202,12 @@ var Right = (function (_ref) {
 
     setSelectUser(newSelectUser);
     updateSelectUsers(newSelectUser);
+
+    if (checked) {
+      calculateSelectAll(newSelectUser);
+    } else {
+      setSelectAll(false);
+    }
   };
   /**
    * Radio时点击用户列表的回调
@@ -240,6 +246,35 @@ var Right = (function (_ref) {
       _message.error('search function not found.');
     }
   };
+
+  var calculateSelectAll = function calculateSelectAll(newSelectUser) {
+    var userData;
+
+    if (onSearch) {
+      userData = searchResult;
+    } else {
+      userData = users;
+    }
+
+    var tmp = [];
+    userData.records.forEach(function (value) {
+      tmp.push(value);
+    });
+    var count = 0;
+    tmp.forEach(function (val) {
+      var result = newSelectUser.find(function (valUser) {
+        return val.userId === valUser.userId;
+      });
+
+      if (result) {
+        count += 1;
+      }
+    });
+
+    if (count === tmp.length) {
+      setSelectAll(true);
+    }
+  };
   /**
    * 点击用户全选的回调
    * @param e
@@ -248,6 +283,7 @@ var Right = (function (_ref) {
 
   var onCheckAll = function onCheckAll(e) {
     var checked = e.target.checked;
+    setSelectAll(checked);
     var tmp = [];
     var userData; // 按照是否搜索结果，来取列表的值
 
@@ -331,7 +367,8 @@ var Right = (function (_ref) {
     className: styles.pagination
   }, !radio && React__default.createElement(_Checkbox, {
     onChange: onCheckAll,
-    className: styles.checkbox
+    className: styles.checkbox,
+    checked: selectAll
   }, selectAllText), React__default.createElement(_Pagination, {
     className: styles.pageNoe,
     simple: true,
