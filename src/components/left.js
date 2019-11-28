@@ -171,13 +171,15 @@ export default ({
               return (
                 <List.Item>
                   <div className={styles.itemDiv}>
+                    {deptCheckBox &&
                     <Checkbox
                       className={styles.checkbox}
                       data={item}
                       checked={isDeptCheck(item)}
                       onChange={onDeptCheck}
-                    />
-                    <span onClick={() => onDeptSelect(item)}>{item[deptNameKey]}</span>
+                    />}
+                    <span style={{ marginLeft: '10px' }}
+                          onClick={() => onDeptSelect(item)}>{item[deptNameKey]}</span>
                   </div>
                 </List.Item>
               );
