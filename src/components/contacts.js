@@ -48,8 +48,9 @@ const Contacts = (props) => {
   /**
    *  点击查询回调，会把name key 和 dept id 回传，外部调用查询用
    * @param nameKey 名字搜索关键字
+   * @param deptId 部门id
    */
-  const handleSearch = (nameKey = null) => {
+  const handleSearch = (nameKey = null, deptId = null) => {
     if (handleSearchUser) {
       handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
@@ -171,6 +172,7 @@ const Contacts = (props) => {
         <Row>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
+                handleSearchUser={handleSearchUser}
                 updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
@@ -203,7 +205,7 @@ Contacts.propTypes = {
   handleSearchUser: PropTypes.func.isRequired,
   deptSearch: PropTypes.bool,
   updateSelectUsers: PropTypes.func.isRequired,
-  updateSelectDept: PropTypes.func,
+  updateSelectDept: PropTypes.func.isRequired,
   deptCheckBox: PropTypes.bool,
   searchDeptPlaceholder: PropTypes.string,
   searchUserPlaceholder: PropTypes.string,

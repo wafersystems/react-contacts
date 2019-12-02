@@ -6,7 +6,7 @@ import { makeTreeNode } from '../utils';
 const { Search } = Input;
 
 export default ({
-                  searchDeptPlaceholder, deptSearch, handleSearch, deptCheckBox, deptTree = [],
+                  searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
                   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
                   updateSelectDept, deptNameKey, radio
                 }) => {
@@ -140,8 +140,13 @@ export default ({
    * @param item
    */
   const onDeptSelect = item => {
-    handleSearch(null, item.id);
-    setOnSearch(true);
+    if (handleSearchUser) {
+      handleSearchUser(0, null, item.id);
+      setOnSearch(true);
+      setDeptId(item.id);
+    } else {
+      message.error('search function not found.');
+    }
   };
 
   return (
