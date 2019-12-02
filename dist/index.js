@@ -278,10 +278,7 @@ var Right = (function (_ref) {
         count += 1;
       }
     });
-
-    if (count === tmp.length) {
-      setSelectAll(true);
-    }
+    setSelectAll(count === tmp.length);
   };
   /**
    * 点击用户全选的回调
@@ -685,10 +682,9 @@ var Contacts = function Contacts(props) {
 
   var handleSearch = function handleSearch() {
     var nameKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var deptId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, deptId);
+      handleSearchUser(0, nameKey, null);
       setOnSearch(true);
       setNameKey(nameKey);
     } else {
