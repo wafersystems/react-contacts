@@ -50,9 +50,9 @@ const Contacts = (props) => {
    * @param nameKey 名字搜索关键字
    * @param deptId 部门id
    */
-  const handleSearch = (nameKey = null, deptId = null) => {
+  const handleSearch = (nameKey = null) => {
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, deptId);
+      handleSearchUser(0, nameKey, null);
       setOnSearch(true);
       setNameKey(nameKey);
     } else {

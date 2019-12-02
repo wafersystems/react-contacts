@@ -123,9 +123,7 @@ export default ({
         count += 1;
       }
     });
-    if (count === tmp.length) {
-      setSelectAll(true)
-    }
+    setSelectAll(count === tmp.length);
   };
 
   /**
