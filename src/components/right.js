@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Checkbox, Radio, Col, Input, List, message, Pagination } from 'antd';
 import styles from './contacts.less';
 
 const { Search } = Input;
 
 export default ({
-                  selectAllText, searchUserPlaceholder, deptSearch, userData, searchResult, users,
+                  selectAllText, searchUserPlaceholder, deptSearch, userData,
                   handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
-                  onSearch, setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
+                  setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
                   userNameKey, radio
                 }) => {
 
   const [selectAll, setSelectAll] = useState(false);
+
+  // 当列表数据发生变化时，重新计算全选
+  useEffect(() => {
+    calculateSelectAll(selectUser);
+  }, [userData]);
+
+  // 当选中人数据发生变化，重新计算全选
+  useEffect(() => {
+    calculateSelectAll(selectUser);
+  }, [selectUser]);
 
   /**
    * 姓名搜索为空时处理
@@ -43,7 +53,7 @@ export default ({
       target: { checked, data },
     } = e;
     const tmp = [];
-    let newSelectUser = [];
+    let newSelectUser;
     if (checked) {
       tmp.push(data);
       newSelectUser = selectUser.concat(tmp);
@@ -93,17 +103,19 @@ export default ({
     }
   };
 
+  /**
+   * 计算是否全部选中
+   * @param newSelectUser
+   */
   const calculateSelectAll = (newSelectUser) => {
-    let userData;
-    if (onSearch) {
-      userData = searchResult;
-    } else {
-      userData = users;
-    }
     let tmp = [];
     userData.records.forEach(value => {
       tmp.push(value);
     });
+    if (tmp.length === 0) {
+      setSelectAll(false);
+      return;
+    }
     let count = 0;
     tmp.forEach(val => {
       const result = newSelectUser.find(valUser => val.userId === valUser.userId);
@@ -126,18 +138,9 @@ export default ({
     } = e;
     setSelectAll(checked);
     const tmp = [];
-    let userData;
-    // 按照是否搜索结果，来取列表的值
-    if (onSearch) {
-      userData = searchResult;
-    } else {
-      userData = users;
-    }
     userData.records.forEach(value => {
       tmp.push(value);
     });
-
-    //
     let newSelectUser = [];
     if (checked) {
       // 如果是选中，遍历添加，重复的不添加
