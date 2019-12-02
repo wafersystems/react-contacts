@@ -131,8 +131,6 @@ var Right = (function (_ref) {
       searchUserPlaceholder = _ref.searchUserPlaceholder,
       deptSearch = _ref.deptSearch,
       userData = _ref.userData,
-      searchResult = _ref.searchResult,
-      users = _ref.users,
       handleSearch = _ref.handleSearch,
       handleSearchUser = _ref.handleSearchUser,
       deptId = _ref.deptId,
@@ -151,12 +149,20 @@ var Right = (function (_ref) {
   var _useState = React.useState(false),
       _useState2 = _slicedToArray(_useState, 2),
       selectAll = _useState2[0],
-      setSelectAll = _useState2[1];
+      setSelectAll = _useState2[1]; // 当列表数据发生变化时，重新计算全选
+
+
+  React.useEffect(function () {
+    calculateSelectAll(selectUser);
+  }, [userData]); // 当选中人数据发生变化，重新计算全选
+
+  React.useEffect(function () {
+    calculateSelectAll(selectUser);
+  }, [selectUser]);
   /**
    * 姓名搜索为空时处理
    * @param e
    */
-
 
   var handleSearchChange = function handleSearchChange(e) {
     if (!e.target.value) {
@@ -246,20 +252,23 @@ var Right = (function (_ref) {
       _message.error('search function not found.');
     }
   };
+  /**
+   * 计算是否全部选中
+   * @param newSelectUser
+   */
+
 
   var calculateSelectAll = function calculateSelectAll(newSelectUser) {
-    var userData;
-
-    if (onSearch) {
-      userData = searchResult;
-    } else {
-      userData = users;
-    }
-
     var tmp = [];
     userData.records.forEach(function (value) {
       tmp.push(value);
     });
+
+    if (tmp.length === 0) {
+      setSelectAll(false);
+      return;
+    }
+
     var count = 0;
     tmp.forEach(function (val) {
       var result = newSelectUser.find(function (valUser) {
@@ -285,18 +294,9 @@ var Right = (function (_ref) {
     var checked = e.target.checked;
     setSelectAll(checked);
     var tmp = [];
-    var userData; // 按照是否搜索结果，来取列表的值
-
-    if (onSearch) {
-      userData = searchResult;
-    } else {
-      userData = users;
-    }
-
     userData.records.forEach(function (value) {
       tmp.push(value);
-    }); //
-
+    });
     var newSelectUser = [];
 
     if (checked) {
