@@ -137,7 +137,6 @@ var Right = (function (_ref) {
       updateSelectUsers = _ref.updateSelectUsers,
       _ref$debug = _ref.debug,
       debug = _ref$debug === void 0 ? false : _ref$debug,
-      onSearch = _ref.onSearch,
       setOnSearch = _ref.setOnSearch,
       nameKey = _ref.nameKey,
       setNameKey = _ref.setNameKey,
@@ -194,7 +193,7 @@ var Right = (function (_ref) {
         checked = _e$target.checked,
         data = _e$target.data;
     var tmp = [];
-    var newSelectUser = [];
+    var newSelectUser;
 
     if (checked) {
       tmp.push(data);
@@ -402,7 +401,6 @@ var Search$1 = _Input.Search;
 var Left = (function (_ref) {
   var searchDeptPlaceholder = _ref.searchDeptPlaceholder,
       deptSearch = _ref.deptSearch,
-      handleSearch = _ref.handleSearch,
       deptCheckBox = _ref.deptCheckBox,
       _ref$deptTree = _ref.deptTree,
       deptTree = _ref$deptTree === void 0 ? [] : _ref$deptTree,
@@ -573,8 +571,13 @@ var Left = (function (_ref) {
 
 
   var onDeptSelect = function onDeptSelect(item) {
-    handleSearch(null, item.id);
-    setOnSearch(true);
+    if (handleSearchUser) {
+      handleSearchUser(0, null, item.id);
+      setOnSearch(true);
+      setDeptId(item.id);
+    } else {
+      _message.error('search function not found.');
+    }
   };
 
   return React__default.createElement(_Col, {
@@ -677,10 +680,12 @@ var Contacts = function Contacts(props) {
   /**
    *  点击查询回调，会把name key 和 dept id 回传，外部调用查询用
    * @param nameKey 名字搜索关键字
+   * @param deptId 部门id
    */
 
   var handleSearch = function handleSearch() {
     var nameKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var deptId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
     if (handleSearchUser) {
       handleSearchUser(0, nameKey, deptId);
@@ -819,6 +824,7 @@ var Contacts = function Contacts(props) {
     setOnSearch: setOnSearch,
     deptTreeNode: deptTreeNode,
     setDeptTreeNode: setDeptTreeNode,
+    handleSearchUser: handleSearchUser,
     updateSelectDept: updateSelectDept,
     deptNameKey: deptNameKey,
     radio: radio
@@ -861,7 +867,7 @@ Contacts.propTypes = {
   handleSearchUser: PropTypes.func.isRequired,
   deptSearch: PropTypes.bool,
   updateSelectUsers: PropTypes.func.isRequired,
-  updateSelectDept: PropTypes.func,
+  updateSelectDept: PropTypes.func.isRequired,
   deptCheckBox: PropTypes.bool,
   searchDeptPlaceholder: PropTypes.string,
   searchUserPlaceholder: PropTypes.string,
