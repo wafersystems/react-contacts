@@ -96,7 +96,8 @@ export default ({
       window.console.log(page)
     }
     if (handleSearchUser) {
-      handleSearchUser(page - 1, nameKey, deptId);
+      console.log(page)
+      handleSearchUser(page, nameKey, deptId);
       setOnSearch(true);
     } else {
       message.error('search function not found.');
@@ -217,7 +218,7 @@ export default ({
         <Pagination
           className={styles.pageNoe}
           simple
-          current={userData.current || userData.current === 0 ? userData.current + 1 : 0}
+          current={userData.current || 1}
           pageSize={userData.size}
           total={userData.total}
           onChange={onPageChange}

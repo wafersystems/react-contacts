@@ -353,7 +353,7 @@ export const userList = {
   ],
   total: 11,
   size: 10,
-  current: 0,
+  current: 1,
   searchCount: true,
   pages: 1,
 };
