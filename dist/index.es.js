@@ -240,7 +240,8 @@ var Right = (function (_ref) {
     }
 
     if (handleSearchUser) {
-      handleSearchUser(page - 1, nameKey, deptId);
+      console.log(page);
+      handleSearchUser(page, nameKey, deptId);
       setOnSearch(true);
     } else {
       _message.error('search function not found.');
@@ -363,7 +364,7 @@ var Right = (function (_ref) {
   }, selectAllText), React.createElement(_Pagination, {
     className: styles.pageNoe,
     simple: true,
-    current: userData.current || userData.current === 0 ? userData.current + 1 : 0,
+    current: userData.current || 1,
     pageSize: userData.size,
     total: userData.total,
     onChange: onPageChange
