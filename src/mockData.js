@@ -31,6 +31,25 @@ export const deptTree = [{
           ],
           name: '高新农信',
         },
+        {
+          id: 14,
+          parentId: 3,
+          children: [
+            {
+              id: 15,
+              parentId: 14,
+              children: [],
+              name: '院校农信B',
+            },
+            {
+              id: 16,
+              parentId: 14,
+              children: [],
+              name: '院校农信A',
+            },
+          ],
+          name: '高新农信C',
+        },
       ],
       name: '潍坊农信',
     },

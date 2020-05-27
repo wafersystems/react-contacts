@@ -26,7 +26,7 @@ const Contacts = (props) => {
     userSearch = false,
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
-    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText
+    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText, checkStrictly
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -172,7 +172,7 @@ const Contacts = (props) => {
         <Row>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
-                handleSearchUser={handleSearchUser}
+                handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
                 updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
@@ -218,7 +218,8 @@ Contacts.propTypes = {
   userNameKey: PropTypes.string,
   deptNameKey: PropTypes.string,
   radio: PropTypes.bool,
-  radioShowText: PropTypes.string
+  radioShowText: PropTypes.string,
+  checkStrictly:PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -242,7 +243,8 @@ Contacts.defaultProps = {
   userNameKey: 'username',
   deptNameKey: 'name',
   radio: false,
-  radioShowText: '已经选择'
+  radioShowText: '已经选择',
+  checkStrictly:false
 };
 
 export default Contacts;
