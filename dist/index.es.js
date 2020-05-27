@@ -48,7 +48,7 @@ function _extends() {
 }
 
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _arrayWithHoles(arr) {
@@ -56,10 +56,7 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -85,8 +82,25 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function styleInject(css, ref) {
@@ -116,9 +130,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: #E6F7FF;\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  padding-left: 10px;\n  float: left;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  border: 1px solid #d9d9d9;\n  background: white;\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  color: #1890FF;\n  background-color: #E6F7FF;\n  border: 1px solid #91D5FF;\n  margin-left: 10px;\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  color: #375EEE;\n  background-color: rgba(55, 94, 238, 0.09);\n  border-radius: 4px;\n  border: 1px solid #375EEE;\n  margin-left: 10px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
+var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: #E6F7FF;\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  padding-left: 10px;\n  float: left;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  border: 1px solid #d9d9d9;\n  background: white;\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  color: #1890FF;\n  background-color: #E6F7FF;\n  border: 1px solid #91D5FF;\n  margin-left: 10px;\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  color: #375EEE;\n  background-color: rgba(55, 94, 238, 0.09);\n  border-radius: 4px;\n  border: 1px solid #375EEE;\n  margin-left: 10px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
 var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI"};
-styleInject(css);
+styleInject(css_248z);
 
 var Search = _Input.Search;
 var Right = (function (_ref) {
@@ -320,48 +334,48 @@ var Right = (function (_ref) {
     setSelectUser(newSelectUser);
   };
 
-  return React.createElement(_Col, {
+  return /*#__PURE__*/React.createElement(_Col, {
     xs: 12,
     sm: 12,
     md: 12,
     lg: 12,
     xl: 12,
     className: styles.treeLeft
-  }, React.createElement(_Card, {
+  }, /*#__PURE__*/React.createElement(_Card, {
     className: styles.card
-  }, deptSearch && React.createElement(Search, {
+  }, deptSearch && /*#__PURE__*/React.createElement(Search, {
     placeholder: searchUserPlaceholder,
     onSearch: handleSearch,
     onChange: handleSearchChange
-  }), deptSearch && React.createElement("br", null), React.createElement(_List, {
+  }), deptSearch && /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(_List, {
     size: "small",
     bordered: false,
     dataSource: userData.records,
     split: false,
     renderItem: function renderItem(item) {
-      return React.createElement(_List.Item, null, React.createElement("div", {
+      return /*#__PURE__*/React.createElement(_List.Item, null, /*#__PURE__*/React.createElement("div", {
         className: styles.itemDiv
-      }, radio && React.createElement(_Radio, {
+      }, radio && /*#__PURE__*/React.createElement(_Radio, {
         className: styles.checkbox,
         checked: isUserCheck(item),
         data: item,
         onChange: onUserRadioCheck
-      }, item[userNameKey]), !radio && React.createElement(_Checkbox, {
+      }, item[userNameKey]), !radio && /*#__PURE__*/React.createElement(_Checkbox, {
         className: styles.checkbox,
         data: item,
         checked: isUserCheck(item),
         onChange: onUserCheck
-      }, item[userNameKey]), React.createElement("div", {
+      }, item[userNameKey]), /*#__PURE__*/React.createElement("div", {
         className: styles.deptName
       }, item.deptName)));
     }
-  })), React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("div", {
     className: styles.pagination
-  }, !radio && React.createElement(_Checkbox, {
+  }, !radio && /*#__PURE__*/React.createElement(_Checkbox, {
     onChange: onCheckAll,
     className: styles.checkbox,
     checked: selectAll
-  }, selectAllText), React.createElement(_Pagination, {
+  }, selectAllText), /*#__PURE__*/React.createElement(_Pagination, {
     className: styles.pageNoe,
     simple: true,
     current: userData.current || 1,
@@ -382,7 +396,7 @@ var TreeNode = _Tree.TreeNode;
 function makeTreeNode(nodes, deptNameKey) {
   return nodes.map(function (v) {
     var nodeKey = v.id;
-    return React.createElement(TreeNode, {
+    return /*#__PURE__*/React.createElement(TreeNode, {
       data: v,
       title: v[deptNameKey],
       key: nodeKey
@@ -404,7 +418,8 @@ var Left = (function (_ref) {
       setDeptTreeNode = _ref.setDeptTreeNode,
       updateSelectDept = _ref.updateSelectDept,
       deptNameKey = _ref.deptNameKey,
-      radio = _ref.radio;
+      radio = _ref.radio,
+      checkStrictly = _ref.checkStrictly;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -501,20 +516,20 @@ var Left = (function (_ref) {
     var checked = _ref2.checked,
         checkedNodes = _ref2.checkedNodes,
         node = _ref2.node;
+    debugger;
     var tmp = [];
 
     if (checked) {
-      var _checkedNodes = _slicedToArray(checkedNodes, 1),
-          one = _checkedNodes[0];
-
-      var data = one.props.data;
-      tmp.push(data);
-      updateSelectDept(deptTreeNode.concat(tmp));
-      setDeptTreeNode(deptTreeNode.concat(tmp));
+      checkedNodes.forEach(function (v) {
+        var data = v.props.data;
+        tmp.push(data);
+      });
+      updateSelectDept(tmp);
+      setDeptTreeNode(tmp);
     } else {
-      var _data = node.props.data;
+      var data = node.props.data;
       var result = deptTreeNode.filter(function (value) {
-        return value.id !== _data.id;
+        return value.id !== data.id;
       });
       updateSelectDept(result.concat(tmp));
       setDeptTreeNode(result.concat(tmp));
@@ -573,37 +588,38 @@ var Left = (function (_ref) {
     }
   };
 
-  return React.createElement(_Col, {
+  return /*#__PURE__*/React.createElement(_Col, {
     xs: 12,
     sm: 12,
     md: 12,
     lg: 12,
     xl: 12
-  }, React.createElement(_Card, {
+  }, /*#__PURE__*/React.createElement(_Card, {
     className: styles.card
-  }, deptSearch && React.createElement(Search$1, {
+  }, deptSearch && /*#__PURE__*/React.createElement(Search$1, {
     placeholder: searchDeptPlaceholder,
     onSelect: onSearchDeptChange,
     onSearch: onSearchDept
-  }), deptSearch && React.createElement("br", null), !onDeptSearch && React.createElement(_Tree, {
+  }), deptSearch && /*#__PURE__*/React.createElement("br", null), !onDeptSearch && /*#__PURE__*/React.createElement(_Tree, {
     checkable: deptCheckBox && !radio,
     checkedKeys: makeCheckedKeys(deptTreeNode),
     onSelect: onTreeSelect,
-    onCheck: onDeptTreeCheck
-  }, makeTreeNode(deptTree, deptNameKey)), onDeptSearch && React.createElement(_List, {
+    onCheck: onDeptTreeCheck,
+    checkStrictly: checkStrictly
+  }, makeTreeNode(deptTree, deptNameKey)), onDeptSearch && /*#__PURE__*/React.createElement(_List, {
     size: "small",
     bordered: false,
     dataSource: deptSearchResult,
     split: false,
     renderItem: function renderItem(item) {
-      return React.createElement(_List.Item, null, React.createElement("div", {
+      return /*#__PURE__*/React.createElement(_List.Item, null, /*#__PURE__*/React.createElement("div", {
         className: styles.itemDiv
-      }, deptCheckBox && React.createElement(_Checkbox, {
+      }, deptCheckBox && /*#__PURE__*/React.createElement(_Checkbox, {
         className: styles.checkbox,
         data: item,
         checked: isDeptCheck(item),
         onChange: onDeptCheck
-      }), React.createElement("span", {
+      }), /*#__PURE__*/React.createElement("span", {
         style: {
           marginLeft: '10px'
         },
@@ -635,7 +651,8 @@ var Contacts = function Contacts(props) {
       userNameKey = props.userNameKey,
       deptNameKey = props.deptNameKey,
       radio = props.radio,
-      radioShowText = props.radioShowText;
+      radioShowText = props.radioShowText,
+      checkStrictly = props.checkStrictly;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -695,14 +712,14 @@ var Contacts = function Contacts(props) {
 
 
   var makeDeptTag = function makeDeptTag(v) {
-    return React.createElement(_Tag, {
+    return /*#__PURE__*/React.createElement(_Tag, {
       key: v.id,
       className: styles.deptTag,
       onClick: function onClick(e) {
         e.preventDefault();
         unCheckDept(v);
       }
-    }, v[deptNameKey], " ", React.createElement(_Icon, {
+    }, v[deptNameKey], " ", /*#__PURE__*/React.createElement(_Icon, {
       type: "close-circle",
       theme: "filled"
     }));
@@ -730,14 +747,14 @@ var Contacts = function Contacts(props) {
 
 
   var makeUserTag = function makeUserTag(v) {
-    return React.createElement(_Tag, {
+    return /*#__PURE__*/React.createElement(_Tag, {
       key: v.userId,
       className: styles.userTag,
       onClick: function onClick(e) {
         e.preventDefault();
         unCheckUser(v);
       }
-    }, v[userNameKey], " ", React.createElement(_Icon, {
+    }, v[userNameKey], " ", /*#__PURE__*/React.createElement(_Icon, {
       type: "close-circle",
       theme: "filled"
     }));
@@ -771,7 +788,7 @@ var Contacts = function Contacts(props) {
         font = totalShowText;
       }
 
-      return React.createElement("div", null, font, " ", React.createElement("span", {
+      return /*#__PURE__*/React.createElement("div", null, font, " ", /*#__PURE__*/React.createElement("span", {
         style: {
           color: numberColor
         }
@@ -786,7 +803,7 @@ var Contacts = function Contacts(props) {
         name = use[userNameKey];
       }
 
-      return React.createElement("div", null, radioShowText, " ", React.createElement("span", {
+      return /*#__PURE__*/React.createElement("div", null, radioShowText, " ", /*#__PURE__*/React.createElement("span", {
         style: {
           color: numberColor
         }
@@ -802,25 +819,26 @@ var Contacts = function Contacts(props) {
     userData = users;
   }
 
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     style: {
       height: '100%'
     }
-  }, React.createElement(_Spin, {
+  }, /*#__PURE__*/React.createElement(_Spin, {
     spinning: loading
-  }, userSearch && React.createElement(_Row, null, React.createElement(Search$2, {
+  }, userSearch && /*#__PURE__*/React.createElement(_Row, null, /*#__PURE__*/React.createElement(Search$2, {
     placeholder: searchUserPlaceholder,
     onSearch: handleSearch
-  })), userSearch && React.createElement("br", null), React.createElement(_Row, null, React.createElement(Left, _extends({}, props, {
+  })), userSearch && /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(_Row, null, /*#__PURE__*/React.createElement(Left, _extends({}, props, {
     setDeptId: setDeptId,
     setOnSearch: setOnSearch,
     deptTreeNode: deptTreeNode,
     setDeptTreeNode: setDeptTreeNode,
     handleSearchUser: handleSearchUser,
+    checkStrictly: checkStrictly,
     updateSelectDept: updateSelectDept,
     deptNameKey: deptNameKey,
     radio: radio
-  })), React.createElement(Right, _extends({}, props, {
+  })), /*#__PURE__*/React.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,
     setOnSearch: setOnSearch,
@@ -831,18 +849,18 @@ var Contacts = function Contacts(props) {
     userNameKey: userNameKey,
     setSelectUser: setSelectUser,
     radio: radio
-  })), React.createElement(_Col, {
+  })), /*#__PURE__*/React.createElement(_Col, {
     xs: 24,
     sm: 24,
     md: 24,
     lg: 24,
     xl: 24
-  }, React.createElement(_Form, {
+  }, /*#__PURE__*/React.createElement(_Form, {
     colon: false
-  }, React.createElement(_Form.Item, {
+  }, /*#__PURE__*/React.createElement(_Form.Item, {
     className: styles.label,
     label: makeShowMsg()
-  }, !radio && React.createElement("div", {
+  }, !radio && /*#__PURE__*/React.createElement("div", {
     className: styles.resultDiv
   }, deptTreeNode && deptTreeNode.map(function (v) {
     return makeDeptTag(v);
@@ -872,7 +890,8 @@ Contacts.propTypes = {
   userNameKey: PropTypes.string,
   deptNameKey: PropTypes.string,
   radio: PropTypes.bool,
-  radioShowText: PropTypes.string
+  radioShowText: PropTypes.string,
+  checkStrictly: PropTypes.bool
 };
 Contacts.defaultProps = {
   users: {
@@ -895,7 +914,8 @@ Contacts.defaultProps = {
   userNameKey: 'username',
   deptNameKey: 'name',
   radio: false,
-  radioShowText: '已经选择'
+  radioShowText: '已经选择',
+  checkStrictly: false
 };
 
 export default Contacts;
