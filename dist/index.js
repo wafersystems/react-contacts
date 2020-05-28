@@ -521,24 +521,13 @@ var Left = (function (_ref) {
     var checked = _ref2.checked,
         checkedNodes = _ref2.checkedNodes,
         node = _ref2.node;
-    debugger;
     var tmp = [];
-
-    if (checked) {
-      checkedNodes.forEach(function (v) {
-        var data = v.props.data;
-        tmp.push(data);
-      });
-      updateSelectDept(tmp);
-      setDeptTreeNode(tmp);
-    } else {
-      var data = node.props.data;
-      var result = deptTreeNode.filter(function (value) {
-        return value.id !== data.id;
-      });
-      updateSelectDept(result.concat(tmp));
-      setDeptTreeNode(result.concat(tmp));
-    }
+    checkedNodes.forEach(function (v) {
+      var data = v.props.data;
+      tmp.push(data);
+    });
+    updateSelectDept(tmp);
+    setDeptTreeNode(tmp);
   };
   /**
    * 判断部门是否选择
