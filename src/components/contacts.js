@@ -78,14 +78,28 @@ const Contacts = (props) => {
     </Tag>
   );
 
+  const delObjProperty =(object,key)=>{
+    const t = object[key];
+    if(t){
+      delete object[key];
+      delObjProperty(object,t.parentId);
+    }
+  }
+
   /**
    *
    * @param data
    */
   const unCheckDept = data => {
-    const tmp = [];
-    const result = deptTreeNode.filter(value => value.id !== data.id);
-    const dept = result.concat(tmp);
+    const dept = [];
+    const obj ={};
+    deptTreeNode.forEach(value => {
+      obj[value.id]=value;
+    });
+    delObjProperty(obj,data.id);
+    Object.keys(obj).forEach(key=>{
+      dept.push(obj[key]);
+    })
     updateSelectDept(dept);
     setDeptTreeNode(dept);
   };
