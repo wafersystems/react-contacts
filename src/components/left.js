@@ -8,7 +8,7 @@ const { Search } = Input;
 export default ({
                   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
                   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-                  updateSelectDept, deptNameKey, radio,checkStrictly
+                  updateSelectDept, deptNameKey, radio, checkStrictly
                 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -87,23 +87,14 @@ export default ({
    */
   const onDeptTreeCheck = (checkedKeys, { checked, checkedNodes, node }) => {
     const tmp = [];
-    if (checked) {
-      checkedNodes.forEach(v=>{
-        const {
-          props: { data },
-        } = v;
-        tmp.push(data);
-      });
-      updateSelectDept(tmp);
-      setDeptTreeNode(tmp);
-    } else {
+    checkedNodes.forEach(v => {
       const {
         props: { data },
-      } = node;
-      const result = deptTreeNode.filter(value => value.id !== data.id);
-      updateSelectDept(result.concat(tmp));
-      setDeptTreeNode(result.concat(tmp));
-    }
+      } = v;
+      tmp.push(data);
+    });
+    updateSelectDept(tmp);
+    setDeptTreeNode(tmp);
   };
 
   /**
