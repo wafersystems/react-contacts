@@ -26,7 +26,8 @@ const Contacts = (props) => {
     userSearch = false,
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
-    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText, checkStrictly
+    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
+    checkStrictly, showAllDeptTags
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -78,11 +79,16 @@ const Contacts = (props) => {
     </Tag>
   );
 
-  const delObjProperty =(object,key)=>{
+  /**
+   *
+   * @param object
+   * @param key
+   */
+  const delObjProperty = (object, key) => {
     const t = object[key];
-    if(t){
+    if (t) {
       delete object[key];
-      delObjProperty(object,t.parentId);
+      delObjProperty(object, t.parentId);
     }
   }
 
@@ -92,17 +98,50 @@ const Contacts = (props) => {
    */
   const unCheckDept = data => {
     const dept = [];
-    const obj ={};
+    const obj = {};
     deptTreeNode.forEach(value => {
-      obj[value.id]=value;
+      obj[value.id] = value;
     });
-    delObjProperty(obj,data.id);
-    Object.keys(obj).forEach(key=>{
+    delObjProperty(obj, data.id);
+    Object.keys(obj).forEach(key => {
       dept.push(obj[key]);
     })
     updateSelectDept(dept);
     setDeptTreeNode(dept);
   };
+
+  /**
+   * 过滤显示tag,如果父节点选中不显示子节点
+   * @param list
+   * @returns {[]}
+   */
+  const filterDeptTagShow = (list) => {
+    /**
+     *
+     * @param object
+     * @param node
+     */
+    const removeDescendants = (object, node) => {
+      if (node.children && node.children.length > 0) {
+        node.children.forEach(v => {
+          removeDescendants(object, v)
+          delete object[v.id];
+        })
+      }
+    }
+    const obj = {};
+    list.forEach(value => {
+      obj[value.id] = value;
+    });
+    list.forEach(value => {
+      removeDescendants(obj, value);
+    });
+    const dept = [];
+    Object.keys(obj).forEach(key => {
+      dept.push(obj[key]);
+    })
+    return dept;
+  }
 
   /**
    * 生成显示的用户Tag
@@ -173,7 +212,6 @@ const Contacts = (props) => {
     userData = users;
   }
 
-
   return (
     <div style={{ height: '100%' }}>
       <Spin spinning={loading}>
@@ -197,7 +235,8 @@ const Contacts = (props) => {
               <Form.Item className={styles.label} label={makeShowMsg()}>
                 {!radio &&
                 <div className={styles.resultDiv}>
-                  {deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
+                  {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
+                  {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
                   {selectUser && selectUser.map(v => makeUserTag(v))}
                 </div>
                 }
@@ -233,7 +272,8 @@ Contacts.propTypes = {
   deptNameKey: PropTypes.string,
   radio: PropTypes.bool,
   radioShowText: PropTypes.string,
-  checkStrictly:PropTypes.bool
+  checkStrictly: PropTypes.bool,
+  showAllDeptTags: PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -258,7 +298,8 @@ Contacts.defaultProps = {
   deptNameKey: 'name',
   radio: false,
   radioShowText: '已经选择',
-  checkStrictly:false
+  checkStrictly: false,
+  showAllDeptTags: false
 };
 
 export default Contacts;
