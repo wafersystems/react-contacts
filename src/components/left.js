@@ -86,7 +86,6 @@ export default ({
    * @param node
    */
   const onDeptTreeCheck = (checkedKeys, { checked, checkedNodes, node }) => {
-    debugger
     const tmp = [];
     if (checked) {
       checkedNodes.forEach(v=>{
