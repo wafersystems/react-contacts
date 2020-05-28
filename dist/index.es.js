@@ -641,7 +641,8 @@ var Contacts = function Contacts(props) {
       deptNameKey = props.deptNameKey,
       radio = props.radio,
       radioShowText = props.radioShowText,
-      checkStrictly = props.checkStrictly;
+      checkStrictly = props.checkStrictly,
+      showAllDeptTags = props.showAllDeptTags;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -715,18 +716,72 @@ var Contacts = function Contacts(props) {
   };
   /**
    *
+   * @param object
+   * @param key
+   */
+
+
+  var delObjProperty = function delObjProperty(object, key) {
+    var t = object[key];
+
+    if (t) {
+      delete object[key];
+      delObjProperty(object, t.parentId);
+    }
+  };
+  /**
+   *
    * @param data
    */
 
 
   var unCheckDept = function unCheckDept(data) {
-    var tmp = [];
-    var result = deptTreeNode.filter(function (value) {
-      return value.id !== data.id;
+    var dept = [];
+    var obj = {};
+    deptTreeNode.forEach(function (value) {
+      obj[value.id] = value;
     });
-    var dept = result.concat(tmp);
+    delObjProperty(obj, data.id);
+    Object.keys(obj).forEach(function (key) {
+      dept.push(obj[key]);
+    });
     updateSelectDept(dept);
     setDeptTreeNode(dept);
+  };
+  /**
+   * 过滤显示tag,如果父节点选中不显示子节点
+   * @param list
+   * @returns {[]}
+   */
+
+
+  var filterDeptTagShow = function filterDeptTagShow(list) {
+    /**
+     *
+     * @param object
+     * @param node
+     */
+    var removeDescendants = function removeDescendants(object, node) {
+      if (node.children && node.children.length > 0) {
+        node.children.forEach(function (v) {
+          removeDescendants(object, v);
+          delete object[v.id];
+        });
+      }
+    };
+
+    var obj = {};
+    list.forEach(function (value) {
+      obj[value.id] = value;
+    });
+    list.forEach(function (value) {
+      removeDescendants(obj, value);
+    });
+    var dept = [];
+    Object.keys(obj).forEach(function (key) {
+      dept.push(obj[key]);
+    });
+    return dept;
   };
   /**
    * 生成显示的用户Tag
@@ -851,7 +906,9 @@ var Contacts = function Contacts(props) {
     label: makeShowMsg()
   }, !radio && /*#__PURE__*/React.createElement("div", {
     className: styles.resultDiv
-  }, deptTreeNode && deptTreeNode.map(function (v) {
+  }, !showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(function (v) {
+    return makeDeptTag(v);
+  }), showAllDeptTags && deptTreeNode && deptTreeNode.map(function (v) {
     return makeDeptTag(v);
   }), selectUser && selectUser.map(function (v) {
     return makeUserTag(v);
@@ -880,7 +937,8 @@ Contacts.propTypes = {
   deptNameKey: PropTypes.string,
   radio: PropTypes.bool,
   radioShowText: PropTypes.string,
-  checkStrictly: PropTypes.bool
+  checkStrictly: PropTypes.bool,
+  showAllDeptTags: PropTypes.bool
 };
 Contacts.defaultProps = {
   users: {
@@ -904,7 +962,8 @@ Contacts.defaultProps = {
   deptNameKey: 'name',
   radio: false,
   radioShowText: '已经选择',
-  checkStrictly: false
+  checkStrictly: false,
+  showAllDeptTags: false
 };
 
 export default Contacts;

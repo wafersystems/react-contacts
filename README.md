@@ -50,6 +50,8 @@ userNameKey | fetch user name and selected key | string | 'username'
 deptNameKey | Take the department tree and select the name of the key | string | 'name' 
 radio   | show radio on user selected | bool | false
 radioShowText   | when user selected on radio, show tip text. | string | '已经选择' 
+checkStrictly   | 	Check treeNode precisely; parent treeNode and children treeNodes are not associated | bool | false
+showAllDeptTags   | Whether Tags show all nodes | bool | false
 
 
 ### Department Data

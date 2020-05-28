@@ -48,6 +48,8 @@ userNameKey   | 取用户名称和选中的key | string | 'username'
 deptNameKey   | 取部门树和选中名称的key | string | 'name' 
 radio   | 控制用户单选开关 | bool | false
 radioShowText   | 用户选择为radio时，显示文字内容 | string | '已经选择' 
+checkStrictly   | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | bool | false
+showAllDeptTags   | Tags是否显示所有节点 | bool | false
 
 
 ### 部门树数据
