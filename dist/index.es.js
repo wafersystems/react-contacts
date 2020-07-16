@@ -254,7 +254,6 @@ var Right = (function (_ref) {
     }
 
     if (handleSearchUser) {
-      console.log(page);
       handleSearchUser(page, nameKey, deptId);
       setOnSearch(true);
     } else {
@@ -891,6 +890,7 @@ var Contacts = function Contacts(props) {
     selectUser: selectUser,
     handleSearch: handleSearch,
     userNameKey: userNameKey,
+    deptId: deptId,
     setSelectUser: setSelectUser,
     radio: radio
   })), /*#__PURE__*/React.createElement(_Col, {
