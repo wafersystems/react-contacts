@@ -228,7 +228,7 @@ const Contacts = (props) => {
                 updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
-                 handleSearch={handleSearch} userNameKey={userNameKey}
+                 handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
                  setSelectUser={setSelectUser} radio={radio} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false}>

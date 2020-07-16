@@ -96,7 +96,6 @@ export default ({
       window.console.log(page)
     }
     if (handleSearchUser) {
-      console.log(page)
       handleSearchUser(page, nameKey, deptId);
       setOnSearch(true);
     } else {
