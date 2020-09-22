@@ -42,7 +42,7 @@ deptCheckBox | Show department checkbox | bool | true
 searchDeptPlaceholder | search department placeholder | string | '请输入搜索部门'
 searchUserPlaceholder | search department placeholder | string | '请输入搜索姓名'
 defaultUserSelected   | default user selected | array | [{userId:'abc',username:'CCC'}] 
-defaultDeptSelected   | default user selected | array | [{id:1,name:'ABC'}] 
+defaultDeptSelected   | default user selected ([Note](###Department tree initialization data)) | array | [{id:1,name:'ABC'}] 
 numberColor   | total number color | sring | #1B9AFF 
 selectAllText   | select all text | string | 全选 
 totalShowText   | totalShowText | string | 共选择了$个
@@ -52,6 +52,7 @@ radio   | show radio on user selected | bool | false
 radioShowText   | when user selected on radio, show tip text. | string | '已经选择' 
 checkStrictly   | 	Check treeNode precisely; parent treeNode and children treeNodes are not associated | bool | false
 showAllDeptTags   | Whether Tags show all nodes | bool | false
+returnReducedNode | Department tree data reduction mode ([Department tree initialization data](###Department tree initialization data)) | bool | false
 
 
 ### Department Data
@@ -135,6 +136,25 @@ showAllDeptTags   | Whether Tags show all nodes | bool | false
     },
 
 ```
+
+###Department tree initialization data
+
+returnReducedNode controls the data format of the department tree, true for simplified mode, false (default) for full data.
+
+####Lean mode
+If a node on the tree, its child nodes are all selected, the returned data only contains the parent node but not the child nodes
+
+####Full mode
+If a node on the tree, its child nodes are all selected, the returned data will contain the parent node and child nodes
+
+####Initialize the department tree
+If the initial data cannot contain the relationship between parent and child nodes, the department tree will appear out of sync when deleting with tag. Solution:
+
+1. When saving data, please save the complete data, do not delete the content in children.
+
+2. The use of reduced mode data may affect the background calculation.
+
+Choose one of the above methods.
 
 ### Development
 
