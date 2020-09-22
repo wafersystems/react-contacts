@@ -19,3 +19,36 @@ export function makeTreeNode(nodes, deptNameKey) {
     );
   });
 }
+
+/**
+ * 过滤dept节点,如果父节点选中不显示子节点
+ * @param list
+ * @returns {[]}
+ */
+export const filterDeptTagShow = (list) => {
+  /**
+   *
+   * @param object
+   * @param node
+   */
+  const removeDescendants = (object, node) => {
+    if (node.children && node.children.length > 0) {
+      node.children.forEach(v => {
+        removeDescendants(object, v)
+        delete object[v.id];
+      })
+    }
+  }
+  const obj = {};
+  list.forEach(value => {
+    obj[value.id] = value;
+  });
+  list.forEach(value => {
+    removeDescendants(obj, value);
+  });
+  const dept = [];
+  Object.keys(obj).forEach(key => {
+    dept.push(obj[key]);
+  })
+  return dept;
+}

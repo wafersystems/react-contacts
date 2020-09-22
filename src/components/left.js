@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Card, Checkbox, Col, List, message, Tree, Input } from 'antd';
 import styles from './contacts.less';
-import { makeTreeNode } from '../utils';
+import { makeTreeNode,filterDeptTagShow } from '../utils';
 
 const { Search } = Input;
 
 export default ({
                   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
                   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-                  updateSelectDept, deptNameKey, radio, checkStrictly
+                  updateSelectDept, deptNameKey, radio, checkStrictly,returnReducedNode
                 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -93,7 +93,12 @@ export default ({
       } = v;
       tmp.push(data);
     });
-    updateSelectDept(tmp);
+    if(returnReducedNode){
+      updateSelectDept(filterDeptTagShow(tmp));
+    }else {
+      updateSelectDept(tmp);
+    }
+
     setDeptTreeNode(tmp);
   };
 
@@ -118,11 +123,19 @@ export default ({
     const tmp = [];
     if (checked) {
       tmp.push(data);
-      updateSelectDept(deptTreeNode.concat(tmp));
+      if(returnReducedNode){
+        updateSelectDept(filterDeptTagShow(deptTreeNode.concat(tmp)));
+      }else {
+        updateSelectDept(deptTreeNode.concat(tmp));
+      }
       setDeptTreeNode(deptTreeNode.concat(tmp));
     } else {
       const result = deptTreeNode.filter(value => value.id !== data.id);
-      updateSelectDept(result.concat(tmp));
+      if(returnReducedNode){
+        updateSelectDept(filterDeptTagShow(result.concat(tmp)));
+      }else {
+        updateSelectDept(result.concat(tmp));
+      }
       setDeptTreeNode(result.concat(tmp));
     }
   };

@@ -13,9 +13,12 @@ import {
 
 import Right from './right';
 import Left from './left';
+import { filterDeptTagShow } from '../utils';
 import styles from './contacts.less';
 
 const { Search } = Input;
+
+
 
 const Contacts = (props) => {
 
@@ -109,39 +112,6 @@ const Contacts = (props) => {
     updateSelectDept(dept);
     setDeptTreeNode(dept);
   };
-
-  /**
-   * 过滤显示tag,如果父节点选中不显示子节点
-   * @param list
-   * @returns {[]}
-   */
-  const filterDeptTagShow = (list) => {
-    /**
-     *
-     * @param object
-     * @param node
-     */
-    const removeDescendants = (object, node) => {
-      if (node.children && node.children.length > 0) {
-        node.children.forEach(v => {
-          removeDescendants(object, v)
-          delete object[v.id];
-        })
-      }
-    }
-    const obj = {};
-    list.forEach(value => {
-      obj[value.id] = value;
-    });
-    list.forEach(value => {
-      removeDescendants(obj, value);
-    });
-    const dept = [];
-    Object.keys(obj).forEach(key => {
-      dept.push(obj[key]);
-    })
-    return dept;
-  }
 
   /**
    * 生成显示的用户Tag
@@ -273,7 +243,9 @@ Contacts.propTypes = {
   radio: PropTypes.bool,
   radioShowText: PropTypes.string,
   checkStrictly: PropTypes.bool,
-  showAllDeptTags: PropTypes.bool
+  showAllDeptTags: PropTypes.bool,
+  // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
+  returnReducedNode:PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -299,7 +271,8 @@ Contacts.defaultProps = {
   radio: false,
   radioShowText: '已经选择',
   checkStrictly: false,
-  showAllDeptTags: false
+  showAllDeptTags: false,
+  returnReducedNode:false
 };
 
 export default Contacts;
