@@ -402,6 +402,40 @@ function makeTreeNode(nodes, deptNameKey) {
     }, v.children.length > 0 && makeTreeNode(v.children, deptNameKey));
   });
 }
+/**
+ * 过滤dept节点,如果父节点选中不显示子节点
+ * @param list
+ * @returns {[]}
+ */
+
+var filterDeptTagShow = function filterDeptTagShow(list) {
+  /**
+   *
+   * @param object
+   * @param node
+   */
+  var removeDescendants = function removeDescendants(object, node) {
+    if (node.children && node.children.length > 0) {
+      node.children.forEach(function (v) {
+        removeDescendants(object, v);
+        delete object[v.id];
+      });
+    }
+  };
+
+  var obj = {};
+  list.forEach(function (value) {
+    obj[value.id] = value;
+  });
+  list.forEach(function (value) {
+    removeDescendants(obj, value);
+  });
+  var dept = [];
+  Object.keys(obj).forEach(function (key) {
+    dept.push(obj[key]);
+  });
+  return dept;
+};
 
 var Search$1 = _Input.Search;
 var Left = (function (_ref) {
@@ -418,7 +452,8 @@ var Left = (function (_ref) {
       updateSelectDept = _ref.updateSelectDept,
       deptNameKey = _ref.deptNameKey,
       radio = _ref.radio,
-      checkStrictly = _ref.checkStrictly;
+      checkStrictly = _ref.checkStrictly,
+      returnReducedNode = _ref.returnReducedNode;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -520,7 +555,13 @@ var Left = (function (_ref) {
       var data = v.props.data;
       tmp.push(data);
     });
-    updateSelectDept(tmp);
+
+    if (returnReducedNode) {
+      updateSelectDept(filterDeptTagShow(tmp));
+    } else {
+      updateSelectDept(tmp);
+    }
+
     setDeptTreeNode(tmp);
   };
   /**
@@ -550,13 +591,25 @@ var Left = (function (_ref) {
 
     if (checked) {
       tmp.push(data);
-      updateSelectDept(deptTreeNode.concat(tmp));
+
+      if (returnReducedNode) {
+        updateSelectDept(filterDeptTagShow(deptTreeNode.concat(tmp)));
+      } else {
+        updateSelectDept(deptTreeNode.concat(tmp));
+      }
+
       setDeptTreeNode(deptTreeNode.concat(tmp));
     } else {
       var result = deptTreeNode.filter(function (value) {
         return value.id !== data.id;
       });
-      updateSelectDept(result.concat(tmp));
+
+      if (returnReducedNode) {
+        updateSelectDept(filterDeptTagShow(result.concat(tmp)));
+      } else {
+        updateSelectDept(result.concat(tmp));
+      }
+
       setDeptTreeNode(result.concat(tmp));
     }
   };
@@ -748,41 +801,6 @@ var Contacts = function Contacts(props) {
     setDeptTreeNode(dept);
   };
   /**
-   * 过滤显示tag,如果父节点选中不显示子节点
-   * @param list
-   * @returns {[]}
-   */
-
-
-  var filterDeptTagShow = function filterDeptTagShow(list) {
-    /**
-     *
-     * @param object
-     * @param node
-     */
-    var removeDescendants = function removeDescendants(object, node) {
-      if (node.children && node.children.length > 0) {
-        node.children.forEach(function (v) {
-          removeDescendants(object, v);
-          delete object[v.id];
-        });
-      }
-    };
-
-    var obj = {};
-    list.forEach(function (value) {
-      obj[value.id] = value;
-    });
-    list.forEach(function (value) {
-      removeDescendants(obj, value);
-    });
-    var dept = [];
-    Object.keys(obj).forEach(function (key) {
-      dept.push(obj[key]);
-    });
-    return dept;
-  };
-  /**
    * 生成显示的用户Tag
    * @param v
    * @return {*}
@@ -938,7 +956,9 @@ Contacts.propTypes = {
   radio: PropTypes.bool,
   radioShowText: PropTypes.string,
   checkStrictly: PropTypes.bool,
-  showAllDeptTags: PropTypes.bool
+  showAllDeptTags: PropTypes.bool,
+  // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
+  returnReducedNode: PropTypes.bool
 };
 Contacts.defaultProps = {
   users: {
@@ -963,7 +983,8 @@ Contacts.defaultProps = {
   radio: false,
   radioShowText: '已经选择',
   checkStrictly: false,
-  showAllDeptTags: false
+  showAllDeptTags: false,
+  returnReducedNode: false
 };
 
 export default Contacts;
