@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {
   Col,
   Form,
-  Input,
   Row,
   Spin,
   Tag,
@@ -13,12 +12,7 @@ import {
 
 import Right from './right';
 import Left from './left';
-import { filterDeptTagShow } from '../utils';
 import styles from './contacts.less';
-
-const { Search } = Input;
-
-
 
 const Contacts = (props) => {
 
@@ -26,11 +20,9 @@ const Contacts = (props) => {
     users,
     loading = false,
     searchResult,
-    userSearch = false,
-    searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
-    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags
+    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio,
+    checkStrictly,  nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -42,12 +34,12 @@ const Contacts = (props) => {
   useEffect(() => {
     updateSelectUsers(defaultUserSelected);
     setSelectUser(defaultUserSelected);
-  }, [defaultUserSelected]);
+  }, [defaultUserSelected, updateSelectUsers]);
 
   useEffect(() => {
     updateSelectDept(defaultDeptSelected);
     setDeptTreeNode(defaultDeptSelected);
-  }, [defaultDeptSelected]);
+  }, [defaultDeptSelected, updateSelectDept]);
 
   /**
    *  点击查询回调，会把name key 和 dept id 回传，外部调用查询用
@@ -65,55 +57,6 @@ const Contacts = (props) => {
   };
 
   /**
-   * 生成显示的部门Tag
-   * @param v
-   * @return {*}
-   */
-  const makeDeptTag = v => (
-    <Tag
-      key={v.id}
-      className={styles.deptTag}
-      onClick={e => {
-        e.preventDefault();
-        unCheckDept(v);
-      }}
-    >
-      {v[deptNameKey]} <Icon type="close-circle" theme="filled" />
-    </Tag>
-  );
-
-  /**
-   *
-   * @param object
-   * @param key
-   */
-  const delObjProperty = (object, key) => {
-    const t = object[key];
-    if (t) {
-      delete object[key];
-      delObjProperty(object, t.parentId);
-    }
-  }
-
-  /**
-   *
-   * @param data
-   */
-  const unCheckDept = data => {
-    const dept = [];
-    const obj = {};
-    deptTreeNode.forEach(value => {
-      obj[value.id] = value;
-    });
-    delObjProperty(obj, data.id);
-    Object.keys(obj).forEach(key => {
-      dept.push(obj[key]);
-    })
-    updateSelectDept(dept);
-    setDeptTreeNode(dept);
-  };
-
-  /**
    * 生成显示的用户Tag
    * @param v
    * @return {*}
@@ -121,14 +64,15 @@ const Contacts = (props) => {
   const makeUserTag = v => {
     return (
       <Tag
-        key={v.userId}
-        className={styles.userTag}
+        key={v[tableRowKey]}
+        className={styles.userTag2}
         onClick={e => {
           e.preventDefault();
           unCheckUser(v);
         }}
       >
-        {v[userNameKey]} <Icon type="close-circle" theme="filled" />
+        {v[tableColumnsKey[0]]} <Icon type="close-circle" theme="filled"
+                               style={{width: 14, height: 14, color: '#E65653'}}/>
       </Tag>
     );
   };
@@ -146,7 +90,6 @@ const Contacts = (props) => {
   };
 
   const makeShowMsg = () => {
-    if (!radio) {
       const tmp = totalShowText.split('$');
       let font = '';
       let end = '';
@@ -158,21 +101,9 @@ const Contacts = (props) => {
       }
       return (
         <div>{font} <span
-          style={{ color: numberColor }}>{deptTreeNode.length + selectUser.length}</span> {end}
+          style={{color: numberColor}}>{ selectUser.length}</span> {end}
         </div>
       );
-    } else {
-      let name = '';
-      if (selectUser.length > 0) {
-        const [use] = selectUser;
-        name = use[userNameKey];
-      }
-      return (
-        <div>{radioShowText} <span
-          style={{ color: numberColor }}>{name}</span>
-        </div>
-      );
-    }
   };
 
   let userData;
@@ -183,30 +114,27 @@ const Contacts = (props) => {
   }
 
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{height: '', width: 690}}>
       <Spin spinning={loading}>
-        {userSearch && (
-          <Row>
-            <Search placeholder={searchUserPlaceholder} onSearch={handleSearch} />
-          </Row>
-        )}
-        {userSearch && <br />}
-        <Row>
+        <div style={{height:350}}>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
                 handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} />
+                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio}/>
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
                  handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
-                 setSelectUser={setSelectUser} radio={radio} />
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                 setSelectUser={setSelectUser} radio={radio} nameText={nameText}
+                 workNumberNumber={workNumberNumber} tableColumnsKey={tableColumnsKey} tableRowKey={tableRowKey}
+                 emptyTip={emptyTip}/>
+        </div>
+
+          <Row style={{height: 150}}>
+          <Col span={24} style={{paddingTop: 8, paddingBottom: 0}}>
             <Form colon={false}>
-              <Form.Item className={styles.label} label={makeShowMsg()}>
+              <Form.Item className={styles.label2} label={makeShowMsg()}>
                 {!radio &&
-                <div className={styles.resultDiv}>
-                  {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
-                  {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
+                <div className={styles.resultDiv2}>
                   {selectUser && selectUser.map(v => makeUserTag(v))}
                 </div>
                 }
@@ -245,7 +173,7 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode:PropTypes.bool
+  returnReducedNode: PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -262,7 +190,7 @@ Contacts.defaultProps = {
   searchUserPlaceholder: '请输入搜索姓名',
   defaultUserSelected: [],
   defaultDeptSelected: [],
-  numberColor: '#1B9AFF',
+  numberColor: '#E65653',
   debug: false,
   selectAllText: '全选',
   totalShowText: '共选择了$个',
@@ -272,7 +200,12 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode:false
+  returnReducedNode: false,
+  nameText: '姓名',
+  workNumberNumber: '工号',
+  tableColumnsKey: ['chsName', 'accountName'],
+  tableRowKey: 'accountName',
+  emptyTip: '什么都没有哦~',
 };
 
 export default Contacts;

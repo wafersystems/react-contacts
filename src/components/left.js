@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Checkbox, Col, List, message, Tree, Input } from 'antd';
+import {  Checkbox, Col, List, message, Tree, Input } from 'antd';
 import styles from './contacts.less';
 import { makeTreeNode,filterDeptTagShow } from '../utils';
 
@@ -156,13 +156,13 @@ export default ({
 
   return (
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-      <Card className={styles.card}>
+      <div className={styles.card2}>
         {deptSearch &&
         <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
-                onSearch={onSearchDept} />}
+                onSearch={onSearchDept} style={{marginTop: 24, marginLeft: 12, width: 322}}/>}
         {deptSearch && <br />}
         {!onDeptSearch && (
-          <Tree
+          <Tree style={{paddingLeft:5}}
             checkable={deptCheckBox && !radio}
             checkedKeys={makeCheckedKeys(deptTreeNode)}
             onSelect={onTreeSelect}
@@ -181,10 +181,10 @@ export default ({
             renderItem={item => {
               return (
                 <List.Item>
-                  <div className={styles.itemDiv}>
+                  <div className={styles.itemDiv2}>
                     {deptCheckBox &&
                     <Checkbox
-                      className={styles.checkbox}
+                      className={styles.checkbox2}
                       data={item}
                       checked={isDeptCheck(item)}
                       onChange={onDeptCheck}
@@ -197,7 +197,7 @@ export default ({
             }}
           />
         )}
-      </Card>
+      </div>
     </Col>
   )
 }

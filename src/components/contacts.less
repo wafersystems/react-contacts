@@ -1,94 +1,98 @@
-.rightAlign {
+.rightAlign2 {
   text-align: right;
 }
 
-.treeLeft {
-  padding-left: 10px;
+.treeLeft2 {
+  border-left: 0;
 }
 
-.card {
-  min-height: 347px;
-  max-height: 347px;
+.card2 {
+  min-height: 350px;
+  max-height: 350px;
   overflow-y: auto;
 
-  :global {
-    .ant-card-body {
-      padding: 16px 7px 7px 8px;
-    }
+  border: 1px solid #CCCCCC;
+  border-bottom-left-radius: 4px;
 
-    .ant-list-sm .ant-list-item {
-      padding-top: 4px;
-      padding-bottom: 4px;
-    }
-  }
 }
 
-.deptInfo {
+.tableDiv2 {
+  min-height: 350px;
+  max-height: 350px;
+  overflow-y: auto;
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  border-bottom-right-radius: 4px;
+
+}
+
+.deptInfo2 {
   height: 21px;
   font-size: 15px;
   font-weight: bold;
 }
 
-.itemDiv {
+.itemDiv2 {
   width: 100%;
 
-  .checkbox {
+  .checkbox2 {
     float: left;
   }
 
-  .deptName {
+  .deptName2 {
     float: right;
   }
 }
 
-.itemDiv:hover {
+.itemDiv2:hover {
   background: #E6F7FF;
 }
 
-.pagination {
+.pagination2 {
   width: 100%;
   margin-top: 9px;
 
-  .checkbox {
+  .checkbox2 {
     padding-left: 10px;
     float: left;
   }
 
-  .pageNoe {
+  .pageNoe2 {
     float: right;
   }
 }
 
-.label {
+.label2 {
   :global {
     .ant-form-item-label {
       line-height: 1;
+      height: 24px !important;
     }
   }
 }
 
-.resultDiv {
+.resultDiv2 {
   border: 1px solid #d9d9d9;
   background: white;
   width: 100%;
-  min-height: 100px;
-  max-height: 123px;
+  min-height: 113px;
+  max-height: 113px;
   overflow-x: hidden;
   overflow-y: auto;
 
-  .deptTag {
-    color: #1890FF;
-    background-color: #E6F7FF;
-    border: 1px solid #91D5FF;
+  .deptTag2 {
+    border-radius: 4px;
+    border: 1px solid rgba(230,86,83,0.20);
     margin-left: 10px;
+    background: rgba(230,86,83,0.20);;
   }
 
-  .userTag {
-    color: #375EEE;
-    background-color: rgba(55, 94, 238, 0.09);
+  .userTag2 {
     border-radius: 4px;
-    border: 1px solid #375EEE;
+    border: 1px solid rgba(230,86,83,0.20);
     margin-left: 10px;
+    background: rgba(230,86,83,0.20);;
   }
 
   :global {
@@ -96,4 +100,57 @@
       margin-bottom:2px
     }
   }
+}
+
+:global {
+  .ant-table-thead > tr > th {
+    padding: 6px 6px 5px !important;
+    border-bottom: 0 !important;
+    background: #F5F5F5 !important;
+    font-size: 14px !important;
+    color: #666666 !important;
+    font-weight: normal !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    padding: 6px 6px 5px !important;
+    border-bottom: 0 !important;
+  }
+
+  .ant-table-small {
+    border: 0 !important;
+  }
+
+  .ant-pagination-simple-pager{
+    input{
+      width: 24px;
+    }
+  }
+
+  .ant-select-dropdown-menu-item-selected{
+    color: #E65653;
+  }
+
+  .ant-tree-node-selected{
+    width: 83%;
+    span{
+      color: #fff;
+    }
+  }
+}
+
+:global(.ant-card-body::-webkit-scrollbar) {
+  width: 5px;
+  height: 5px;
+}
+
+/* 定义滑块 */
+:global(.ant-card-body::-webkit-scrollbar-thumb) {
+  background: rgba(230, 230, 230, 0.65);
+  border-radius: 19px;
+}
+
+/* 定义滚动条轨道 */
+:global(.ant-card-body::-webkit-scrollbar-track) {
+  background: #fff;
 }

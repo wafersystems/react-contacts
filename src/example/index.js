@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Contacts from '../components/contacts';
-import { deptTree, userList } from '../mockData';
+import { deptTree, userList,us } from '../mockData';
 
 const updateSelectUsers = userList => {
   console.log(userList)
@@ -26,8 +26,8 @@ ReactDOM.render(<div className="App"
     To get started, edit <code>src/App.js</code> and save to reload.
   </p>
   <div style={{ 'padding': '10px', 'margin': '10px', height: '100%' }}>
-    <Contacts deptTree={deptTree} users={userList} loading={false}
-              defaultUserSelected={users}
+    <Contacts deptTree={deptTree} users={us} loading={false}
+              // defaultUserSelected={users}
               deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
               updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectDept}
               defaultDeptSelected={dept} radio={false}

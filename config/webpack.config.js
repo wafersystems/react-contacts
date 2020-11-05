@@ -407,6 +407,17 @@ module.exports = function (webpackEnv) {
                 {
                   loader: "less-loader",
                   options: {
+                    modifyVars: {
+                      // 设置主要色
+                      '@primary-color': '#CCC',
+                      'table-row-hover-bg':'rgba(230,86,83,0.20)',
+                      'table-selected-row-bg':'rgba(230,86,83,0.20)',
+                      'checkbox-check-bg':'#E65653',
+                      'checkbox-color':'#E65653',
+                      'radio-dot-color': '#E65653',
+                      // 'checkbox-check-color':'#E65653',
+                      'tree-node-selected-bg':'#E65653',
+                    },
                     javascriptEnabled: true,
                   }
                 }
@@ -427,6 +438,17 @@ module.exports = function (webpackEnv) {
                 {
                   loader: "less-loader",
                   options: {
+                    modifyVars: {
+                      // 设置主要色
+                      '@primary-color': '#CCC',
+                      'table-row-hover-bg':'rgba(230,86,83,0.20)',
+                      'table-selected-row-bg':'rgba(230,86,83,0.20)',
+                      'checkbox-check-bg':'#E65653',
+                      'checkbox-color':'#E65653',
+                      'radio-dot-color': '#E65653',
+                      // 'checkbox-check-color':'#E65653',
+                      'tree-node-selected-bg':'#E65653',
+                    },
                     javascriptEnabled: true,
                   }
                 }
