@@ -449,16 +449,6 @@ export const us = {
     "positionName": "高级副总裁助理（高级主任）",
     "orgName": "区域管理及外事"
   }, {
-    "adAccount": "Yoyo.Zhang",
-    "accountName": "5855",
-    "chsName": "张碧怡",
-    "engName": "Yoyo",
-    "gradeName": "高级主任",
-    "gradeType": "主任级",
-    "positionType": 0,
-    "positionName": "副总裁助理（高级主任）",
-    "orgName": "行政支援"
-  }, {
     "adAccount": "Vanessa.Siu",
     "accountName": "0008495",
     "chsName": "蕭子君",

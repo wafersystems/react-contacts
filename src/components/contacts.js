@@ -7,7 +7,7 @@ import {
   Spin,
   Tag,
   Icon,
-  message,
+  message, Pagination,
 } from 'antd';
 
 import Right from './right';
@@ -22,7 +22,7 @@ const Contacts = (props) => {
     searchResult,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio,
-    checkStrictly,  nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip
+    checkStrictly, nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip,debug=false
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -72,7 +72,7 @@ const Contacts = (props) => {
         }}
       >
         {v[tableColumnsKey[0]]} <Icon type="close-circle" theme="filled"
-                               style={{width: 14, height: 14, color: '#E65653'}}/>
+                                      style={{width: 14, height: 14, color: '#E65653'}}/>
       </Tag>
     );
   };
@@ -89,21 +89,38 @@ const Contacts = (props) => {
     setSelectUser(userList);
   };
 
+
+  /**
+   * 翻页查询处理
+   * @param page
+   */
+  const onPageChange = page => {
+    if (debug) {
+      window.console.log(page)
+    }
+    if (handleSearchUser) {
+      handleSearchUser(page, nameKey, deptId);
+      setOnSearch(true);
+    } else {
+      message.error('search function not found.');
+    }
+  };
+
   const makeShowMsg = () => {
-      const tmp = totalShowText.split('$');
-      let font = '';
-      let end = '';
-      if (tmp.length === 2) {
-        font = tmp[0];
-        end = tmp[1];
-      } else {
-        font = totalShowText;
-      }
-      return (
-        <div>{font} <span
-          style={{color: numberColor}}>{ selectUser.length}</span> {end}
-        </div>
-      );
+    const tmp = totalShowText.split('$');
+    let font = '';
+    let end = '';
+    if (tmp.length === 2) {
+      font = tmp[0];
+      end = tmp[1];
+    } else {
+      font = totalShowText;
+    }
+    return (
+      <div>{font} <span
+        style={{color: numberColor}}>{selectUser.length}</span> {end}
+      </div>
+    );
   };
 
   let userData;
@@ -116,7 +133,7 @@ const Contacts = (props) => {
   return (
     <div style={{height: '', width: 690}}>
       <Spin spinning={loading}>
-        <div style={{height:350}}>
+        <div style={{height: 350}}>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
                 handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
@@ -128,8 +145,17 @@ const Contacts = (props) => {
                  workNumberNumber={workNumberNumber} tableColumnsKey={tableColumnsKey} tableRowKey={tableRowKey}
                  emptyTip={emptyTip}/>
         </div>
-
-          <Row style={{height: 150}}>
+        <div className={styles.pagination2}>
+          <Pagination
+            className={styles.pageNoe2}
+            simple
+            current={userData.current || 1}
+            pageSize={userData.size}
+            total={userData.total}
+            onChange={onPageChange}
+          />
+        </div>
+        <Row style={{height: 150}}>
           <Col span={24} style={{paddingTop: 8, paddingBottom: 0}}>
             <Form colon={false}>
               <Form.Item className={styles.label2} label={makeShowMsg()}>

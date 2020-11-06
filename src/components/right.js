@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Table, Col, Input, message, Pagination} from 'antd';
+import {Table, Col, Input} from 'antd';
 import styles from './contacts.less';
 
 import emptyImg from "./meeting_attendee_default.png";
@@ -7,10 +7,10 @@ import emptyImg from "./meeting_attendee_default.png";
 const {Search} = Input;
 
 export default ({
-                   searchUserPlaceholder, deptSearch, userData,
-                  handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
-                  setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
-                   nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip
+                  searchUserPlaceholder, deptSearch, userData,
+                  handleSearch, updateSelectUsers,
+                  setOnSearch, setNameKey, selectUser, setSelectUser,
+                  nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip
                 }) => {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -91,22 +91,6 @@ export default ({
   ];
 
 
-  /**
-   * 翻页查询处理
-   * @param page
-   */
-  const onPageChange = page => {
-    if (debug) {
-      window.console.log(page)
-    }
-    if (handleSearchUser) {
-      handleSearchUser(page, nameKey, deptId);
-      setOnSearch(true);
-    } else {
-      message.error('search function not found.');
-    }
-  };
-
   return (
     <Col xs={12} sm={12} md={12} lg={12} xl={12} className={styles.treeLeft2}>
       <div className={styles.tableDiv2}>
@@ -117,7 +101,7 @@ export default ({
                   onChange={handleSearchChange}
           />
         )}
-        <Table size={'small'} rowSelection={rowSelection} columns={columns} style={{marginTop:2}}
+        <Table size={'small'} rowSelection={rowSelection} columns={columns} style={{marginTop: 2, height: 200}}
                dataSource={userData.records} pagination={false} rowKey={record => record[tableRowKey]}
                locale={{
                  emptyText: <div style={{marginTop: 24}}><img alt={'f'} style={{width: 80, height: 80}} src={emptyImg}/><br/>
@@ -126,15 +110,6 @@ export default ({
                }}
         />
       </div>
-      <div className={styles.pagination2}>
-        <Pagination
-          className={styles.pageNoe2}
-          simple
-          current={userData.current || 1}
-          pageSize={userData.size}
-          total={userData.total}
-          onChange={onPageChange}
-        />
-      </div>
+
     </Col>)
 }

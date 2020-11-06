@@ -6,6 +6,8 @@ import 'antd/es/col/style';
 import _Col from 'antd/es/col';
 import 'antd/es/form/style';
 import _Form from 'antd/es/form';
+import 'antd/es/pagination/style';
+import _Pagination from 'antd/es/pagination';
 import 'antd/es/tag/style';
 import _Tag from 'antd/es/tag';
 import 'antd/es/icon/style';
@@ -14,8 +16,6 @@ import 'antd/es/message/style';
 import _message from 'antd/es/message';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import 'antd/es/pagination/style';
-import _Pagination from 'antd/es/pagination';
 import 'antd/es/table/style';
 import _Table from 'antd/es/table';
 import 'antd/es/input/style';
@@ -128,7 +128,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".contacts_rightAlign2__1Vi0R {\n  text-align: right;\n}\n.contacts_treeLeft2__10-iA {\n  border-left: 0;\n}\n.contacts_card2__3mLH8 {\n  min-height: 350px;\n  max-height: 350px;\n  overflow-y: hidden;\n  border: 1px solid #CCCCCC;\n  border-bottom-left-radius: 4px;\n}\n::-webkit-scrollbar {\n  width: 5px;\n  height: 5px;\n  background-color: lightgray;\n  background-clip: padding-box;\n}\n/* 定义滑块 */\n::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n/* 定义滚动条轨道 */\n::-webkit-scrollbar-track {\n  background: #fff;\n}\n.contacts_tableDiv2__2tjtF {\n  min-height: 350px;\n  max-height: 350px;\n  overflow-y: hidden;\n  overflow-x: hidden;\n  border-top: 1px solid #CCCCCC;\n  border-bottom: 1px solid #CCCCCC;\n  border-right: 1px solid #CCCCCC;\n  border-bottom-right-radius: 4px;\n}\n.contacts_deptInfo2__1pZoZ {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv2__1zZ2m {\n  width: 100%;\n}\n.contacts_itemDiv2__1zZ2m .contacts_checkbox2__qm5UD {\n  float: left;\n}\n.contacts_itemDiv2__1zZ2m .contacts_deptName2__1n2Vb {\n  float: right;\n}\n.contacts_itemDiv2__1zZ2m:hover {\n  background: #E6F7FF;\n}\n.contacts_pagination2__SYInS {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination2__SYInS .contacts_checkbox2__qm5UD {\n  padding-left: 10px;\n  float: left;\n}\n.contacts_pagination2__SYInS .contacts_pageNoe2__1v8d2 {\n  float: right;\n}\n.contacts_label2__17Eqn .ant-form-item-label {\n  line-height: 1;\n  height: 24px !important;\n}\n.contacts_resultDiv2__ToBcz {\n  border: 1px solid #d9d9d9;\n  background: white;\n  width: 100%;\n  min-height: 113px;\n  max-height: 113px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv2__ToBcz .contacts_deptTag2__sIxiX {\n  border-radius: 4px;\n  border: 1px solid rgba(230, 86, 83, 0.2);\n  margin-left: 10px;\n  background: rgba(230, 86, 83, 0.2);\n}\n.contacts_resultDiv2__ToBcz .contacts_userTag2__2kmhX {\n  border-radius: 4px;\n  border: 1px solid rgba(230, 86, 83, 0.2);\n  margin-left: 10px;\n  background: rgba(230, 86, 83, 0.2);\n}\n.contacts_resultDiv2__ToBcz .ant-form-item {\n  margin-bottom: 2px;\n}\n.ant-table-thead > tr > th {\n  padding: 6px 6px 5px !important;\n  border-bottom: 0 !important;\n  background: #F5F5F5 !important;\n  font-size: 14px !important;\n  color: #666666 !important;\n  font-weight: normal !important;\n}\n.ant-table-tbody > tr > td {\n  padding: 6px 6px 5px !important;\n  border-bottom: 0 !important;\n}\n.ant-table-small {\n  border: 0 !important;\n}\n.ant-pagination-simple-pager input {\n  width: 24px;\n}\n.ant-select-dropdown-menu-item-selected {\n  color: #E65653;\n}\n.ant-tree-node-selected {\n  width: 83%;\n}\n.ant-tree-node-selected span {\n  color: #fff;\n}\n";
+var css_248z = ".contacts_rightAlign2__1Vi0R {\n  text-align: right;\n}\n.contacts_treeLeft2__10-iA {\n  border-left: 0;\n}\n.contacts_card2__3mLH8 {\n  min-height: 350px;\n  max-height: 350px;\n  overflow-y: hidden;\n  border: 1px solid #CCCCCC;\n  border-bottom-left-radius: 4px;\n}\n::-webkit-scrollbar {\n  width: 5px;\n  height: 5px;\n  background-color: lightgray;\n  background-clip: padding-box;\n}\n/* 定义滑块 */\n::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n/* 定义滚动条轨道 */\n::-webkit-scrollbar-track {\n  background: #fff;\n}\n.contacts_tableDiv2__2tjtF {\n  min-height: 350px;\n  max-height: 350px;\n  overflow-y: hidden;\n  overflow-x: hidden;\n  border-top: 1px solid #CCCCCC;\n  border-bottom: 1px solid #CCCCCC;\n  border-right: 1px solid #CCCCCC;\n  border-bottom-right-radius: 4px;\n}\n.contacts_deptInfo2__1pZoZ {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv2__1zZ2m {\n  width: 100%;\n}\n.contacts_itemDiv2__1zZ2m .contacts_checkbox2__qm5UD {\n  float: left;\n}\n.contacts_itemDiv2__1zZ2m .contacts_deptName2__1n2Vb {\n  float: right;\n}\n.contacts_itemDiv2__1zZ2m:hover {\n  background: #E6F7FF;\n}\n.contacts_pagination2__SYInS {\n  width: 100%;\n  margin-top: 8px;\n  height: 24px;\n}\n.contacts_pagination2__SYInS .contacts_checkbox2__qm5UD {\n  padding-left: 10px;\n  float: left;\n}\n.contacts_pagination2__SYInS .contacts_pageNoe2__1v8d2 {\n  float: right;\n}\n.contacts_label2__17Eqn .ant-form-item-label {\n  line-height: 1;\n  height: 24px !important;\n}\n.contacts_resultDiv2__ToBcz {\n  border: 1px solid #d9d9d9;\n  background: white;\n  width: 100%;\n  min-height: 113px;\n  max-height: 113px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv2__ToBcz .contacts_deptTag2__sIxiX {\n  border-radius: 4px;\n  border: 1px solid rgba(230, 86, 83, 0.2);\n  margin-left: 10px;\n  background: rgba(230, 86, 83, 0.2);\n}\n.contacts_resultDiv2__ToBcz .contacts_userTag2__2kmhX {\n  border-radius: 4px;\n  border: 1px solid rgba(230, 86, 83, 0.2);\n  margin-left: 10px;\n  background: rgba(230, 86, 83, 0.2);\n}\n.contacts_resultDiv2__ToBcz .ant-form-item {\n  margin-bottom: 2px;\n}\n.ant-table-thead > tr > th {\n  padding: 6px 6px 5px !important;\n  border-bottom: 0 !important;\n  background: #F5F5F5 !important;\n  font-size: 14px !important;\n  color: #666666 !important;\n  font-weight: normal !important;\n}\n.ant-table-tbody > tr > td {\n  padding: 6px 6px 5px !important;\n  border-bottom: 0 !important;\n}\n.ant-table-small {\n  border: 0 !important;\n}\n.ant-pagination-simple-pager input {\n  width: 24px;\n}\n.ant-select-dropdown-menu-item-selected {\n  color: #E65653;\n}\n.ant-tree-node-selected {\n  width: 83%;\n}\n.ant-tree-node-selected span {\n  color: #fff;\n}\n";
 var styles = {"rightAlign2":"contacts_rightAlign2__1Vi0R","treeLeft2":"contacts_treeLeft2__10-iA","card2":"contacts_card2__3mLH8","tableDiv2":"contacts_tableDiv2__2tjtF","deptInfo2":"contacts_deptInfo2__1pZoZ","itemDiv2":"contacts_itemDiv2__1zZ2m","checkbox2":"contacts_checkbox2__qm5UD","deptName2":"contacts_deptName2__1n2Vb","pagination2":"contacts_pagination2__SYInS","pageNoe2":"contacts_pageNoe2__1v8d2","label2":"contacts_label2__17Eqn","resultDiv2":"contacts_resultDiv2__ToBcz","deptTag2":"contacts_deptTag2__sIxiX","userTag2":"contacts_userTag2__2kmhX"};
 styleInject(css_248z);
 
@@ -140,13 +140,8 @@ var Right = (function (_ref) {
       deptSearch = _ref.deptSearch,
       userData = _ref.userData,
       handleSearch = _ref.handleSearch,
-      handleSearchUser = _ref.handleSearchUser,
-      deptId = _ref.deptId,
       updateSelectUsers = _ref.updateSelectUsers,
-      _ref$debug = _ref.debug,
-      debug = _ref$debug === void 0 ? false : _ref$debug,
       setOnSearch = _ref.setOnSearch,
-      nameKey = _ref.nameKey,
       setNameKey = _ref.setNameKey,
       selectUser = _ref.selectUser,
       setSelectUser = _ref.setSelectUser,
@@ -237,24 +232,6 @@ var Right = (function (_ref) {
     title: workNumberNumber,
     dataIndex: tableColumnsKey[1]
   }];
-  /**
-   * 翻页查询处理
-   * @param page
-   */
-
-  var onPageChange = function onPageChange(page) {
-    if (debug) {
-      window.console.log(page);
-    }
-
-    if (handleSearchUser) {
-      handleSearchUser(page, nameKey, deptId);
-      setOnSearch(true);
-    } else {
-      _message.error('search function not found.');
-    }
-  };
-
   return /*#__PURE__*/React.createElement(_Col, {
     xs: 12,
     sm: 12,
@@ -278,7 +255,8 @@ var Right = (function (_ref) {
     rowSelection: rowSelection,
     columns: columns,
     style: {
-      marginTop: 2
+      marginTop: 2,
+      height: 200
     },
     dataSource: userData.records,
     pagination: false,
@@ -307,15 +285,6 @@ var Right = (function (_ref) {
         }
       }, emptyTip))
     }
-  })), /*#__PURE__*/React.createElement("div", {
-    className: styles.pagination2
-  }, /*#__PURE__*/React.createElement(_Pagination, {
-    className: styles.pageNoe2,
-    simple: true,
-    current: userData.current || 1,
-    pageSize: userData.size,
-    total: userData.total,
-    onChange: onPageChange
   })));
 });
 
@@ -637,7 +606,9 @@ var Contacts = function Contacts(props) {
       workNumberNumber = props.workNumberNumber,
       tableColumnsKey = props.tableColumnsKey,
       tableRowKey = props.tableRowKey,
-      emptyTip = props.emptyTip;
+      emptyTip = props.emptyTip,
+      _props$debug = props.debug,
+      debug = _props$debug === void 0 ? false : _props$debug;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -729,6 +700,24 @@ var Contacts = function Contacts(props) {
     updateSelectUsers(userList);
     setSelectUser(userList);
   };
+  /**
+   * 翻页查询处理
+   * @param page
+   */
+
+
+  var onPageChange = function onPageChange(page) {
+    if (debug) {
+      window.console.log(page);
+    }
+
+    if (handleSearchUser) {
+      handleSearchUser(page, nameKey, deptId);
+      setOnSearch(true);
+    } else {
+      _message.error('search function not found.');
+    }
+  };
 
   var makeShowMsg = function makeShowMsg() {
     var tmp = totalShowText.split('$');
@@ -795,7 +784,16 @@ var Contacts = function Contacts(props) {
     tableColumnsKey: tableColumnsKey,
     tableRowKey: tableRowKey,
     emptyTip: emptyTip
-  }))), /*#__PURE__*/React.createElement(_Row, {
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: styles.pagination2
+  }, /*#__PURE__*/React.createElement(_Pagination, {
+    className: styles.pageNoe2,
+    simple: true,
+    current: userData.current || 1,
+    pageSize: userData.size,
+    total: userData.total,
+    onChange: onPageChange
+  })), /*#__PURE__*/React.createElement(_Row, {
     style: {
       height: 150
     }
