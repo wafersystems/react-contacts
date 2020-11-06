@@ -468,4 +468,175 @@ export const us = {
     "positionType": 0,
     "positionName": "总裁助理",
     "orgName": "爽乐行政总裁办公室"
-  }], "total": 15, "size": 9, "current": 1, "searchCount": true, "pages": 2}
+  }], "total": 15, "size": 9, "current": 1, "searchCount": true, "pages": 2
+}
+
+export const tree = [{
+  "name": "主席兼行政总裁",
+  "type": 0,
+  "id": -952998653,
+  "parentId": -1,
+  "children": [{"name": "主席兼行政总裁", "type": 1, "id": -952998653, "parentId": -952998653, "children": []}]
+}, {
+  "name": "副总裁级",
+  "type": 0,
+  "id": 653471410,
+  "parentId": -1,
+  "children": [{"name": "高级副总裁", "type": 1, "id": -1059340954, "parentId": 653471410, "children": []}, {
+    "name": "副总裁",
+    "type": 1,
+    "id": 21078677,
+    "parentId": 653471410,
+    "children": []
+  }, {"name": "集团副总裁", "type": 1, "id": 1970015289, "parentId": 653471410, "children": []}, {
+    "name": "集团高级副总裁",
+    "type": 1,
+    "id": -736997878,
+    "parentId": 653471410,
+    "children": []
+  }, {"name": "行政总裁", "type": 1, "id": 1065174425, "parentId": 653471410, "children": []}]
+}, {
+  "name": "非编制人员",
+  "type": 0,
+  "id": -1878174948,
+  "parentId": -1,
+  "children": [{"name": "职员", "type": 1, "id": 1039756, "parentId": -1878174948, "children": []}, {
+    "name": "null",
+    "type": 1,
+    "id": 3392903,
+    "parentId": -1878174948,
+    "children": []
+  }, {"name": "-", "type": 1, "id": 45, "parentId": -1878174948, "children": []}]
+}, {
+  "name": "职员级",
+  "type": 0,
+  "id": 32264859,
+  "parentId": -1,
+  "children": [{"name": "高级职员", "type": 1, "id": 1213113499, "parentId": 32264859, "children": []}, {
+    "name": "T2",
+    "type": 1,
+    "id": 2654,
+    "parentId": 32264859,
+    "children": []
+  }, {"name": "职员", "type": 1, "id": 1039756, "parentId": 32264859, "children": []}, {
+    "name": "T1",
+    "type": 1,
+    "id": 2653,
+    "parentId": 32264859,
+    "children": []
+  }, {"name": "P2", "type": 1, "id": 2530, "parentId": 32264859, "children": []}]
+}, {
+  "name": "主任级",
+  "type": 0,
+  "id": 19905159,
+  "parentId": -1,
+  "children": [{"name": "P4", "type": 1, "id": 2532, "parentId": 19905159, "children": []}, {
+    "name": "主任",
+    "type": 1,
+    "id": 641056,
+    "parentId": 19905159,
+    "children": []
+  }, {"name": "P3", "type": 1, "id": 2531, "parentId": 19905159, "children": []}, {
+    "name": "副主任",
+    "type": 1,
+    "id": 20921039,
+    "parentId": 19905159,
+    "children": []
+  }, {"name": "主任审批", "type": 1, "id": 616807192, "parentId": 19905159, "children": []}, {
+    "name": "T4",
+    "type": 1,
+    "id": 2656,
+    "parentId": 19905159,
+    "children": []
+  }, {"name": "T5", "type": 1, "id": 2657, "parentId": 19905159, "children": []}, {
+    "name": "高级主任",
+    "type": 1,
+    "id": 1212714799,
+    "parentId": 19905159,
+    "children": []
+  }, {"name": "T3", "type": 1, "id": 2655, "parentId": 19905159, "children": []}, {
+    "name": "P5",
+    "type": 1,
+    "id": 2533,
+    "parentId": 19905159,
+    "children": []
+  }]
+}, {
+  "name": "工人级",
+  "type": 0,
+  "id": 23756754,
+  "parentId": -1,
+  "children": [{"name": "工人", "type": 1, "id": 765301, "parentId": 23756754, "children": []}]
+}, {
+  "name": "总监级",
+  "type": 0,
+  "id": 24649585,
+  "parentId": -1,
+  "children": [{"name": "代理总监", "type": 1, "id": 630966969, "parentId": 24649585, "children": []}, {
+    "name": "总监",
+    "type": 1,
+    "id": 794102,
+    "parentId": 24649585,
+    "children": []
+  }, {"name": "策略顾问", "type": 1, "id": 970750527, "parentId": 24649585, "children": []}, {
+    "name": "高级顾问",
+    "type": 1,
+    "id": 1213322303,
+    "parentId": 24649585,
+    "children": []
+  }]
+}, {
+  "name": "经理级",
+  "type": 0,
+  "id": 32150128,
+  "parentId": -1,
+  "children": [{"name": "P7", "type": 1, "id": 2535, "parentId": 32150128, "children": []}, {
+    "name": "经理",
+    "type": 1,
+    "id": 1036055,
+    "parentId": 32150128,
+    "children": []
+  }, {"name": "T6", "type": 1, "id": 2658, "parentId": 32150128, "children": []}, {
+    "name": "顾问",
+    "type": 1,
+    "id": 1248560,
+    "parentId": 32150128,
+    "children": []
+  }, {"name": "副经理", "type": 1, "id": 21316038, "parentId": 32150128, "children": []}, {
+    "name": "P6",
+    "type": 1,
+    "id": 2534,
+    "parentId": 32150128,
+    "children": []
+  }, {"name": "高级经理", "type": 1, "id": 1213109798, "parentId": 32150128, "children": []}, {
+    "name": "P8",
+    "type": 1,
+    "id": 2536,
+    "parentId": 32150128,
+    "children": []
+  }, {"name": "T7", "type": 1, "id": 2659, "parentId": 32150128, "children": []}, {
+    "name": "负责人L",
+    "type": 1,
+    "id": 1111606198,
+    "parentId": 32150128,
+    "children": []
+  }, {"name": "T8", "type": 1, "id": 2660, "parentId": 32150128, "children": []}]
+}, {
+  "name": "总经理级",
+  "type": 0,
+  "id": 766051413,
+  "parentId": -1,
+  "children": [{"name": "总经理", "type": 1, "id": 24710290, "parentId": 766051413, "children": []}, {
+    "name": "首席工程师",
+    "type": 1,
+    "id": -1601383605,
+    "parentId": 766051413,
+    "children": []
+  }, {"name": "资深顾问", "type": 1, "id": 1105657629, "parentId": 766051413, "children": []}, {
+    "name": "T10",
+    "type": 1,
+    "id": 82291,
+    "parentId": 766051413,
+    "children": []
+  }]
+}]

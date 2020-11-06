@@ -9,17 +9,36 @@
 .card2 {
   min-height: 350px;
   max-height: 350px;
-  overflow-y: auto;
-
+  overflow-y: hidden;
   border: 1px solid #CCCCCC;
   border-bottom-left-radius: 4px;
 
+
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: lightgray;
+  background-clip: padding-box;
+}
+
+/* 定义滑块 */
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.45);
+  border-radius: 19px;
+}
+
+/* 定义滚动条轨道 */
+::-webkit-scrollbar-track {
+  background: #fff;
 }
 
 .tableDiv2 {
   min-height: 350px;
   max-height: 350px;
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
   border-top: 1px solid #CCCCCC;
   border-bottom: 1px solid #CCCCCC;
   border-right: 1px solid #CCCCCC;
@@ -139,18 +158,3 @@
   }
 }
 
-:global(.ant-card-body::-webkit-scrollbar) {
-  width: 5px;
-  height: 5px;
-}
-
-/* 定义滑块 */
-:global(.ant-card-body::-webkit-scrollbar-thumb) {
-  background: rgba(230, 230, 230, 0.65);
-  border-radius: 19px;
-}
-
-/* 定义滚动条轨道 */
-:global(.ant-card-body::-webkit-scrollbar-track) {
-  background: #fff;
-}

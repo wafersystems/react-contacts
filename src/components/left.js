@@ -162,7 +162,7 @@ export default ({
                 onSearch={onSearchDept} style={{marginTop: 24, marginLeft: 12, width: 322}}/>}
         {deptSearch && <br />}
         {!onDeptSearch && (
-          <Tree style={{paddingLeft:5}}
+          <Tree style={{paddingLeft:5,overflow:"auto",height:285}}
             checkable={deptCheckBox && !radio}
             checkedKeys={makeCheckedKeys(deptTreeNode)}
             onSelect={onTreeSelect}
