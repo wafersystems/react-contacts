@@ -156,9 +156,15 @@ const Contacts = (props) => {
       } else {
         font = totalShowText;
       }
+      let length=0;
+      if(!showAllDeptTags){
+        length = filterDeptTagShow(deptTreeNode).length + selectUser.length
+      }else {
+        length = deptTreeNode.length + selectUser.length
+      }
       return (
         <div>{font} <span
-          style={{ color: numberColor }}>{deptTreeNode.length + selectUser.length}</span> {end}
+          style={{ color: numberColor }}>{length}</span> {end}
         </div>
       );
     } else {
