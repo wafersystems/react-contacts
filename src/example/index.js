@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Contacts from '../components/contacts';
-import { deptTree, userList,us,tree } from '../mockData';
+import {  userList,us,tree } from '../mockData';
 
 const updateSelectUsers = userList => {
   console.log(userList)
@@ -10,10 +10,6 @@ const updateSelectUsers = userList => {
 const updateSelectDept = deptList => {
   console.log(deptList)
 };
-
-const users = [
-  { userId: 101,username:'admin1' }, { userId: 11,username: 'admin01' }
-];
 
 const dept = [{"id":1,"parentId":0,name:"山东农信"}];
 
@@ -27,6 +23,7 @@ ReactDOM.render(<div className="App"
   </p>
   <div style={{ 'padding': '10px', 'margin': '10px', height: '100%' }}>
     <Contacts deptTree={tree} users={us} loading={false}
+              debug={true}
               // defaultUserSelected={users}
               deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
               updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectDept}
