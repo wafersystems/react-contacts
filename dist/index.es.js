@@ -149,7 +149,8 @@ var Right = (function (_ref) {
       workNumberNumber = _ref.workNumberNumber,
       tableColumnsKey = _ref.tableColumnsKey,
       tableRowKey = _ref.tableRowKey,
-      emptyTip = _ref.emptyTip;
+      emptyTip = _ref.emptyTip,
+      tableCheckboxDisabled = _ref.tableCheckboxDisabled;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -222,7 +223,18 @@ var Right = (function (_ref) {
     selectedRowKeys: selectedRowKeys,
     onSelect: onSelect,
     onSelectAll: onSelectAll,
-    columnWidth: 20
+    columnWidth: 20,
+    getCheckboxProps: function getCheckboxProps(record) {
+      if (tableCheckboxDisabled.length === 0) {
+        return {
+          disabled: false
+        };
+      }
+
+      return {
+        disabled: tableCheckboxDisabled.indexOf(record[tableRowKey]) !== -1
+      };
+    }
   };
   var columns = [{
     title: nameText,
@@ -608,7 +620,8 @@ var Contacts = function Contacts(props) {
       tableRowKey = props.tableRowKey,
       emptyTip = props.emptyTip,
       _props$debug = props.debug,
-      debug = _props$debug === void 0 ? false : _props$debug;
+      debug = _props$debug === void 0 ? false : _props$debug,
+      tableCheckboxDisabled = props.tableCheckboxDisabled;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -783,7 +796,8 @@ var Contacts = function Contacts(props) {
     workNumberNumber: workNumberNumber,
     tableColumnsKey: tableColumnsKey,
     tableRowKey: tableRowKey,
-    emptyTip: emptyTip
+    emptyTip: emptyTip,
+    tableCheckboxDisabled: tableCheckboxDisabled
   }))), /*#__PURE__*/React.createElement("div", {
     className: styles.pagination2
   }, /*#__PURE__*/React.createElement(_Pagination, {
@@ -840,7 +854,8 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode: PropTypes.bool
+  returnReducedNode: PropTypes.bool,
+  tableCheckboxDisabled: PropTypes.array
 };
 Contacts.defaultProps = {
   users: {
@@ -871,7 +886,8 @@ Contacts.defaultProps = {
   workNumberNumber: '工号',
   tableColumnsKey: ['chsName', 'accountName'],
   tableRowKey: 'accountName',
-  emptyTip: '什么都没有哦~'
+  emptyTip: '什么都没有哦~',
+  tableCheckboxDisabled: []
 };
 
 export default Contacts;

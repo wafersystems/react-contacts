@@ -22,7 +22,8 @@ const Contacts = (props) => {
     searchResult,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio,
-    checkStrictly, nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip,debug=false
+    checkStrictly, nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip,debug=false,
+    tableCheckboxDisabled
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -143,7 +144,7 @@ const Contacts = (props) => {
                  handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
                  setSelectUser={setSelectUser} radio={radio} nameText={nameText}
                  workNumberNumber={workNumberNumber} tableColumnsKey={tableColumnsKey} tableRowKey={tableRowKey}
-                 emptyTip={emptyTip}/>
+                 emptyTip={emptyTip} tableCheckboxDisabled={tableCheckboxDisabled}/>
         </div>
         <div className={styles.pagination2}>
           <Pagination
@@ -199,7 +200,8 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode: PropTypes.bool
+  returnReducedNode: PropTypes.bool,
+  tableCheckboxDisabled: PropTypes.array
 };
 
 Contacts.defaultProps = {
@@ -232,6 +234,7 @@ Contacts.defaultProps = {
   tableColumnsKey: ['chsName', 'accountName'],
   tableRowKey: 'accountName',
   emptyTip: '什么都没有哦~',
+  tableCheckboxDisabled:[]
 };
 
 export default Contacts;

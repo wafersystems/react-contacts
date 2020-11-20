@@ -10,7 +10,7 @@ export default ({
                   searchUserPlaceholder, deptSearch, userData,
                   handleSearch, updateSelectUsers,
                   setOnSearch, setNameKey, selectUser, setSelectUser,
-                  nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip
+                  nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip,tableCheckboxDisabled
                 }) => {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -75,7 +75,13 @@ export default ({
     selectedRowKeys,
     onSelect: onSelect,
     onSelectAll: onSelectAll,
-    columnWidth: 20
+    columnWidth: 20,
+    getCheckboxProps: record => {
+      if (tableCheckboxDisabled.length === 0) {
+        return {disabled: false}
+      }
+      return {disabled: tableCheckboxDisabled.indexOf(record[tableRowKey]) !== -1}
+    }
   };
 
   const columns = [
