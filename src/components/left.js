@@ -89,7 +89,7 @@ export default ({
     const tmp = [];
     checkedNodes.forEach(v => {
       const {
-        props: { data },
+        data
       } = v;
       tmp.push(data);
     });

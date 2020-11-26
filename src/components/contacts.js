@@ -207,7 +207,7 @@ const Contacts = (props) => {
                  handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
                  setSelectUser={setSelectUser} radio={radio} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form colon={false}>
+            <Form colon={false}  layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
                 {!radio &&
                 <div className={styles.resultDiv}>
