@@ -60,7 +60,7 @@ export default ({
    * @return {*}
    */
   const makeCheckedKeys = data => {
-    return data.map(v => v.id);
+    return data.map(v => v.id.toString());
   };
 
   /**
@@ -153,6 +153,7 @@ export default ({
       message.error('search function not found.');
     }
   };
+  console.log(deptTreeNode)
 
   return (
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
