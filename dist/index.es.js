@@ -516,7 +516,7 @@ var Left = (function (_ref) {
 
   var makeCheckedKeys = function makeCheckedKeys(data) {
     return data.map(function (v) {
-      return v.id;
+      return v.id.toString();
     });
   };
   /**
@@ -629,6 +629,7 @@ var Left = (function (_ref) {
     }
   };
 
+  console.log(deptTreeNode);
   return /*#__PURE__*/React.createElement(_Col, {
     xs: 12,
     sm: 12,
