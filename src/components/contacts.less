@@ -44,6 +44,32 @@
   border-right: 1px solid #CCCCCC;
   border-bottom-right-radius: 4px;
 
+  :global {
+    .ant-table-thead > tr > th {
+      padding: 6px 6px 5px !important;
+      border-bottom: 0 !important;
+      background: #F5F5F5 !important;
+      font-size: 14px !important;
+      color: #666666 !important;
+      font-weight: normal !important;
+    }
+
+    .ant-table-tbody > tr > td {
+      padding: 6px 6px 5px !important;
+      border-bottom: 0 !important;
+    }
+
+    .ant-table-small {
+      border: 0 !important;
+    }
+
+    .ant-pagination-simple-pager {
+      input {
+        width: 24px;
+      }
+    }
+  }
+
 }
 
 .deptInfo2 {
@@ -123,30 +149,6 @@
 }
 
 :global {
-  .ant-table-thead > tr > th {
-    padding: 6px 6px 5px !important;
-    border-bottom: 0 !important;
-    background: #F5F5F5 !important;
-    font-size: 14px !important;
-    color: #666666 !important;
-    font-weight: normal !important;
-  }
-
-  .ant-table-tbody > tr > td {
-    padding: 6px 6px 5px !important;
-    border-bottom: 0 !important;
-  }
-
-  .ant-table-small {
-    border: 0 !important;
-  }
-
-  .ant-pagination-simple-pager{
-    input{
-      width: 24px;
-    }
-  }
-
   .ant-select-dropdown-menu-item-selected{
     color: #E65653;
   }
