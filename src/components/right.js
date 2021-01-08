@@ -173,7 +173,7 @@ export default ({
           />
         )}
         {deptSearch && <br />}
-        <List
+        <List className={styles.list}
           size="small"
           bordered={false}
           dataSource={userData.records}
