@@ -3,6 +3,37 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.0.3] - 2020-11-26
+
+### Added
+
+- none
+
+### Changed
+
+- fix 默认查询时部门和nameKey缺失问题
+
+### Removed
+
+- none
+
+&nbsp;
+
+## [1.0.2] - 2021-01-08
+
+### Added
+
+- none
+
+### Changed
+
+- fix 部门过长显示问题
+
+### Removed
+
+- none
+
+&nbsp;
 
 ## [1.0.1] - 2020-11-26
 
