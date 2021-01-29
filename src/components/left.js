@@ -8,7 +8,7 @@ const { Search } = Input;
 export default ({
                   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
                   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-                  updateSelectDept, deptNameKey, radio, checkStrictly,returnReducedNode
+                  updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey
                 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -70,7 +70,7 @@ export default ({
   const onTreeSelect = selectedKeys => {
     if (handleSearchUser) {
       const [deptId] = selectedKeys;
-      handleSearchUser(0, null, deptId);
+      handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
       setDeptId(deptId);
     } else {

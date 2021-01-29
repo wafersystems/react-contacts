@@ -56,7 +56,7 @@ const Contacts = (props) => {
    */
   const handleSearch = (nameKey = null) => {
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, null);
+      handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
       setNameKey(nameKey);
     } else {
@@ -201,7 +201,7 @@ const Contacts = (props) => {
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
                 handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} />
+                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
                  handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}

@@ -459,7 +459,8 @@ var Left = (function (_ref) {
       deptNameKey = _ref.deptNameKey,
       radio = _ref.radio,
       checkStrictly = _ref.checkStrictly,
-      returnReducedNode = _ref.returnReducedNode;
+      returnReducedNode = _ref.returnReducedNode,
+      nameKey = _ref.nameKey;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -536,7 +537,7 @@ var Left = (function (_ref) {
       var _selectedKeys = _slicedToArray(selectedKeys, 1),
           deptId = _selectedKeys[0];
 
-      handleSearchUser(0, null, deptId);
+      handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
       setDeptId(deptId);
     } else {
@@ -746,7 +747,7 @@ var Contacts = function Contacts(props) {
     var nameKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, null);
+      handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
       setNameKey(nameKey);
     } else {
@@ -913,7 +914,8 @@ var Contacts = function Contacts(props) {
     checkStrictly: checkStrictly,
     updateSelectDept: updateSelectDept,
     deptNameKey: deptNameKey,
-    radio: radio
+    radio: radio,
+    nameKey: nameKey
   })), /*#__PURE__*/React__default.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,

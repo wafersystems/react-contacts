@@ -17,6 +17,11 @@ const users = [
 
 const dept = [{"id":1,"parentId":0,name:"山东农信"}];
 
+const handleSearchUser = (a,b,c)=>{
+  console.log(a,b,c)
+  return userList;
+}
+
 ReactDOM.render(<div className="App"
                      style={{ 'padding': '10px', 'margin': '10px', height: '100%' }}>
   <header className="App-header">
@@ -29,7 +34,7 @@ ReactDOM.render(<div className="App"
     <Contacts deptTree={deptTree} users={userList} loading={false}
               defaultUserSelected={users}
               deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
-              updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectDept}
+              updateSelectUsers={updateSelectUsers} handleSearchUser={handleSearchUser} updateSelectDept={updateSelectDept}
               defaultDeptSelected={dept} radio={false}
     />
   </div>
