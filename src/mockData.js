@@ -75,7 +75,7 @@ export const userList = {
       avatar: 'lengleng-0d2a7b025da14d8d93f595b3fa082d82.jpg',
       deptId: 1,
       tenantId: 1,
-      deptName: '真理部',
+      deptName: '真理部真理部真理部真理部真理部真理部真理部真理部真理部真理部真理部',
       roleList: [
         {
           roleId: 1,
@@ -376,3 +376,12 @@ export const userList = {
   searchCount: true,
   pages: 1,
 };
+
+export const u2 = {
+  records: [],
+  total: 0,
+  size: 10,
+  current: 1,
+  searchCount: true,
+  pages: 1,
+}

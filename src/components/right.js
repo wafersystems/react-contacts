@@ -173,7 +173,7 @@ export default ({
           />
         )}
         {deptSearch && <br />}
-        <List className={styles.list}
+        <List className={userData.records.length === 0 ?styles.listEmpty: styles.list}
           size="small"
           bordered={false}
           dataSource={userData.records}

@@ -164,6 +164,7 @@ export default ({
         {deptSearch && <br />}
         {!onDeptSearch && (
           <Tree
+              // style={{paddingTop:5}}
             checkable={deptCheckBox && !radio}
             checkedKeys={makeCheckedKeys(deptTreeNode)}
             onSelect={onTreeSelect}
