@@ -13,6 +13,7 @@ import {
 
 import Right from './right';
 import Left from './left';
+import DndWrapper from './dnd/index'
 import { filterDeptTagShow } from '../utils';
 import styles from './contacts.less';
 
@@ -213,7 +214,11 @@ const Contacts = (props) => {
                 <div className={styles.resultDiv}>
                   {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
                   {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
-                  {selectUser && selectUser.map(v => makeUserTag(v))}
+                  {/* {selectUser && selectUser.map(v => makeUserTag(v))} */}
+                  <DndWrapper 
+                     data={selectUser}
+                     unCheckUser={unCheckUser}
+                  />
                 </div>
                 }
               </Form.Item>
