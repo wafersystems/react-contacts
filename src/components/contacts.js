@@ -30,7 +30,7 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags
+    checkStrictly, showAllDeptTags,showLeft
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -198,14 +198,14 @@ const Contacts = (props) => {
         )}
         {userSearch && <br />}
         <Row>
-          <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
+          {showLeft && <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
                 handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />
+                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />}
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
                  handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
-                 setSelectUser={setSelectUser} radio={radio} />
+                 setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false}  layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
@@ -251,7 +251,9 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode:PropTypes.bool
+  returnReducedNode:PropTypes.bool,
+  // 显示左边部门树
+  showLeft:PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -278,7 +280,9 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode:false
+  returnReducedNode:false,
+  // 显示左边部门树，默认显示
+  showLeft:true
 };
 
 export default Contacts;
