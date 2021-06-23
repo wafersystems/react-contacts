@@ -56,7 +56,7 @@ const Contacts = (props) => {
    */
   const handleSearch = (nameKey = null) => {
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, null);
+      handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
       setNameKey(nameKey);
     } else {

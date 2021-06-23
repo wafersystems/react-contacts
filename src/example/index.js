@@ -29,7 +29,13 @@ ReactDOM.render(<div className="App"
     <Contacts deptTree={deptTree} users={userList} loading={false}
               defaultUserSelected={users}
               deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
-              updateSelectUsers={updateSelectUsers} handleSearchUser={() => userList} updateSelectDept={updateSelectDept}
+              updateSelectUsers={updateSelectUsers}
+              handleSearchUser={(page,nameKey,depId) => {
+                console.log(page,nameKey,depId);
+                return userList;
+                }
+              }
+              updateSelectDept={updateSelectDept}
               defaultDeptSelected={dept} radio={false}
     />
   </div>
