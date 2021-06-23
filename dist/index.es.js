@@ -56,14 +56,17 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
   var _arr = [];
   var _n = true;
   var _d = false;
-  var _e = undefined;
+
+  var _s, _e;
 
   try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
       _arr.push(_s.value);
 
       if (i && _arr.length === i) break;
@@ -740,7 +743,7 @@ var Contacts = function Contacts(props) {
     var nameKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, null);
+      handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
       setNameKey(nameKey);
     } else {
