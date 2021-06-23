@@ -1,14 +1,21 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { Tag } from 'antd'
 
-const ItemTypes='card'
+const ItemTypes = 'card'
 const style = {
   padding: "0.5rem 1rem",
   marginBottom: ".5rem",
-  backgroundColor: "white",
-  cursor: "move"
+  // backgroundColor: "white",
+  cursor: "move",
+  color: '#375EEE',
+  backgroundColor: 'rgba(55, 94, 238, 0.09)',
+  borderRadius: '4px',
+  border: '1px solid #375EEE',
+  marginLeft: '10px',
+  marginTop: '8px'
 };
- const Card = ({ id, text, index, moveCard }) => {
+const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
   const ref = useRef(null);
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes,
@@ -28,7 +35,7 @@ const style = {
         return;
       }
       // Determine rectangle on screen
-      const hoverBoundingRect = ref.current&&ref.current.getBoundingClientRect();
+      const hoverBoundingRect = ref.current && ref.current.getBoundingClientRect();
       // Get vertical middle
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -68,11 +75,11 @@ const style = {
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
   return (
-    <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
+    <Tag onClick={() => { unCheckUser(card) }} ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
       {text}
-    </div>
+    </Tag>
   );
 };
-export   {
+export {
   Card
 }

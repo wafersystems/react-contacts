@@ -1,58 +1,63 @@
-import React,{ useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Card } from "./card";
 import update from "immutability-helper";
 const style = {
   // width: 400,
   display: "flex"
 };
- const Container = ({data,unCheckUser}) => {
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      text: "Write a cool JS library"
-    },
-    {
-      id: 2,
-      text: "Make it generic enough"
-    },
-    {
-      id: 3,
-      text: "Write README"
-    },
-    {
-      id: 4,
-      text: "Create some examples"
-    },
-    {
-      id: 5,
-      text:
-        "Spam in Twitter and IRC to promote it (note that this element is taller than the others)"
-    },
-    {
-      id: 6,
-      text: "???"
-    },
-    {
-      id: 7,
-      text: "PROFIT"
-    },
-    {
-      id: 8,
-      text: "PROFIT"
-    },
-    {
-      id: 9,
-      text: "PROFIT"
-    },
-    {
-      id: 10,
-      text: "PROFIT"
-    },
-    {
-      id: 11,
-      text: "PROFIT"
-    }
-  ]);
+const Container = ({ data, unCheckUser }) => {
+  console.log(data, 'data')
+  const [cards, setCards] = useState(data.map(item => ({
+    id: item.userId,
+    text: item.username
+  })));
+  // const [cards, setCards] = useState([
+  //   {
+  //     id: 1,
+  //     text: "Write a cool JS library"
+  //   },
+  //   {
+  //     id: 2,
+  //     text: "Make it generic enough"
+  //   },
+  //   {
+  //     id: 3,
+  //     text: "Write README"
+  //   },
+  //   {
+  //     id: 4,
+  //     text: "Create some examples"
+  //   },
+  //   {
+  //     id: 5,
+  //     text:
+  //       "Spam in Twitter and IRC to promote it (note that this element is taller than the others)"
+  //   },
+  //   {
+  //     id: 6,
+  //     text: "???"
+  //   },
+  //   {
+  //     id: 7,
+  //     text: "PROFIT"
+  //   },
+  //   {
+  //     id: 8,
+  //     text: "PROFIT"
+  //   },
+  //   {
+  //     id: 9,
+  //     text: "PROFIT"
+  //   },
+  //   {
+  //     id: 10,
+  //     text: "PROFIT"
+  //   },
+  //   {
+  //     id: 11,
+  //     text: "PROFIT"
+  //   }
+  // ]);
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = cards[dragIndex];
@@ -70,6 +75,8 @@ const style = {
   const renderCard = (card, index) => {
     return (
       <Card
+        unCheckUser={unCheckUser}
+        card={card}
         key={card.id}
         index={index}
         id={card.id}

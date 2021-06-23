@@ -101,6 +101,7 @@ const Contacts = (props) => {
    * @param data
    */
   const unCheckDept = data => {
+    console.log(data, 'data')
     const dept = [];
     const obj = {};
     deptTreeNode.forEach(value => {
@@ -157,10 +158,10 @@ const Contacts = (props) => {
       } else {
         font = totalShowText;
       }
-      let length=0;
-      if(!showAllDeptTags){
+      let length = 0;
+      if (!showAllDeptTags) {
         length = filterDeptTagShow(deptTreeNode).length + selectUser.length
-      }else {
+      } else {
         length = deptTreeNode.length + selectUser.length
       }
       return (
@@ -200,26 +201,30 @@ const Contacts = (props) => {
         {userSearch && <br />}
         <Row>
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
-                deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
-                handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />
+            deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
+            handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
+            updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
-                 nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
-                 handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
-                 setSelectUser={setSelectUser} radio={radio} />
+            nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
+            handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
+            setSelectUser={setSelectUser} radio={radio} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form colon={false}  layout='vertical'>
+            <Form colon={false} layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
                 {!radio &&
-                <div className={styles.resultDiv}>
-                  {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
-                  {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
-                  {/* {selectUser && selectUser.map(v => makeUserTag(v))} */}
-                  <DndWrapper 
-                     data={selectUser}
-                     unCheckUser={unCheckUser}
-                  />
-                </div>
+                  <div className={styles.resultDiv}>
+                    {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
+                    {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
+                    {/* {selectUser && selectUser.map(v => makeUserTag(v))} */}
+                    {
+                      selectUser.length > 0 && (
+                        <DndWrapper
+                          data={selectUser}
+                          unCheckUser={unCheckUser}
+                        />
+                      )
+                    }
+                  </div>
                 }
               </Form.Item>
             </Form>
@@ -256,7 +261,7 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode:PropTypes.bool
+  returnReducedNode: PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -283,7 +288,7 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode:false
+  returnReducedNode: false
 };
 
 export default Contacts;
