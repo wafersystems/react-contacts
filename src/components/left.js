@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Card, Checkbox, Col, List, message, Tree, Input } from 'antd';
 import styles from './contacts.less';
-import { makeTreeNode,filterDeptTagShow } from '../utils';
+import { makeTreeNode, filterDeptTagShow } from './utils';
 
 const { Search } = Input;
 
 export default ({
-                  searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
-                  handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-                  updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey
-                }) => {
+  searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
+  handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
+  updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey
+}) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
   const [onDeptSearch, setOnDeptSearch] = useState(false);
@@ -93,9 +93,9 @@ export default ({
       } = v;
       tmp.push(data);
     });
-    if(returnReducedNode){
+    if (returnReducedNode) {
       updateSelectDept(filterDeptTagShow(tmp));
-    }else {
+    } else {
       updateSelectDept(tmp);
     }
 
@@ -123,17 +123,17 @@ export default ({
     const tmp = [];
     if (checked) {
       tmp.push(data);
-      if(returnReducedNode){
+      if (returnReducedNode) {
         updateSelectDept(filterDeptTagShow(deptTreeNode.concat(tmp)));
-      }else {
+      } else {
         updateSelectDept(deptTreeNode.concat(tmp));
       }
       setDeptTreeNode(deptTreeNode.concat(tmp));
     } else {
       const result = deptTreeNode.filter(value => value.id !== data.id);
-      if(returnReducedNode){
+      if (returnReducedNode) {
         updateSelectDept(filterDeptTagShow(result.concat(tmp)));
-      }else {
+      } else {
         updateSelectDept(result.concat(tmp));
       }
       setDeptTreeNode(result.concat(tmp));
@@ -159,12 +159,12 @@ export default ({
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card className={styles.card}>
         {deptSearch &&
-        <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
-                onSearch={onSearchDept} />}
+          <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
+            onSearch={onSearchDept} />}
         {deptSearch && <br />}
         {!onDeptSearch && (
           <Tree
-              // style={{paddingTop:5}}
+            // style={{paddingTop:5}}
             checkable={deptCheckBox && !radio}
             checkedKeys={makeCheckedKeys(deptTreeNode)}
             onSelect={onTreeSelect}
@@ -185,14 +185,14 @@ export default ({
                 <List.Item>
                   <div className={styles.itemDiv}>
                     {deptCheckBox &&
-                    <Checkbox
-                      className={styles.checkbox}
-                      data={item}
-                      checked={isDeptCheck(item)}
-                      onChange={onDeptCheck}
-                    />}
+                      <Checkbox
+                        className={styles.checkbox}
+                        data={item}
+                        checked={isDeptCheck(item)}
+                        onChange={onDeptCheck}
+                      />}
                     <span style={{ marginLeft: '10px' }}
-                          onClick={() => onDeptSelect(item)}>{item[deptNameKey]}</span>
+                      onClick={() => onDeptSelect(item)}>{item[deptNameKey]}</span>
                   </div>
                 </List.Item>
               );

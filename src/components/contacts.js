@@ -101,7 +101,7 @@ const Contacts = (props) => {
    * @param data
    */
   const unCheckDept = data => {
-    console.log(data, 'data')
+    console.log(data, '删除')
     const dept = [];
     const obj = {};
     deptTreeNode.forEach(value => {
@@ -115,25 +115,25 @@ const Contacts = (props) => {
     setDeptTreeNode(dept);
   };
 
-  /**
-   * 生成显示的用户Tag
-   * @param v
-   * @return {*}
-   */
-  const makeUserTag = v => {
-    return (
-      <Tag
-        key={v.userId}
-        className={styles.userTag}
-        onClick={e => {
-          e.preventDefault();
-          unCheckUser(v);
-        }}
-      >
-        {v[userNameKey]} <Icon type="close-circle" theme="filled" />
-      </Tag>
-    );
-  };
+  // /**
+  //  * 生成显示的用户Tag
+  //  * @param v
+  //  * @return {*}
+  //  */
+  // const makeUserTag = v => {
+  //   return (
+  //     <Tag
+  //       key={v.userId}
+  //       className={styles.userTag}
+  //       onClick={e => {
+  //         e.preventDefault();
+  //         unCheckUser(v);
+  //       }}
+  //     >
+  //       {v[userNameKey]} <Icon type="close-circle" theme="filled" />
+  //     </Tag>
+  //   );
+  // };
 
   /**
    * 点击用户Tag时取消选择
@@ -169,18 +169,18 @@ const Contacts = (props) => {
           style={{ color: numberColor }}>{length}</span> {end}
         </div>
       );
-    } else {
-      let name = '';
-      if (selectUser.length > 0) {
-        const [use] = selectUser;
-        name = use[userNameKey];
-      }
-      return (
-        <div>{radioShowText} <span
-          style={{ color: numberColor }}>{name}</span>
-        </div>
-      );
     }
+    let name = '';
+    if (selectUser.length > 0) {
+      const [use] = selectUser;
+      name = use[userNameKey];
+    }
+    return (
+      <div>{radioShowText} <span
+        style={{ color: numberColor }}>{name}</span>
+      </div>
+    );
+
   };
 
   let userData;
@@ -219,6 +219,7 @@ const Contacts = (props) => {
                     {
                       selectUser.length > 0 && (
                         <DndWrapper
+                          updateSelectUsers={updateSelectUsers}
                           data={selectUser}
                           unCheckUser={unCheckUser}
                         />

@@ -60,6 +60,7 @@ const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
+      // eslint-disable-next-line no-param-reassign
       item.index = hoverIndex;
     }
   });
@@ -75,7 +76,13 @@ const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
   return (
-    <Tag onClick={() => { unCheckUser(card) }} ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
+    <Tag
+      onClick={() => { unCheckUser({ userId: card.id, username: card.text, ...card }) }}
+      ref={ref}
+      style={{ ...style, opacity }}
+      data-handler-id={handlerId}
+    // longpress={() => { console.log('longe') }}
+    >
       {text}
     </Tag>
   );
