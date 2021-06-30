@@ -5,11 +5,11 @@ import styles from './contacts.less';
 const { Search } = Input;
 
 export default ({
-  selectAllText, searchUserPlaceholder, deptSearch, userData,
-  handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
-  setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
-  userNameKey, radio
-}) => {
+                  selectAllText, searchUserPlaceholder, deptSearch, userData,
+                  handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
+                  setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
+                  userNameKey, radio, showLeft
+                }) => {
 
   const [selectAll, setSelectAll] = useState(false);
 
@@ -161,9 +161,10 @@ export default ({
     updateSelectUsers(newSelectUser);
     setSelectUser(newSelectUser);
   };
+  const colWidth = showLeft?12:24;
 
   return (
-    <Col xs={12} sm={12} md={12} lg={12} xl={12} className={styles.treeLeft}>
+     <Col xs={colWidth} sm={colWidth} md={colWidth} lg={colWidth} xl={colWidth} className={styles.treeLeft}>
       <Card className={styles.card}>
         {deptSearch && (
           <Search
