@@ -295,7 +295,7 @@ Contacts.defaultProps = {
   checkStrictly: false,
   showAllDeptTags: false,
   returnReducedNode: false,
-  Drag: true
+  Drag: false
 };
 
 export default Contacts;
