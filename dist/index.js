@@ -33,6 +33,62 @@ require('antd/es/radio/style');
 var _Radio = _interopDefault(require('antd/es/radio'));
 require('antd/es/tree/style');
 var _Tree = _interopDefault(require('antd/es/tree'));
+var reactDnd = require('react-dnd');
+var update = _interopDefault(require('immutability-helper'));
+var reactDndHtml5Backend = require('react-dnd-html5-backend');
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -61,14 +117,17 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
   var _arr = [];
   var _n = true;
   var _d = false;
-  var _e = undefined;
+
+  var _s, _e;
 
   try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
       _arr.push(_s.value);
 
       if (i && _arr.length === i) break;
@@ -135,7 +194,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义整体的宽度 */\n.contacts_card__9kiRW::-webkit-scrollbar {\n  width: 5px;\n  height: 44px !important;\n  background: rgba(0, 0, 0, 0.45);\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  padding-left: 10px;\n  float: left;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  border: 1px solid var(--border-color);\n  background: var(--bg-color);\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  color: #1890FF;\n  background-color: #E6F7FF;\n  border: 1px solid #91D5FF;\n  margin-left: 10px;\n  margin-top: 8px;\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  color: #375EEE;\n  background-color: rgba(55, 94, 238, 0.09);\n  border-radius: 4px;\n  border: 1px solid #375EEE;\n  margin-left: 10px;\n  margin-top: 8px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
+var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--bg-color);\n  border: 1px solid var(--border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: #1890ff;\n  background-color: #e6f7ff;\n  border: 1px solid #91d5ff;\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: #375eee;\n  background-color: rgba(55, 94, 238, 0.09);\n  border: 1px solid #375eee;\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n.contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: #375eee;\n  background-color: rgba(55, 94, 238, 0.09);\n  border: 1px solid #375eee;\n  border-radius: 4px;\n}\n";
 var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI"};
 styleInject(css_248z);
 
@@ -157,7 +216,8 @@ var Right = (function (_ref) {
       selectUser = _ref.selectUser,
       setSelectUser = _ref.setSelectUser,
       userNameKey = _ref.userNameKey,
-      radio = _ref.radio;
+      radio = _ref.radio,
+      showLeft = _ref.showLeft;
 
   var _useState = React.useState(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -338,12 +398,13 @@ var Right = (function (_ref) {
     setSelectUser(newSelectUser);
   };
 
+  var colWidth = showLeft ? 12 : 24;
   return /*#__PURE__*/React__default.createElement(_Col, {
-    xs: 12,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 12,
+    xs: colWidth,
+    sm: colWidth,
+    md: colWidth,
+    lg: colWidth,
+    xl: colWidth,
     className: styles.treeLeft
   }, /*#__PURE__*/React__default.createElement(_Card, {
     className: styles.card
@@ -681,6 +742,212 @@ var Left = (function (_ref) {
   })));
 });
 
+var ItemTypes = 'card';
+var style = {
+  // padding: "0.5rem 1rem",
+  // marginBottom: ".5rem",
+  // backgroundColor: "white",
+  cursor: "move",
+  color: '#375EEE',
+  backgroundColor: 'rgba(55, 94, 238, 0.09)',
+  // borderRadius: '4px',
+  border: '1px solid #375EEE',
+  marginLeft: '10px',
+  marginTop: '8px',
+  width: '63px',
+  height: '24px',
+  overflow: 'hidden'
+};
+
+var Card = function Card(_ref) {
+  var id = _ref.id,
+      text = _ref.text,
+      index = _ref.index,
+      moveCard = _ref.moveCard,
+      unCheckUser = _ref.unCheckUser,
+      card = _ref.card;
+  var ref = React.useRef(null);
+
+  var _useDrop = reactDnd.useDrop({
+    accept: ItemTypes,
+    collect: function collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId()
+      };
+    },
+    hover: function hover(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
+
+      var dragIndex = item.index;
+      var hoverIndex = index; // Don't replace items with themselves
+
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      } // Determine rectangle on screen
+
+
+      // Determine rectangle on screen
+      var hoverBoundingRect = ref.current && ref.current.getBoundingClientRect(); // Get vertical middle
+
+      // Get vertical middle
+      var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2; // Determine mouse position
+
+      // Determine mouse position
+      var clientOffset = monitor.getClientOffset(); // Get pixels to the top
+
+      // Get pixels to the top
+      var hoverClientY = clientOffset.y - hoverBoundingRect.top; // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      } // Dragging upwards
+
+
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      } // Time to actually perform the action
+
+
+      // Time to actually perform the action
+      moveCard(dragIndex, hoverIndex); // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      // eslint-disable-next-line no-param-reassign
+
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      // eslint-disable-next-line no-param-reassign
+      item.index = hoverIndex;
+    }
+  }),
+      _useDrop2 = _slicedToArray(_useDrop, 2),
+      handlerId = _useDrop2[0].handlerId,
+      drop = _useDrop2[1];
+
+  var _useDrag = reactDnd.useDrag({
+    type: ItemTypes,
+    item: function item() {
+      return {
+        id: id,
+        index: index
+      };
+    },
+    collect: function collect(monitor) {
+      return {
+        isDragging: monitor.isDragging()
+      };
+    }
+  }),
+      _useDrag2 = _slicedToArray(_useDrag, 2),
+      isDragging = _useDrag2[0].isDragging,
+      drag = _useDrag2[1];
+
+  var opacity = isDragging ? 0 : 1;
+  drag(drop(ref));
+  return /*#__PURE__*/React__default.createElement(_Tag, {
+    onClick: function onClick() {
+      unCheckUser(_objectSpread2({
+        userId: card.id,
+        username: card.text
+      }, card));
+    },
+    ref: ref,
+    style: _objectSpread2(_objectSpread2({}, style), {}, {
+      opacity: opacity
+    }),
+    "data-handler-id": handlerId // longpress={() => { console.log('longe') }}
+
+  }, text);
+};
+
+var style$1 = {
+  display: "flex",
+  flexWrap: 'wrap'
+};
+
+var Container = function Container(_ref) {
+  var data = _ref.data,
+      unCheckUser = _ref.unCheckUser,
+      updateSelectUsers = _ref.updateSelectUsers;
+
+  var _useState = React.useState([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      cards = _useState2[0],
+      setCards = _useState2[1];
+
+  var _useState3 = React.useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      returncards = _useState4[0],
+      setreturncards = _useState4[1];
+
+  React.useEffect(function () {
+    setCards(data.map(function (item) {
+      return _objectSpread2({
+        id: item.userId,
+        text: item.username
+      }, item);
+    }));
+  }, [data]);
+  var moveCard = React.useCallback(function (dragIndex, hoverIndex) {
+    var dragCard = cards[dragIndex];
+    setCards(update(cards, {
+      $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+    }));
+    setreturncards(true);
+  }, [cards]);
+
+  if (returncards) {
+    updateSelectUsers(cards.map(function (v) {
+      return _objectSpread2({
+        userId: v.id,
+        username: v.text
+      }, v);
+    }));
+    setreturncards(false);
+  }
+
+  var renderCard = function renderCard(card, index) {
+    return /*#__PURE__*/React__default.createElement(Card, {
+      updateSelectUsers: updateSelectUsers,
+      unCheckUser: unCheckUser,
+      card: card,
+      key: card.id,
+      index: index,
+      id: card.id,
+      text: card.text,
+      moveCard: moveCard
+    });
+  };
+
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
+    style: style$1
+  }, cards.map(function (card, i) {
+    return renderCard(card, i);
+  })));
+};
+
+function App(props) {
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: "App"
+  }, /*#__PURE__*/React__default.createElement(reactDnd.DndProvider, {
+    backend: reactDndHtml5Backend.HTML5Backend
+  }, /*#__PURE__*/React__default.createElement(Container, props)));
+}
+
 var Search$2 = _Input.Search;
 
 var Contacts = function Contacts(props) {
@@ -703,7 +970,9 @@ var Contacts = function Contacts(props) {
       radio = props.radio,
       radioShowText = props.radioShowText,
       checkStrictly = props.checkStrictly,
-      showAllDeptTags = props.showAllDeptTags;
+      showAllDeptTags = props.showAllDeptTags,
+      Drag = props.Drag,
+      showLeft = props.showLeft;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -797,6 +1066,7 @@ var Contacts = function Contacts(props) {
 
 
   var unCheckDept = function unCheckDept(data) {
+    console.log(data, '删除');
     var dept = [];
     var obj = {};
     deptTreeNode.forEach(function (value) {
@@ -871,22 +1141,22 @@ var Contacts = function Contacts(props) {
           color: numberColor
         }
       }, length), " ", end);
-    } else {
-      var name = '';
-
-      if (selectUser.length > 0) {
-        var _selectUser = _slicedToArray(selectUser, 1),
-            use = _selectUser[0];
-
-        name = use[userNameKey];
-      }
-
-      return /*#__PURE__*/React__default.createElement("div", null, radioShowText, " ", /*#__PURE__*/React__default.createElement("span", {
-        style: {
-          color: numberColor
-        }
-      }, name));
     }
+
+    var name = '';
+
+    if (selectUser.length > 0) {
+      var _selectUser = _slicedToArray(selectUser, 1),
+          use = _selectUser[0];
+
+      name = use[userNameKey];
+    }
+
+    return /*#__PURE__*/React__default.createElement("div", null, radioShowText, " ", /*#__PURE__*/React__default.createElement("span", {
+      style: {
+        color: numberColor
+      }
+    }, name));
   };
 
   var userData;
@@ -906,7 +1176,7 @@ var Contacts = function Contacts(props) {
   }, userSearch && /*#__PURE__*/React__default.createElement(_Row, null, /*#__PURE__*/React__default.createElement(Search$2, {
     placeholder: searchUserPlaceholder,
     onSearch: handleSearch
-  })), userSearch && /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement(_Row, null, /*#__PURE__*/React__default.createElement(Left, _extends({}, props, {
+  })), userSearch && /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement(_Row, null, showLeft && /*#__PURE__*/React__default.createElement(Left, _extends({}, props, {
     setDeptId: setDeptId,
     setOnSearch: setOnSearch,
     deptTreeNode: deptTreeNode,
@@ -928,7 +1198,8 @@ var Contacts = function Contacts(props) {
     userNameKey: userNameKey,
     deptId: deptId,
     setSelectUser: setSelectUser,
-    radio: radio
+    radio: radio,
+    showLeft: showLeft
   })), /*#__PURE__*/React__default.createElement(_Col, {
     xs: 24,
     sm: 24,
@@ -947,7 +1218,11 @@ var Contacts = function Contacts(props) {
     return makeDeptTag(v);
   }), showAllDeptTags && deptTreeNode && deptTreeNode.map(function (v) {
     return makeDeptTag(v);
-  }), selectUser && selectUser.map(function (v) {
+  }), Drag ? selectUser.length > 0 && /*#__PURE__*/React__default.createElement(App, {
+    updateSelectUsers: updateSelectUsers,
+    data: selectUser,
+    unCheckUser: unCheckUser
+  }) : selectUser && selectUser.map(function (v) {
     return makeUserTag(v);
   }))))))));
 };
@@ -977,7 +1252,10 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode: PropTypes.bool
+  returnReducedNode: PropTypes.bool,
+  Drag: PropTypes.bool,
+  // 显示左边部门树
+  showLeft: PropTypes.bool
 };
 Contacts.defaultProps = {
   users: {
@@ -1003,7 +1281,10 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode: false
+  returnReducedNode: false,
+  Drag: false,
+  // 显示左边部门树，默认显示
+  showLeft: true
 };
 
 module.exports = Contacts;
