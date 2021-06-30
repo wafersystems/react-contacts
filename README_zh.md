@@ -51,6 +51,7 @@ radioShowText   | 用户选择为radio时，显示文字内容 | string | '已�
 checkStrictly   | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | bool | false
 showAllDeptTags   | Tags是否显示所有节点 | bool | false
 returnReducedNode   | 部门树数据精简模式 ([部门树初始化数据](###部门树初始化数据)) | bool | false
+showLeft | 显示左边部门树面板 | bool | true
 
 
 ### 部门树数据

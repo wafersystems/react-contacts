@@ -53,6 +53,7 @@ radioShowText   | when user selected on radio, show tip text. | string | '已经
 checkStrictly   | 	Check treeNode precisely; parent treeNode and children treeNodes are not associated | bool | false
 showAllDeptTags   | Whether Tags show all nodes | bool | false
 returnReducedNode | Department tree data reduction mode ([Department tree initialization data](###Department tree initialization data)) | bool | false
+showLeft | show Left Panel | bool | true
 
 
 ### Department Data
