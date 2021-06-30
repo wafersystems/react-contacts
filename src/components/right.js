@@ -174,7 +174,7 @@ export default ({
           />
         )}
         {deptSearch && <br />}
-        <List className={userData.records.length === 0 ?styles.listEmpty: styles.list}
+        <List className={userData.records.length === 0 ? styles.listEmpty : styles.list}
           size="small"
           bordered={false}
           dataSource={userData.records}
@@ -184,24 +184,24 @@ export default ({
               <List.Item>
                 <div className={styles.itemDiv}>
                   {radio &&
-                  <Radio
-                    className={styles.checkbox}
-                    checked={isUserCheck(item)}
-                    data={item}
-                    onChange={onUserRadioCheck}
-                  >
-                    {item[userNameKey]}
-                  </Radio>
+                    <Radio
+                      className={styles.checkbox}
+                      checked={isUserCheck(item)}
+                      data={item}
+                      onChange={onUserRadioCheck}
+                    >
+                      {item[userNameKey]}
+                    </Radio>
                   }
                   {!radio &&
-                  <Checkbox
-                    className={styles.checkbox}
-                    data={item}
-                    checked={isUserCheck(item)}
-                    onChange={onUserCheck}
-                  >
-                    {item[userNameKey]}
-                  </Checkbox>}
+                    <Checkbox
+                      className={styles.checkbox}
+                      data={item}
+                      checked={isUserCheck(item)}
+                      onChange={onUserCheck}
+                    >
+                      {item[userNameKey]}
+                    </Checkbox>}
                   <div className={styles.deptName}>{item.deptName}</div>
                 </div>
               </List.Item>
@@ -211,9 +211,9 @@ export default ({
       </Card>
       <div className={styles.pagination}>
         {!radio &&
-        <Checkbox onChange={onCheckAll} className={styles.checkbox} checked={selectAll}>
-          {selectAllText}
-        </Checkbox>
+          <Checkbox onChange={onCheckAll} className={styles.checkbox} checked={selectAll}>
+            {selectAllText}
+          </Checkbox>
         }
         <Pagination
           className={styles.pageNoe}

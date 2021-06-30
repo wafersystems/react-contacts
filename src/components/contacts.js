@@ -13,6 +13,7 @@ import {
 
 import Right from './right';
 import Left from './left';
+import DndWrapper from './dnd/index'
 import { filterDeptTagShow } from '../utils';
 import styles from './contacts.less';
 
@@ -100,6 +101,7 @@ const Contacts = (props) => {
    * @param data
    */
   const unCheckDept = data => {
+    console.log(data, '删除')
     const dept = [];
     const obj = {};
     deptTreeNode.forEach(value => {
@@ -113,25 +115,25 @@ const Contacts = (props) => {
     setDeptTreeNode(dept);
   };
 
-  /**
-   * 生成显示的用户Tag
-   * @param v
-   * @return {*}
-   */
-  const makeUserTag = v => {
-    return (
-      <Tag
-        key={v.userId}
-        className={styles.userTag}
-        onClick={e => {
-          e.preventDefault();
-          unCheckUser(v);
-        }}
-      >
-        {v[userNameKey]} <Icon type="close-circle" theme="filled" />
-      </Tag>
-    );
-  };
+  // /**
+  //  * 生成显示的用户Tag
+  //  * @param v
+  //  * @return {*}
+  //  */
+  // const makeUserTag = v => {
+  //   return (
+  //     <Tag
+  //       key={v.userId}
+  //       className={styles.userTag}
+  //       onClick={e => {
+  //         e.preventDefault();
+  //         unCheckUser(v);
+  //       }}
+  //     >
+  //       {v[userNameKey]} <Icon type="close-circle" theme="filled" />
+  //     </Tag>
+  //   );
+  // };
 
   /**
    * 点击用户Tag时取消选择
@@ -156,10 +158,10 @@ const Contacts = (props) => {
       } else {
         font = totalShowText;
       }
-      let length=0;
-      if(!showAllDeptTags){
+      let length = 0;
+      if (!showAllDeptTags) {
         length = filterDeptTagShow(deptTreeNode).length + selectUser.length
-      }else {
+      } else {
         length = deptTreeNode.length + selectUser.length
       }
       return (
@@ -167,18 +169,18 @@ const Contacts = (props) => {
           style={{ color: numberColor }}>{length}</span> {end}
         </div>
       );
-    } else {
-      let name = '';
-      if (selectUser.length > 0) {
-        const [use] = selectUser;
-        name = use[userNameKey];
-      }
-      return (
-        <div>{radioShowText} <span
-          style={{ color: numberColor }}>{name}</span>
-        </div>
-      );
     }
+    let name = '';
+    if (selectUser.length > 0) {
+      const [use] = selectUser;
+      name = use[userNameKey];
+    }
+    return (
+      <div>{radioShowText} <span
+        style={{ color: numberColor }}>{name}</span>
+      </div>
+    );
+
   };
 
   let userData;
@@ -207,14 +209,23 @@ const Contacts = (props) => {
                  handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
                  setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form colon={false}  layout='vertical'>
+            <Form colon={false} layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
                 {!radio &&
-                <div className={styles.resultDiv}>
-                  {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
-                  {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
-                  {selectUser && selectUser.map(v => makeUserTag(v))}
-                </div>
+                  <div className={styles.resultDiv}>
+                    {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
+                    {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
+                    {/* {selectUser && selectUser.map(v => makeUserTag(v))} */}
+                    {
+                      selectUser.length > 0 && (
+                        <DndWrapper
+                          updateSelectUsers={updateSelectUsers}
+                          data={selectUser}
+                          unCheckUser={unCheckUser}
+                        />
+                      )
+                    }
+                  </div>
                 }
               </Form.Item>
             </Form>

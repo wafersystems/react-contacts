@@ -6,13 +6,12 @@
   padding-left: 10px;
 }
 
-
-/* 定义整体的宽度 */
-.card::-webkit-scrollbar {
-  width: 5px;
-  height: 44px !important;
-  background: rgba(0, 0, 0, 0.45);
-}
+// /* 定义整体的宽度 */
+// .card::-webkit-scrollbar {
+//   width: 5px;
+//   height: 44px !important;
+//   background: rgba(0, 0, 0, 0.45);
+// }
 
 /* 定义滚动条轨道 */
 .card::-webkit-scrollbar-track {
@@ -42,19 +41,19 @@
   }
 }
 
-.list{
+.list {
   width: max-content;
   padding-right: 5px;
 }
 
-.listEmpty{
+.listEmpty {
   padding-right: 5px;
 }
 
 .deptInfo {
   height: 21px;
-  font-size: 15px;
   font-weight: bold;
+  font-size: 15px;
 }
 
 .itemDiv {
@@ -78,8 +77,8 @@
   margin-top: 9px;
 
   .checkbox {
-    padding-left: 10px;
     float: left;
+    padding-left: 10px;
   }
 
   .pageNoe {
@@ -96,35 +95,44 @@
 }
 
 .resultDiv {
-  border: 1px solid var(--border-color);
-  background: var(--bg-color);
   width: 100%;
   min-height: 100px;
   max-height: 123px;
   overflow-x: hidden;
   overflow-y: auto;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
   //padding-top: 8px;
 
   .deptTag {
-    color: #1890FF;
-    background-color: #E6F7FF;
-    border: 1px solid #91D5FF;
-    margin-left: 10px;
     margin-top: 8px;
+    margin-left: 10px;
+    color: #1890ff;
+    background-color: #e6f7ff;
+    border: 1px solid #91d5ff;
   }
 
   .userTag {
-    color: #375EEE;
-    background-color: rgba(55, 94, 238, 0.09);
-    border-radius: 4px;
-    border: 1px solid #375EEE;
-    margin-left: 10px;
     margin-top: 8px;
+    margin-left: 10px;
+    color: #375eee;
+    background-color: rgba(55, 94, 238, 0.09);
+    border: 1px solid #375eee;
+    border-radius: 4px;
   }
 
   :global {
-    .ant-form-item{
-      margin-bottom:2px
+    .ant-form-item {
+      margin-bottom: 2px;
     }
   }
+}
+
+.userTag {
+  margin-top: 8px;
+  margin-left: 10px;
+  color: #375eee;
+  background-color: rgba(55, 94, 238, 0.09);
+  border: 1px solid #375eee;
+  border-radius: 4px;
 }
