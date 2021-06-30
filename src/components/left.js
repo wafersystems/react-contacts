@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Checkbox, Col, List, message, Tree, Input } from 'antd';
 import styles from './contacts.less';
-import { makeTreeNode, filterDeptTagShow } from './utils';
+import { makeTreeNode, filterDeptTagShow } from '../utils';
 
 const { Search } = Input;
 

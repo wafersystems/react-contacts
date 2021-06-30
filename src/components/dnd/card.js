@@ -4,16 +4,19 @@ import { Tag } from 'antd'
 
 const ItemTypes = 'card'
 const style = {
-  padding: "0.5rem 1rem",
-  marginBottom: ".5rem",
+  // padding: "0.5rem 1rem",
+  // marginBottom: ".5rem",
   // backgroundColor: "white",
   cursor: "move",
   color: '#375EEE',
   backgroundColor: 'rgba(55, 94, 238, 0.09)',
-  borderRadius: '4px',
+  // borderRadius: '4px',
   border: '1px solid #375EEE',
   marginLeft: '10px',
-  marginTop: '8px'
+  marginTop: '8px',
+  width: '63px',
+  height: '24px',
+  overflow: 'hidden'
 };
 const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
   const ref = useRef(null);

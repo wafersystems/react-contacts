@@ -31,7 +31,7 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags,showLeft
+    checkStrictly, showAllDeptTags, Drag,showLeft
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -115,25 +115,25 @@ const Contacts = (props) => {
     setDeptTreeNode(dept);
   };
 
-  // /**
-  //  * 生成显示的用户Tag
-  //  * @param v
-  //  * @return {*}
-  //  */
-  // const makeUserTag = v => {
-  //   return (
-  //     <Tag
-  //       key={v.userId}
-  //       className={styles.userTag}
-  //       onClick={e => {
-  //         e.preventDefault();
-  //         unCheckUser(v);
-  //       }}
-  //     >
-  //       {v[userNameKey]} <Icon type="close-circle" theme="filled" />
-  //     </Tag>
-  //   );
-  // };
+  /**
+   * 生成显示的用户Tag
+   * @param v
+   * @return {*}
+   */
+  const makeUserTag = v => {
+    return (
+      <Tag
+        key={v.userId}
+        className={styles.userTag}
+        onClick={e => {
+          e.preventDefault();
+          unCheckUser(v);
+        }}
+      >
+        {v[userNameKey]} <Icon type="close-circle" theme="filled" />
+      </Tag>
+    );
+  };
 
   /**
    * 点击用户Tag时取消选择
@@ -215,14 +215,18 @@ const Contacts = (props) => {
                   <div className={styles.resultDiv}>
                     {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
                     {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
-                    {/* {selectUser && selectUser.map(v => makeUserTag(v))} */}
                     {
-                      selectUser.length > 0 && (
-                        <DndWrapper
-                          updateSelectUsers={updateSelectUsers}
-                          data={selectUser}
-                          unCheckUser={unCheckUser}
-                        />
+                      Drag ? (
+                        selectUser.length > 0 && (
+                          <DndWrapper
+                            updateSelectUsers={updateSelectUsers}
+                            data={selectUser}
+                            unCheckUser={unCheckUser}
+                          />
+                        )
+
+                      ) : (
+                        selectUser && selectUser.map(v => makeUserTag(v))
                       )
                     }
                   </div>
@@ -262,7 +266,8 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode:PropTypes.bool,
+  returnReducedNode: PropTypes.bool,
+  Drag: PropTypes.bool,
   // 显示左边部门树
   showLeft:PropTypes.bool
 };
@@ -291,7 +296,8 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode:false,
+  returnReducedNode: false,
+  Drag: false,
   // 显示左边部门树，默认显示
   showLeft:true
 };
