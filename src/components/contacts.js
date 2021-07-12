@@ -30,7 +30,7 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags
+    checkStrictly, showAllDeptTags, hideRight
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -201,11 +201,11 @@ const Contacts = (props) => {
           <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
                 deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
                 handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} />
-          <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
+                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} hideRight={hideRight}/>
+          {!hideRight && <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
                  nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
                  handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
-                 setSelectUser={setSelectUser} radio={radio} />
+                 setSelectUser={setSelectUser} radio={radio} />}
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false}>
               <Form.Item className={styles.label} label={makeShowMsg()}>
@@ -251,7 +251,9 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode:PropTypes.bool
+  returnReducedNode:PropTypes.bool,
+  // 隐藏右边选人部分
+  hideRight:PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -278,7 +280,9 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode:false
+  returnReducedNode:false,
+  // 隐藏右边选人部分
+  hideRight:false
 };
 
 export default Contacts;

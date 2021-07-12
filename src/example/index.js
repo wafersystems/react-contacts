@@ -35,6 +35,7 @@ ReactDOM.render(<div className="App"
                 return userList;
                 }
               }
+              hideRight={true}
               updateSelectDept={updateSelectDept}
               defaultDeptSelected={dept} radio={false}
     />

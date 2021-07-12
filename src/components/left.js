@@ -8,7 +8,7 @@ const { Search } = Input;
 export default ({
                   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
                   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-                  updateSelectDept, deptNameKey, radio, checkStrictly,returnReducedNode
+                  updateSelectDept, deptNameKey, radio, checkStrictly,returnReducedNode, hideRight
                 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -154,8 +154,10 @@ export default ({
     }
   };
 
+  const widthNum = hideRight?24:12;
+
   return (
-    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+    <Col xs={widthNum} sm={widthNum} md={widthNum} lg={widthNum} xl={widthNum}>
       <Card className={styles.card}>
         {deptSearch &&
         <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}

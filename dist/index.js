@@ -462,7 +462,8 @@ var Left = (function (_ref) {
       deptNameKey = _ref.deptNameKey,
       radio = _ref.radio,
       checkStrictly = _ref.checkStrictly,
-      returnReducedNode = _ref.returnReducedNode;
+      returnReducedNode = _ref.returnReducedNode,
+      hideRight = _ref.hideRight;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -638,12 +639,13 @@ var Left = (function (_ref) {
     }
   };
 
+  var widthNum = hideRight ? 24 : 12;
   return /*#__PURE__*/React__default.createElement(_Col, {
-    xs: 12,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 12
+    xs: widthNum,
+    sm: widthNum,
+    md: widthNum,
+    lg: widthNum,
+    xl: widthNum
   }, /*#__PURE__*/React__default.createElement(_Card, {
     className: styles.card
   }, deptSearch && /*#__PURE__*/React__default.createElement(Search$1, {
@@ -703,7 +705,8 @@ var Contacts = function Contacts(props) {
       radio = props.radio,
       radioShowText = props.radioShowText,
       checkStrictly = props.checkStrictly,
-      showAllDeptTags = props.showAllDeptTags;
+      showAllDeptTags = props.showAllDeptTags,
+      hideRight = props.hideRight;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -915,8 +918,9 @@ var Contacts = function Contacts(props) {
     checkStrictly: checkStrictly,
     updateSelectDept: updateSelectDept,
     deptNameKey: deptNameKey,
-    radio: radio
-  })), /*#__PURE__*/React__default.createElement(Right, _extends({}, props, {
+    radio: radio,
+    hideRight: hideRight
+  })), !hideRight && /*#__PURE__*/React__default.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,
     setOnSearch: setOnSearch,
@@ -975,7 +979,9 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode: PropTypes.bool
+  returnReducedNode: PropTypes.bool,
+  // 隐藏右边选人部分
+  hideRight: PropTypes.bool
 };
 Contacts.defaultProps = {
   users: {
@@ -1001,7 +1007,9 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode: false
+  returnReducedNode: false,
+  // 隐藏右边选人部分
+  hideRight: false
 };
 
 module.exports = Contacts;
