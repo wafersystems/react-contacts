@@ -526,7 +526,7 @@ var Left = (function (_ref) {
 
   var makeCheckedKeys = function makeCheckedKeys(data) {
     return data.map(function (v) {
-      return v.id;
+      return v.id.toString();
     });
   };
   /**
