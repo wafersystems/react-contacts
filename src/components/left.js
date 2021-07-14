@@ -60,7 +60,7 @@ export default ({
    * @return {*}
    */
   const makeCheckedKeys = data => {
-    return data.map(v => v.id);
+    return data.map(v => v.id.toString());
   };
 
   /**
