@@ -29,7 +29,6 @@ import _Radio from 'antd/es/radio';
 import 'antd/es/tree/style';
 import _Tree from 'antd/es/tree';
 import { useDrop, useDrag, DndProvider } from 'react-dnd';
-import update from 'immutability-helper';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function ownKeys(object, enumerableOnly) {
@@ -189,7 +188,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--bg-color);\n  border: 1px solid var(--border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: #1890ff;\n  background-color: #e6f7ff;\n  border: 1px solid #91d5ff;\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: #375eee;\n  background-color: rgba(55, 94, 238, 0.09);\n  border: 1px solid #375eee;\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n.contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: #375eee;\n  background-color: rgba(55, 94, 238, 0.09);\n  border: 1px solid #375eee;\n  border-radius: 4px;\n}\n";
+var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--bg-color);\n  border: 1px solid var(--border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
 var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI"};
 styleInject(css_248z);
 
@@ -738,21 +737,6 @@ var Left = (function (_ref) {
 });
 
 var ItemTypes = 'card';
-var style = {
-  // padding: "0.5rem 1rem",
-  // marginBottom: ".5rem",
-  // backgroundColor: "white",
-  cursor: "move",
-  color: '#375EEE',
-  backgroundColor: 'rgba(55, 94, 238, 0.09)',
-  // borderRadius: '4px',
-  border: '1px solid #375EEE',
-  marginLeft: '10px',
-  marginTop: '8px',
-  width: '63px',
-  height: '24px',
-  overflow: 'hidden'
-};
 
 var Card = function Card(_ref) {
   var id = _ref.id,
@@ -861,15 +845,280 @@ var Card = function Card(_ref) {
       }, card));
     },
     ref: ref,
-    style: _objectSpread2(_objectSpread2({}, style), {}, {
-      opacity: opacity
-    }),
+    className: styles.userTag,
+    style: opacity,
     "data-handler-id": handlerId // longpress={() => { console.log('longe') }}
 
   }, text);
 };
 
-var style$1 = {
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var immutabilityHelper = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+function stringifiable(obj) {
+    // Safely stringify Object.create(null)
+    /* istanbul ignore next */
+    return typeof obj === 'object' && !('toString' in obj) ?
+        Object.prototype.toString.call(obj).slice(8, -1) :
+        obj;
+}
+var isProduction = typeof process === 'object' && process.env.NODE_ENV === 'production';
+function invariant(condition, message) {
+    if (!condition) {
+        /* istanbul ignore next */
+        if (isProduction) {
+            throw new Error('Invariant failed');
+        }
+        throw new Error(message());
+    }
+}
+exports.invariant = invariant;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var splice = Array.prototype.splice;
+var toString = Object.prototype.toString;
+function type(obj) {
+    return toString.call(obj).slice(8, -1);
+}
+var assign = Object.assign || /* istanbul ignore next */ (function (target, source) {
+    getAllKeys(source).forEach(function (key) {
+        if (hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+        }
+    });
+    return target;
+});
+var getAllKeys = typeof Object.getOwnPropertySymbols === 'function'
+    ? function (obj) { return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj)); }
+    /* istanbul ignore next */
+    : function (obj) { return Object.keys(obj); };
+function copy(object) {
+    return Array.isArray(object)
+        ? assign(object.constructor(object.length), object)
+        : (type(object) === 'Map')
+            ? new Map(object)
+            : (type(object) === 'Set')
+                ? new Set(object)
+                : (object && typeof object === 'object')
+                    ? assign(Object.create(Object.getPrototypeOf(object)), object)
+                    /* istanbul ignore next */
+                    : object;
+}
+var Context = /** @class */ (function () {
+    function Context() {
+        this.commands = assign({}, defaultCommands);
+        this.update = this.update.bind(this);
+        // Deprecated: update.extend, update.isEquals and update.newContext
+        this.update.extend = this.extend = this.extend.bind(this);
+        this.update.isEquals = function (x, y) { return x === y; };
+        this.update.newContext = function () { return new Context().update; };
+    }
+    Object.defineProperty(Context.prototype, "isEquals", {
+        get: function () {
+            return this.update.isEquals;
+        },
+        set: function (value) {
+            this.update.isEquals = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Context.prototype.extend = function (directive, fn) {
+        this.commands[directive] = fn;
+    };
+    Context.prototype.update = function (object, $spec) {
+        var _this = this;
+        var spec = (typeof $spec === 'function') ? { $apply: $spec } : $spec;
+        if (!(Array.isArray(object) && Array.isArray(spec))) {
+            invariant(!Array.isArray(spec), function () { return "update(): You provided an invalid spec to update(). The spec may " +
+                "not contain an array except as the value of $set, $push, $unshift, " +
+                "$splice or any custom command allowing an array value."; });
+        }
+        invariant(typeof spec === 'object' && spec !== null, function () { return "update(): You provided an invalid spec to update(). The spec and " +
+            "every included key path must be plain objects containing one of the " +
+            ("following commands: " + Object.keys(_this.commands).join(', ') + "."); });
+        var nextObject = object;
+        getAllKeys(spec).forEach(function (key) {
+            if (hasOwnProperty.call(_this.commands, key)) {
+                var objectWasNextObject = object === nextObject;
+                nextObject = _this.commands[key](spec[key], nextObject, spec, object);
+                if (objectWasNextObject && _this.isEquals(nextObject, object)) {
+                    nextObject = object;
+                }
+            }
+            else {
+                var nextValueForKey = type(object) === 'Map'
+                    ? _this.update(object.get(key), spec[key])
+                    : _this.update(object[key], spec[key]);
+                var nextObjectValue = type(nextObject) === 'Map'
+                    ? nextObject.get(key)
+                    : nextObject[key];
+                if (!_this.isEquals(nextValueForKey, nextObjectValue)
+                    || typeof nextValueForKey === 'undefined'
+                        && !hasOwnProperty.call(object, key)) {
+                    if (nextObject === object) {
+                        nextObject = copy(object);
+                    }
+                    if (type(nextObject) === 'Map') {
+                        nextObject.set(key, nextValueForKey);
+                    }
+                    else {
+                        nextObject[key] = nextValueForKey;
+                    }
+                }
+            }
+        });
+        return nextObject;
+    };
+    return Context;
+}());
+exports.Context = Context;
+var defaultCommands = {
+    $push: function (value, nextObject, spec) {
+        invariantPushAndUnshift(nextObject, spec, '$push');
+        return value.length ? nextObject.concat(value) : nextObject;
+    },
+    $unshift: function (value, nextObject, spec) {
+        invariantPushAndUnshift(nextObject, spec, '$unshift');
+        return value.length ? value.concat(nextObject) : nextObject;
+    },
+    $splice: function (value, nextObject, spec, originalObject) {
+        invariantSplices(nextObject, spec);
+        value.forEach(function (args) {
+            invariantSplice(args);
+            if (nextObject === originalObject && args.length) {
+                nextObject = copy(originalObject);
+            }
+            splice.apply(nextObject, args);
+        });
+        return nextObject;
+    },
+    $set: function (value, _nextObject, spec) {
+        invariantSet(spec);
+        return value;
+    },
+    $toggle: function (targets, nextObject) {
+        invariantSpecArray(targets, '$toggle');
+        var nextObjectCopy = targets.length ? copy(nextObject) : nextObject;
+        targets.forEach(function (target) {
+            nextObjectCopy[target] = !nextObject[target];
+        });
+        return nextObjectCopy;
+    },
+    $unset: function (value, nextObject, _spec, originalObject) {
+        invariantSpecArray(value, '$unset');
+        value.forEach(function (key) {
+            if (Object.hasOwnProperty.call(nextObject, key)) {
+                if (nextObject === originalObject) {
+                    nextObject = copy(originalObject);
+                }
+                delete nextObject[key];
+            }
+        });
+        return nextObject;
+    },
+    $add: function (values, nextObject, _spec, originalObject) {
+        invariantMapOrSet(nextObject, '$add');
+        invariantSpecArray(values, '$add');
+        if (type(nextObject) === 'Map') {
+            values.forEach(function (_a) {
+                var key = _a[0], value = _a[1];
+                if (nextObject === originalObject && nextObject.get(key) !== value) {
+                    nextObject = copy(originalObject);
+                }
+                nextObject.set(key, value);
+            });
+        }
+        else {
+            values.forEach(function (value) {
+                if (nextObject === originalObject && !nextObject.has(value)) {
+                    nextObject = copy(originalObject);
+                }
+                nextObject.add(value);
+            });
+        }
+        return nextObject;
+    },
+    $remove: function (value, nextObject, _spec, originalObject) {
+        invariantMapOrSet(nextObject, '$remove');
+        invariantSpecArray(value, '$remove');
+        value.forEach(function (key) {
+            if (nextObject === originalObject && nextObject.has(key)) {
+                nextObject = copy(originalObject);
+            }
+            nextObject.delete(key);
+        });
+        return nextObject;
+    },
+    $merge: function (value, nextObject, _spec, originalObject) {
+        invariantMerge(nextObject, value);
+        getAllKeys(value).forEach(function (key) {
+            if (value[key] !== nextObject[key]) {
+                if (nextObject === originalObject) {
+                    nextObject = copy(originalObject);
+                }
+                nextObject[key] = value[key];
+            }
+        });
+        return nextObject;
+    },
+    $apply: function (value, original) {
+        invariantApply(value);
+        return value(original);
+    },
+};
+var defaultContext = new Context();
+exports.isEquals = defaultContext.update.isEquals;
+exports.extend = defaultContext.extend;
+exports.default = defaultContext.update;
+// @ts-ignore
+exports.default.default = module.exports = assign(exports.default, exports);
+// invariants
+function invariantPushAndUnshift(value, spec, command) {
+    invariant(Array.isArray(value), function () { return "update(): expected target of " + stringifiable(command) + " to be an array; got " + stringifiable(value) + "."; });
+    invariantSpecArray(spec[command], command);
+}
+function invariantSpecArray(spec, command) {
+    invariant(Array.isArray(spec), function () { return "update(): expected spec of " + stringifiable(command) + " to be an array; got " + stringifiable(spec) + ". " +
+        "Did you forget to wrap your parameter in an array?"; });
+}
+function invariantSplices(value, spec) {
+    invariant(Array.isArray(value), function () { return "Expected $splice target to be an array; got " + stringifiable(value); });
+    invariantSplice(spec.$splice);
+}
+function invariantSplice(value) {
+    invariant(Array.isArray(value), function () { return "update(): expected spec of $splice to be an array of arrays; got " + stringifiable(value) + ". " +
+        "Did you forget to wrap your parameters in an array?"; });
+}
+function invariantApply(fn) {
+    invariant(typeof fn === 'function', function () { return "update(): expected spec of $apply to be a function; got " + stringifiable(fn) + "."; });
+}
+function invariantSet(spec) {
+    invariant(Object.keys(spec).length === 1, function () { return "Cannot have more than one key in an object with $set"; });
+}
+function invariantMerge(target, specValue) {
+    invariant(specValue && typeof specValue === 'object', function () { return "update(): $merge expects a spec of type 'object'; got " + stringifiable(specValue); });
+    invariant(target && typeof target === 'object', function () { return "update(): $merge expects a target of type 'object'; got " + stringifiable(target); });
+}
+function invariantMapOrSet(target, command) {
+    var typeOfTarget = type(target);
+    invariant(typeOfTarget === 'Map' || typeOfTarget === 'Set', function () { return "update(): " + stringifiable(command) + " expects a target of type Set or Map; got " + stringifiable(typeOfTarget); });
+}
+});
+
+var update = unwrapExports(immutabilityHelper);
+var immutabilityHelper_1 = immutabilityHelper.invariant;
+var immutabilityHelper_2 = immutabilityHelper.Context;
+var immutabilityHelper_3 = immutabilityHelper.isEquals;
+var immutabilityHelper_4 = immutabilityHelper.extend;
+
+var style = {
   display: "flex",
   flexWrap: 'wrap'
 };
@@ -929,7 +1178,7 @@ var Container = function Container(_ref) {
   };
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    style: style$1
+    style: style
   }, cards.map(function (card, i) {
     return renderCard(card, i);
   })));

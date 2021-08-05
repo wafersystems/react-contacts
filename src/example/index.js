@@ -42,6 +42,7 @@ ReactDOM.render(<div className="App"
   <div style={{ 'padding': '10px', 'margin': '10px', height: '100%' }}>
     <Contacts deptTree={deptTree} users={u2} loading={false}
               defaultUserSelected={users}
+              Drag={true}
               deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
               updateSelectUsers={updateSelectUsers} handleSearchUser={handleSearchUser} updateSelectDept={updateSelectDept}
               defaultDeptSelected={dept} radio={false}
