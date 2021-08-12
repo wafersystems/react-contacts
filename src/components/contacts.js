@@ -132,6 +132,7 @@ const Contacts = (props) => {
       >
         {v[userNameKey]} <Icon type="close-circle" theme="filled" />
       </Tag>
+      
     );
   };
 
