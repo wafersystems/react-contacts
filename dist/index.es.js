@@ -839,10 +839,7 @@ var Card = function Card(_ref) {
   drag(drop(ref));
   return /*#__PURE__*/React.createElement(_Tag, {
     onClick: function onClick() {
-      unCheckUser(_objectSpread2({
-        userId: card.id,
-        username: card.text
-      }, card));
+      unCheckUser(_objectSpread2({}, card));
     },
     ref: ref,
     className: styles.userTag,
@@ -1126,7 +1123,8 @@ var style = {
 var Container = function Container(_ref) {
   var data = _ref.data,
       unCheckUser = _ref.unCheckUser,
-      updateSelectUsers = _ref.updateSelectUsers;
+      updateSelectUsers = _ref.updateSelectUsers,
+      userNameKey = _ref.userNameKey;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1139,12 +1137,7 @@ var Container = function Container(_ref) {
       setreturncards = _useState4[1];
 
   useEffect(function () {
-    setCards(data.map(function (item) {
-      return _objectSpread2({
-        id: item.userId,
-        text: item.username
-      }, item);
-    }));
+    setCards(data);
   }, [data]);
   var moveCard = useCallback(function (dragIndex, hoverIndex) {
     var dragCard = cards[dragIndex];
@@ -1155,12 +1148,7 @@ var Container = function Container(_ref) {
   }, [cards]);
 
   if (returncards) {
-    updateSelectUsers(cards.map(function (v) {
-      return _objectSpread2({
-        userId: v.id,
-        username: v.text
-      }, v);
-    }));
+    updateSelectUsers(cards);
     setreturncards(false);
   }
 
@@ -1169,10 +1157,10 @@ var Container = function Container(_ref) {
       updateSelectUsers: updateSelectUsers,
       unCheckUser: unCheckUser,
       card: card,
-      key: card.id,
+      key: card.userId,
       index: index,
-      id: card.id,
-      text: card.text,
+      id: card.userId,
+      text: card[userNameKey],
       moveCard: moveCard
     });
   };
@@ -1465,7 +1453,8 @@ var Contacts = function Contacts(props) {
   }), Drag ? selectUser.length > 0 && /*#__PURE__*/React.createElement(App, {
     updateSelectUsers: updateSelectUsers,
     data: selectUser,
-    unCheckUser: unCheckUser
+    unCheckUser: unCheckUser,
+    userNameKey: userNameKey
   }) : selectUser && selectUser.map(function (v) {
     return makeUserTag(v);
   }))))))));
