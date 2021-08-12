@@ -2,22 +2,10 @@ import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Tag } from 'antd'
 
+import styles from '../contacts.less';
+
 const ItemTypes = 'card'
-const style = {
-  // padding: "0.5rem 1rem",
-  // marginBottom: ".5rem",
-  // backgroundColor: "white",
-  cursor: "move",
-  color: '#375EEE',
-  backgroundColor: 'rgba(55, 94, 238, 0.09)',
-  // borderRadius: '4px',
-  border: '1px solid #375EEE',
-  marginLeft: '10px',
-  marginTop: '8px',
-  width: '63px',
-  height: '24px',
-  overflow: 'hidden'
-};
+
 const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
   const ref = useRef(null);
   const [{ handlerId }, drop] = useDrop({
@@ -82,7 +70,8 @@ const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
     <Tag
       onClick={() => { unCheckUser({ ...card }) }}
       ref={ref}
-      style={{ ...style, opacity }}
+      className={styles.userTag}
+      style={opacity}
       data-handler-id={handlerId}
     // longpress={() => { console.log('longe') }}
     >

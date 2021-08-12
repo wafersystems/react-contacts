@@ -14,7 +14,7 @@ import 'antd/es/message/style';
 import _message from 'antd/es/message';
 import 'antd/es/input/style';
 import _Input from 'antd/es/input';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import 'antd/es/pagination/style';
 import _Pagination from 'antd/es/pagination';
@@ -28,6 +28,61 @@ import 'antd/es/radio/style';
 import _Radio from 'antd/es/radio';
 import 'antd/es/tree/style';
 import _Tree from 'antd/es/tree';
+import { useDrop, useDrag, DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -56,14 +111,17 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
   var _arr = [];
   var _n = true;
   var _d = false;
-  var _e = undefined;
+
+  var _s, _e;
 
   try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
       _arr.push(_s.value);
 
       if (i && _arr.length === i) break;
@@ -130,7 +188,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义整体的宽度 */\n.contacts_card__9kiRW::-webkit-scrollbar {\n  width: 5px;\n  height: 44px !important;\n  background: rgba(0, 0, 0, 0.45);\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-size: 15px;\n  font-weight: bold;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  padding-left: 10px;\n  float: left;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  border: 1px solid var(--border-color);\n  background: var(--bg-color);\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  color: #1890FF;\n  background-color: #E6F7FF;\n  border: 1px solid #91D5FF;\n  margin-left: 10px;\n  margin-top: 8px;\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  color: #375EEE;\n  background-color: rgba(55, 94, 238, 0.09);\n  border-radius: 4px;\n  border: 1px solid #375EEE;\n  margin-left: 10px;\n  margin-top: 8px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
+var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--bg-color);\n  border: 1px solid var(--border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
 var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI"};
 styleInject(css_248z);
 
@@ -152,7 +210,8 @@ var Right = (function (_ref) {
       selectUser = _ref.selectUser,
       setSelectUser = _ref.setSelectUser,
       userNameKey = _ref.userNameKey,
-      radio = _ref.radio;
+      radio = _ref.radio,
+      showLeft = _ref.showLeft;
 
   var _useState = useState(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -333,12 +392,13 @@ var Right = (function (_ref) {
     setSelectUser(newSelectUser);
   };
 
+  var colWidth = showLeft ? 12 : 24;
   return /*#__PURE__*/React.createElement(_Col, {
-    xs: 12,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 12,
+    xs: colWidth,
+    sm: colWidth,
+    md: colWidth,
+    lg: colWidth,
+    xl: colWidth,
     className: styles.treeLeft
   }, /*#__PURE__*/React.createElement(_Card, {
     className: styles.card
@@ -676,6 +736,462 @@ var Left = (function (_ref) {
   })));
 });
 
+var ItemTypes = 'card';
+
+var Card = function Card(_ref) {
+  var id = _ref.id,
+      text = _ref.text,
+      index = _ref.index,
+      moveCard = _ref.moveCard,
+      unCheckUser = _ref.unCheckUser,
+      card = _ref.card;
+  var ref = useRef(null);
+
+  var _useDrop = useDrop({
+    accept: ItemTypes,
+    collect: function collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId()
+      };
+    },
+    hover: function hover(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
+
+      var dragIndex = item.index;
+      var hoverIndex = index; // Don't replace items with themselves
+
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      } // Determine rectangle on screen
+
+
+      // Determine rectangle on screen
+      var hoverBoundingRect = ref.current && ref.current.getBoundingClientRect(); // Get vertical middle
+
+      // Get vertical middle
+      var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2; // Determine mouse position
+
+      // Determine mouse position
+      var clientOffset = monitor.getClientOffset(); // Get pixels to the top
+
+      // Get pixels to the top
+      var hoverClientY = clientOffset.y - hoverBoundingRect.top; // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      } // Dragging upwards
+
+
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      } // Time to actually perform the action
+
+
+      // Time to actually perform the action
+      moveCard(dragIndex, hoverIndex); // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      // eslint-disable-next-line no-param-reassign
+
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      // eslint-disable-next-line no-param-reassign
+      item.index = hoverIndex;
+    }
+  }),
+      _useDrop2 = _slicedToArray(_useDrop, 2),
+      handlerId = _useDrop2[0].handlerId,
+      drop = _useDrop2[1];
+
+  var _useDrag = useDrag({
+    type: ItemTypes,
+    item: function item() {
+      return {
+        id: id,
+        index: index
+      };
+    },
+    collect: function collect(monitor) {
+      return {
+        isDragging: monitor.isDragging()
+      };
+    }
+  }),
+      _useDrag2 = _slicedToArray(_useDrag, 2),
+      isDragging = _useDrag2[0].isDragging,
+      drag = _useDrag2[1];
+
+  var opacity = isDragging ? 0 : 1;
+  drag(drop(ref));
+  return /*#__PURE__*/React.createElement(_Tag, {
+    onClick: function onClick() {
+      unCheckUser(_objectSpread2({
+        userId: card.id,
+        username: card.text
+      }, card));
+    },
+    ref: ref,
+    className: styles.userTag,
+    style: opacity,
+    "data-handler-id": handlerId // longpress={() => { console.log('longe') }}
+
+  }, text);
+};
+
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var immutabilityHelper = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+function stringifiable(obj) {
+    // Safely stringify Object.create(null)
+    /* istanbul ignore next */
+    return typeof obj === 'object' && !('toString' in obj) ?
+        Object.prototype.toString.call(obj).slice(8, -1) :
+        obj;
+}
+var isProduction = typeof process === 'object' && process.env.NODE_ENV === 'production';
+function invariant(condition, message) {
+    if (!condition) {
+        /* istanbul ignore next */
+        if (isProduction) {
+            throw new Error('Invariant failed');
+        }
+        throw new Error(message());
+    }
+}
+exports.invariant = invariant;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var splice = Array.prototype.splice;
+var toString = Object.prototype.toString;
+function type(obj) {
+    return toString.call(obj).slice(8, -1);
+}
+var assign = Object.assign || /* istanbul ignore next */ (function (target, source) {
+    getAllKeys(source).forEach(function (key) {
+        if (hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+        }
+    });
+    return target;
+});
+var getAllKeys = typeof Object.getOwnPropertySymbols === 'function'
+    ? function (obj) { return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj)); }
+    /* istanbul ignore next */
+    : function (obj) { return Object.keys(obj); };
+function copy(object) {
+    return Array.isArray(object)
+        ? assign(object.constructor(object.length), object)
+        : (type(object) === 'Map')
+            ? new Map(object)
+            : (type(object) === 'Set')
+                ? new Set(object)
+                : (object && typeof object === 'object')
+                    ? assign(Object.create(Object.getPrototypeOf(object)), object)
+                    /* istanbul ignore next */
+                    : object;
+}
+var Context = /** @class */ (function () {
+    function Context() {
+        this.commands = assign({}, defaultCommands);
+        this.update = this.update.bind(this);
+        // Deprecated: update.extend, update.isEquals and update.newContext
+        this.update.extend = this.extend = this.extend.bind(this);
+        this.update.isEquals = function (x, y) { return x === y; };
+        this.update.newContext = function () { return new Context().update; };
+    }
+    Object.defineProperty(Context.prototype, "isEquals", {
+        get: function () {
+            return this.update.isEquals;
+        },
+        set: function (value) {
+            this.update.isEquals = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Context.prototype.extend = function (directive, fn) {
+        this.commands[directive] = fn;
+    };
+    Context.prototype.update = function (object, $spec) {
+        var _this = this;
+        var spec = (typeof $spec === 'function') ? { $apply: $spec } : $spec;
+        if (!(Array.isArray(object) && Array.isArray(spec))) {
+            invariant(!Array.isArray(spec), function () { return "update(): You provided an invalid spec to update(). The spec may " +
+                "not contain an array except as the value of $set, $push, $unshift, " +
+                "$splice or any custom command allowing an array value."; });
+        }
+        invariant(typeof spec === 'object' && spec !== null, function () { return "update(): You provided an invalid spec to update(). The spec and " +
+            "every included key path must be plain objects containing one of the " +
+            ("following commands: " + Object.keys(_this.commands).join(', ') + "."); });
+        var nextObject = object;
+        getAllKeys(spec).forEach(function (key) {
+            if (hasOwnProperty.call(_this.commands, key)) {
+                var objectWasNextObject = object === nextObject;
+                nextObject = _this.commands[key](spec[key], nextObject, spec, object);
+                if (objectWasNextObject && _this.isEquals(nextObject, object)) {
+                    nextObject = object;
+                }
+            }
+            else {
+                var nextValueForKey = type(object) === 'Map'
+                    ? _this.update(object.get(key), spec[key])
+                    : _this.update(object[key], spec[key]);
+                var nextObjectValue = type(nextObject) === 'Map'
+                    ? nextObject.get(key)
+                    : nextObject[key];
+                if (!_this.isEquals(nextValueForKey, nextObjectValue)
+                    || typeof nextValueForKey === 'undefined'
+                        && !hasOwnProperty.call(object, key)) {
+                    if (nextObject === object) {
+                        nextObject = copy(object);
+                    }
+                    if (type(nextObject) === 'Map') {
+                        nextObject.set(key, nextValueForKey);
+                    }
+                    else {
+                        nextObject[key] = nextValueForKey;
+                    }
+                }
+            }
+        });
+        return nextObject;
+    };
+    return Context;
+}());
+exports.Context = Context;
+var defaultCommands = {
+    $push: function (value, nextObject, spec) {
+        invariantPushAndUnshift(nextObject, spec, '$push');
+        return value.length ? nextObject.concat(value) : nextObject;
+    },
+    $unshift: function (value, nextObject, spec) {
+        invariantPushAndUnshift(nextObject, spec, '$unshift');
+        return value.length ? value.concat(nextObject) : nextObject;
+    },
+    $splice: function (value, nextObject, spec, originalObject) {
+        invariantSplices(nextObject, spec);
+        value.forEach(function (args) {
+            invariantSplice(args);
+            if (nextObject === originalObject && args.length) {
+                nextObject = copy(originalObject);
+            }
+            splice.apply(nextObject, args);
+        });
+        return nextObject;
+    },
+    $set: function (value, _nextObject, spec) {
+        invariantSet(spec);
+        return value;
+    },
+    $toggle: function (targets, nextObject) {
+        invariantSpecArray(targets, '$toggle');
+        var nextObjectCopy = targets.length ? copy(nextObject) : nextObject;
+        targets.forEach(function (target) {
+            nextObjectCopy[target] = !nextObject[target];
+        });
+        return nextObjectCopy;
+    },
+    $unset: function (value, nextObject, _spec, originalObject) {
+        invariantSpecArray(value, '$unset');
+        value.forEach(function (key) {
+            if (Object.hasOwnProperty.call(nextObject, key)) {
+                if (nextObject === originalObject) {
+                    nextObject = copy(originalObject);
+                }
+                delete nextObject[key];
+            }
+        });
+        return nextObject;
+    },
+    $add: function (values, nextObject, _spec, originalObject) {
+        invariantMapOrSet(nextObject, '$add');
+        invariantSpecArray(values, '$add');
+        if (type(nextObject) === 'Map') {
+            values.forEach(function (_a) {
+                var key = _a[0], value = _a[1];
+                if (nextObject === originalObject && nextObject.get(key) !== value) {
+                    nextObject = copy(originalObject);
+                }
+                nextObject.set(key, value);
+            });
+        }
+        else {
+            values.forEach(function (value) {
+                if (nextObject === originalObject && !nextObject.has(value)) {
+                    nextObject = copy(originalObject);
+                }
+                nextObject.add(value);
+            });
+        }
+        return nextObject;
+    },
+    $remove: function (value, nextObject, _spec, originalObject) {
+        invariantMapOrSet(nextObject, '$remove');
+        invariantSpecArray(value, '$remove');
+        value.forEach(function (key) {
+            if (nextObject === originalObject && nextObject.has(key)) {
+                nextObject = copy(originalObject);
+            }
+            nextObject.delete(key);
+        });
+        return nextObject;
+    },
+    $merge: function (value, nextObject, _spec, originalObject) {
+        invariantMerge(nextObject, value);
+        getAllKeys(value).forEach(function (key) {
+            if (value[key] !== nextObject[key]) {
+                if (nextObject === originalObject) {
+                    nextObject = copy(originalObject);
+                }
+                nextObject[key] = value[key];
+            }
+        });
+        return nextObject;
+    },
+    $apply: function (value, original) {
+        invariantApply(value);
+        return value(original);
+    },
+};
+var defaultContext = new Context();
+exports.isEquals = defaultContext.update.isEquals;
+exports.extend = defaultContext.extend;
+exports.default = defaultContext.update;
+// @ts-ignore
+exports.default.default = module.exports = assign(exports.default, exports);
+// invariants
+function invariantPushAndUnshift(value, spec, command) {
+    invariant(Array.isArray(value), function () { return "update(): expected target of " + stringifiable(command) + " to be an array; got " + stringifiable(value) + "."; });
+    invariantSpecArray(spec[command], command);
+}
+function invariantSpecArray(spec, command) {
+    invariant(Array.isArray(spec), function () { return "update(): expected spec of " + stringifiable(command) + " to be an array; got " + stringifiable(spec) + ". " +
+        "Did you forget to wrap your parameter in an array?"; });
+}
+function invariantSplices(value, spec) {
+    invariant(Array.isArray(value), function () { return "Expected $splice target to be an array; got " + stringifiable(value); });
+    invariantSplice(spec.$splice);
+}
+function invariantSplice(value) {
+    invariant(Array.isArray(value), function () { return "update(): expected spec of $splice to be an array of arrays; got " + stringifiable(value) + ". " +
+        "Did you forget to wrap your parameters in an array?"; });
+}
+function invariantApply(fn) {
+    invariant(typeof fn === 'function', function () { return "update(): expected spec of $apply to be a function; got " + stringifiable(fn) + "."; });
+}
+function invariantSet(spec) {
+    invariant(Object.keys(spec).length === 1, function () { return "Cannot have more than one key in an object with $set"; });
+}
+function invariantMerge(target, specValue) {
+    invariant(specValue && typeof specValue === 'object', function () { return "update(): $merge expects a spec of type 'object'; got " + stringifiable(specValue); });
+    invariant(target && typeof target === 'object', function () { return "update(): $merge expects a target of type 'object'; got " + stringifiable(target); });
+}
+function invariantMapOrSet(target, command) {
+    var typeOfTarget = type(target);
+    invariant(typeOfTarget === 'Map' || typeOfTarget === 'Set', function () { return "update(): " + stringifiable(command) + " expects a target of type Set or Map; got " + stringifiable(typeOfTarget); });
+}
+});
+
+var update = unwrapExports(immutabilityHelper);
+var immutabilityHelper_1 = immutabilityHelper.invariant;
+var immutabilityHelper_2 = immutabilityHelper.Context;
+var immutabilityHelper_3 = immutabilityHelper.isEquals;
+var immutabilityHelper_4 = immutabilityHelper.extend;
+
+var style = {
+  display: "flex",
+  flexWrap: 'wrap'
+};
+
+var Container = function Container(_ref) {
+  var data = _ref.data,
+      unCheckUser = _ref.unCheckUser,
+      updateSelectUsers = _ref.updateSelectUsers;
+
+  var _useState = useState([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      cards = _useState2[0],
+      setCards = _useState2[1];
+
+  var _useState3 = useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      returncards = _useState4[0],
+      setreturncards = _useState4[1];
+
+  useEffect(function () {
+    setCards(data.map(function (item) {
+      return _objectSpread2({
+        id: item.userId,
+        text: item.username
+      }, item);
+    }));
+  }, [data]);
+  var moveCard = useCallback(function (dragIndex, hoverIndex) {
+    var dragCard = cards[dragIndex];
+    setCards(update(cards, {
+      $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+    }));
+    setreturncards(true);
+  }, [cards]);
+
+  if (returncards) {
+    updateSelectUsers(cards.map(function (v) {
+      return _objectSpread2({
+        userId: v.id,
+        username: v.text
+      }, v);
+    }));
+    setreturncards(false);
+  }
+
+  var renderCard = function renderCard(card, index) {
+    return /*#__PURE__*/React.createElement(Card, {
+      updateSelectUsers: updateSelectUsers,
+      unCheckUser: unCheckUser,
+      card: card,
+      key: card.id,
+      index: index,
+      id: card.id,
+      text: card.text,
+      moveCard: moveCard
+    });
+  };
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: style
+  }, cards.map(function (card, i) {
+    return renderCard(card, i);
+  })));
+};
+
+function App(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "App"
+  }, /*#__PURE__*/React.createElement(DndProvider, {
+    backend: HTML5Backend
+  }, /*#__PURE__*/React.createElement(Container, props)));
+}
+
 var Search$2 = _Input.Search;
 
 var Contacts = function Contacts(props) {
@@ -698,7 +1214,9 @@ var Contacts = function Contacts(props) {
       radio = props.radio,
       radioShowText = props.radioShowText,
       checkStrictly = props.checkStrictly,
-      showAllDeptTags = props.showAllDeptTags;
+      showAllDeptTags = props.showAllDeptTags,
+      Drag = props.Drag,
+      showLeft = props.showLeft;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -792,6 +1310,7 @@ var Contacts = function Contacts(props) {
 
 
   var unCheckDept = function unCheckDept(data) {
+    console.log(data, '删除');
     var dept = [];
     var obj = {};
     deptTreeNode.forEach(function (value) {
@@ -866,22 +1385,22 @@ var Contacts = function Contacts(props) {
           color: numberColor
         }
       }, length), " ", end);
-    } else {
-      var name = '';
-
-      if (selectUser.length > 0) {
-        var _selectUser = _slicedToArray(selectUser, 1),
-            use = _selectUser[0];
-
-        name = use[userNameKey];
-      }
-
-      return /*#__PURE__*/React.createElement("div", null, radioShowText, " ", /*#__PURE__*/React.createElement("span", {
-        style: {
-          color: numberColor
-        }
-      }, name));
     }
+
+    var name = '';
+
+    if (selectUser.length > 0) {
+      var _selectUser = _slicedToArray(selectUser, 1),
+          use = _selectUser[0];
+
+      name = use[userNameKey];
+    }
+
+    return /*#__PURE__*/React.createElement("div", null, radioShowText, " ", /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: numberColor
+      }
+    }, name));
   };
 
   var userData;
@@ -901,7 +1420,7 @@ var Contacts = function Contacts(props) {
   }, userSearch && /*#__PURE__*/React.createElement(_Row, null, /*#__PURE__*/React.createElement(Search$2, {
     placeholder: searchUserPlaceholder,
     onSearch: handleSearch
-  })), userSearch && /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(_Row, null, /*#__PURE__*/React.createElement(Left, _extends({}, props, {
+  })), userSearch && /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(_Row, null, showLeft && /*#__PURE__*/React.createElement(Left, _extends({}, props, {
     setDeptId: setDeptId,
     setOnSearch: setOnSearch,
     deptTreeNode: deptTreeNode,
@@ -923,7 +1442,8 @@ var Contacts = function Contacts(props) {
     userNameKey: userNameKey,
     deptId: deptId,
     setSelectUser: setSelectUser,
-    radio: radio
+    radio: radio,
+    showLeft: showLeft
   })), /*#__PURE__*/React.createElement(_Col, {
     xs: 24,
     sm: 24,
@@ -942,7 +1462,11 @@ var Contacts = function Contacts(props) {
     return makeDeptTag(v);
   }), showAllDeptTags && deptTreeNode && deptTreeNode.map(function (v) {
     return makeDeptTag(v);
-  }), selectUser && selectUser.map(function (v) {
+  }), Drag ? selectUser.length > 0 && /*#__PURE__*/React.createElement(App, {
+    updateSelectUsers: updateSelectUsers,
+    data: selectUser,
+    unCheckUser: unCheckUser
+  }) : selectUser && selectUser.map(function (v) {
     return makeUserTag(v);
   }))))))));
 };
@@ -972,7 +1496,10 @@ Contacts.propTypes = {
   checkStrictly: PropTypes.bool,
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
-  returnReducedNode: PropTypes.bool
+  returnReducedNode: PropTypes.bool,
+  Drag: PropTypes.bool,
+  // 显示左边部门树
+  showLeft: PropTypes.bool
 };
 Contacts.defaultProps = {
   users: {
@@ -998,7 +1525,10 @@ Contacts.defaultProps = {
   radioShowText: '已经选择',
   checkStrictly: false,
   showAllDeptTags: false,
-  returnReducedNode: false
+  returnReducedNode: false,
+  Drag: false,
+  // 显示左边部门树，默认显示
+  showLeft: true
 };
 
 export default Contacts;
