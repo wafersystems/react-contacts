@@ -31,7 +31,7 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags, Drag,showLeft
+    checkStrictly, showAllDeptTags, Drag, showLeft
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -132,7 +132,6 @@ const Contacts = (props) => {
       >
         {v[userNameKey]} <Icon type="close-circle" theme="filled" />
       </Tag>
-      
     );
   };
 
@@ -190,7 +189,6 @@ const Contacts = (props) => {
   } else {
     userData = users;
   }
-
   return (
     <div style={{ height: '100%' }}>
       <Spin spinning={loading}>
@@ -202,13 +200,13 @@ const Contacts = (props) => {
         {userSearch && <br />}
         <Row>
           {showLeft && <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
-                deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
-                handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-                updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />}
+            deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
+            handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
+            updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />}
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
-                 nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
-                 handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
-                 setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} />
+            nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
+            handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
+            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false} layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
@@ -223,6 +221,7 @@ const Contacts = (props) => {
                             updateSelectUsers={updateSelectUsers}
                             data={selectUser}
                             unCheckUser={unCheckUser}
+                            userNameKey={userNameKey}
                           />
                         )
 
@@ -270,7 +269,7 @@ Contacts.propTypes = {
   returnReducedNode: PropTypes.bool,
   Drag: PropTypes.bool,
   // 显示左边部门树
-  showLeft:PropTypes.bool
+  showLeft: PropTypes.bool
 };
 
 Contacts.defaultProps = {
@@ -300,7 +299,7 @@ Contacts.defaultProps = {
   returnReducedNode: false,
   Drag: false,
   // 显示左边部门树，默认显示
-  showLeft:true
+  showLeft: true
 };
 
 export default Contacts;

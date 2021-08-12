@@ -6,15 +6,11 @@ const style = {
   display: "flex",
   flexWrap: 'wrap'
 };
-const Container = ({ data, unCheckUser, updateSelectUsers }) => {
+const Container = ({ data, unCheckUser, updateSelectUsers, userNameKey }) => {
   const [cards, setCards] = useState([]);
   const [returncards, setreturncards] = useState(false);
   useEffect(() => {
-    setCards(data.map(item => ({
-      id: item.userId,
-      text: item.username,
-      ...item
-    })))
+    setCards(data)
   }, [data])
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
@@ -32,11 +28,7 @@ const Container = ({ data, unCheckUser, updateSelectUsers }) => {
     [cards]
   );
   if (returncards) {
-    updateSelectUsers(cards.map((v) => ({
-      userId: v.id,
-      username: v.text,
-      ...v
-    })))
+    updateSelectUsers(cards)
     setreturncards(false)
   }
   const renderCard = (card, index) => {
@@ -45,10 +37,10 @@ const Container = ({ data, unCheckUser, updateSelectUsers }) => {
         updateSelectUsers={updateSelectUsers}
         unCheckUser={unCheckUser}
         card={card}
-        key={card.id}
+        key={card.userId}
         index={index}
-        id={card.id}
-        text={card.text}
+        id={card.userId}
+        text={card[userNameKey]}
         moveCard={moveCard}
       />
     );

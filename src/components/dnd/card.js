@@ -80,7 +80,7 @@ const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
   drag(drop(ref));
   return (
     <Tag
-      onClick={() => { unCheckUser({ userId: card.id, username: card.text, ...card }) }}
+      onClick={() => { unCheckUser({ ...card }) }}
       ref={ref}
       style={{ ...style, opacity }}
       data-handler-id={handlerId}
