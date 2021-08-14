@@ -527,6 +527,8 @@ var Left = (function (_ref) {
       onDeptSearch = _useState4[0],
       setOnDeptSearch = _useState4[1];
 
+  console.log(deptTree);
+
   var onSearchDeptChange = function onSearchDeptChange(e) {
     if (!e.target.value) {
       setDeptSearchResult([]);
@@ -710,7 +712,8 @@ var Left = (function (_ref) {
     checkedKeys: makeCheckedKeys(deptTreeNode),
     onSelect: onTreeSelect,
     onCheck: onDeptTreeCheck,
-    checkStrictly: checkStrictly
+    checkStrictly: checkStrictly,
+    defaultExpandedKeys: [deptTree[0].id.toString()]
   }, makeTreeNode(deptTree, deptNameKey)), onDeptSearch && /*#__PURE__*/React.createElement(_List, {
     size: "small",
     bordered: false,
