@@ -14,6 +14,8 @@ export default ({
   const [deptSearchResult, setDeptSearchResult] = useState([]);
   const [onDeptSearch, setOnDeptSearch] = useState(false);
 
+  console.log(deptTree)
+
   const onSearchDeptChange = e => {
     if (!e.target.value) {
       setDeptSearchResult([]);
@@ -170,6 +172,7 @@ export default ({
             onSelect={onTreeSelect}
             onCheck={onDeptTreeCheck}
             checkStrictly={checkStrictly}
+            defaultExpandedKeys={[deptTree[0].id.toString()]}
           >
             {makeTreeNode(deptTree, deptNameKey)}
           </Tree>
