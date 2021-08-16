@@ -52,3 +52,22 @@ export const filterDeptTagShow = (list) => {
   })
   return dept;
 }
+
+/**
+ *  格式化树数据
+ * @param treeData
+ * @param deptNameKey
+ * @returns {*}
+ */
+export const formatDeptData = (treeData, deptNameKey) => {
+    return treeData.map(v => {
+        v.key = v.id.toString();
+        v.title = v[deptNameKey];
+        v.isLeaf=true;
+        if (v.children.length > 0) {
+            v.isLeaf=false;
+            v.children = formatDeptData(v.children, deptNameKey)
+        }
+        return v;
+    });
+}

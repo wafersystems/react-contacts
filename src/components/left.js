@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { Card, Checkbox, Col, List, message, Tree, Input } from 'antd';
 import styles from './contacts.less';
-import { makeTreeNode, filterDeptTagShow } from '../utils';
+import {makeTreeNode, filterDeptTagShow, formatDeptData} from '../utils';
 
 const { Search } = Input;
+
+function updateTreeData(list, key, children) {
+  return list.map((node) => {
+    if (node.key === key) {
+      return { ...node, children };
+    }
+
+    if (node.children) {
+      return { ...node, children: updateTreeData(node.children, key, children) };
+    }
+
+    return node;
+  });
+}
 
 export default ({
   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
@@ -13,8 +27,6 @@ export default ({
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
   const [onDeptSearch, setOnDeptSearch] = useState(false);
-
-  console.log(deptTree)
 
   const onSearchDeptChange = e => {
     if (!e.target.value) {
@@ -173,8 +185,9 @@ export default ({
             onCheck={onDeptTreeCheck}
             checkStrictly={checkStrictly}
             defaultExpandedKeys={[deptTree[0].id.toString()]}
+            treeData={formatDeptData(deptTree,deptNameKey)}
           >
-            {makeTreeNode(deptTree, deptNameKey)}
+            {/*{makeTreeNode(deptTree, deptNameKey)}*/}
           </Tree>
         )}
         {onDeptSearch && (
