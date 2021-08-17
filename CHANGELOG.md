@@ -12,6 +12,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+-  fix Default expansion error when the department tree has only one level.
+
+### Removed
+
+- none
+
+&nbsp
+
+## [1.1.3] - 2021-08-14
+
+### Added
+
+- none
+
+### Changed
+
 -  modify Naturally expand the first level of the department tree.
 
 ### Removed

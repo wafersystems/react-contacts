@@ -452,23 +452,6 @@ var Right = (function (_ref) {
 
 var TreeNode = _Tree.TreeNode;
 /**
- *
- * @param nodes
- * @param deptNameKey
- * @returns {*} tree nodes.
- */
-
-function makeTreeNode(nodes, deptNameKey) {
-  return nodes.map(function (v) {
-    var nodeKey = v.id;
-    return /*#__PURE__*/React__default.createElement(TreeNode, {
-      data: v,
-      title: v[deptNameKey],
-      key: nodeKey
-    }, v.children.length > 0 && makeTreeNode(v.children, deptNameKey));
-  });
-}
-/**
  * 过滤dept节点,如果父节点选中不显示子节点
  * @param list
  * @returns {[]}
@@ -502,6 +485,27 @@ var filterDeptTagShow = function filterDeptTagShow(list) {
   });
   return dept;
 };
+/**
+ *  格式化树数据
+ * @param treeData
+ * @param deptNameKey
+ * @returns {*}
+ */
+
+var formatDeptData = function formatDeptData(treeData, deptNameKey) {
+  return treeData.map(function (v) {
+    v.key = v.id.toString();
+    v.title = v[deptNameKey];
+    v.isLeaf = true;
+
+    if (v.children.length > 0) {
+      v.isLeaf = false;
+      v.children = formatDeptData(v.children, deptNameKey);
+    }
+
+    return v;
+  });
+};
 
 var Search$1 = _Input.Search;
 var Left = (function (_ref) {
@@ -531,8 +535,6 @@ var Left = (function (_ref) {
       _useState4 = _slicedToArray(_useState3, 2),
       onDeptSearch = _useState4[0],
       setOnDeptSearch = _useState4[1];
-
-  console.log(deptTree);
 
   var onSearchDeptChange = function onSearchDeptChange(e) {
     if (!e.target.value) {
@@ -620,9 +622,9 @@ var Left = (function (_ref) {
         checkedNodes = _ref2.checkedNodes,
         node = _ref2.node;
     var tmp = [];
+    console.log(checked, checkedNodes, node);
     checkedNodes.forEach(function (v) {
-      var data = v.data;
-      tmp.push(data);
+      tmp.push(v);
     });
 
     if (returnReducedNode) {
@@ -698,7 +700,19 @@ var Left = (function (_ref) {
     }
   };
 
-  console.log(deptTreeNode);
+  var defaultExpandedKeys = function defaultExpandedKeys() {
+    try {
+      if (deptTree.length > 0 && deptTree[0] && deptTree[0].id) {
+        return [deptTree[0].id.toString()];
+      } else {
+        return [];
+      }
+    } catch (e) {
+      window.console.error(e);
+      return [];
+    }
+  };
+
   return /*#__PURE__*/React__default.createElement(_Col, {
     xs: 12,
     sm: 12,
@@ -718,8 +732,9 @@ var Left = (function (_ref) {
     onSelect: onTreeSelect,
     onCheck: onDeptTreeCheck,
     checkStrictly: checkStrictly,
-    defaultExpandedKeys: [deptTree[0].id.toString()]
-  }, makeTreeNode(deptTree, deptNameKey)), onDeptSearch && /*#__PURE__*/React__default.createElement(_List, {
+    defaultExpandedKeys: defaultExpandedKeys(),
+    treeData: formatDeptData(deptTree, deptNameKey)
+  }), onDeptSearch && /*#__PURE__*/React__default.createElement(_List, {
     size: "small",
     bordered: false,
     dataSource: deptSearchResult,
