@@ -1,23 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Checkbox, Col, List, message, Tree, Input } from 'antd';
 import styles from './contacts.less';
-import {makeTreeNode, filterDeptTagShow, formatDeptData} from '../utils';
+import { filterDeptTagShow, formatDeptData} from '../utils';
 
 const { Search } = Input;
-
-function updateTreeData(list, key, children) {
-  return list.map((node) => {
-    if (node.key === key) {
-      return { ...node, children };
-    }
-
-    if (node.children) {
-      return { ...node, children: updateTreeData(node.children, key, children) };
-    }
-
-    return node;
-  });
-}
 
 export default ({
   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
@@ -101,18 +87,15 @@ export default ({
    */
   const onDeptTreeCheck = (checkedKeys, { checked, checkedNodes, node }) => {
     const tmp = [];
+    console.log(checked,checkedNodes,node)
     checkedNodes.forEach(v => {
-      const {
-        data
-      } = v;
-      tmp.push(data);
+      tmp.push(v);
     });
     if (returnReducedNode) {
       updateSelectDept(filterDeptTagShow(tmp));
     } else {
       updateSelectDept(tmp);
     }
-
     setDeptTreeNode(tmp);
   };
 
@@ -167,7 +150,19 @@ export default ({
       message.error('search function not found.');
     }
   };
-  console.log(deptTreeNode)
+
+  const defaultExpandedKeys = ()=>{
+    try {
+      if(deptTree.length>0 && deptTree[0] && deptTree[0].id){
+        return  [deptTree[0].id.toString()];
+      } else {
+        return []
+      }
+    }catch (e){
+      window.console.error(e);
+      return [];
+    }
+  }
 
   return (
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -184,7 +179,7 @@ export default ({
             onSelect={onTreeSelect}
             onCheck={onDeptTreeCheck}
             checkStrictly={checkStrictly}
-            defaultExpandedKeys={[deptTree[0].id.toString()]}
+            defaultExpandedKeys={defaultExpandedKeys()}
             treeData={formatDeptData(deptTree,deptNameKey)}
           >
             {/*{makeTreeNode(deptTree, deptNameKey)}*/}
