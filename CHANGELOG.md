@@ -12,6 +12,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- modify 调整部门搜索隐藏时的样式
+
+### Removed
+
+- none
+
+&nbsp
+
+## [1.1.5] - 2021-08-19
+
+### Added
+
+- none
+
+### Changed
+
 - add props loadData, Load data asynchronously. 
 
 ### Removed
