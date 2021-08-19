@@ -494,11 +494,20 @@ var filterDeptTagShow = function filterDeptTagShow(list) {
 
 var formatDeptData = function formatDeptData(treeData, deptNameKey) {
   return treeData.map(function (v) {
-    v.key = v.id.toString();
-    v.title = v[deptNameKey];
-    v.isLeaf = true;
+    if (!v.id) {
+      v.id = v.deptId;
+    }
 
-    if (v.children.length > 0) {
+    try {
+      v.key = v.id ? v.id.toString() : v.deptId.toString();
+    } catch (e) {
+      v.key = new Date().getTime();
+    }
+
+    v.title = v[deptNameKey];
+    v.isLeaf = !v.hasChild;
+
+    if (v.children && v.children.length > 0) {
       v.isLeaf = false;
       v.children = formatDeptData(v.children, deptNameKey);
     }
@@ -524,7 +533,8 @@ var Left = (function (_ref) {
       radio = _ref.radio,
       checkStrictly = _ref.checkStrictly,
       returnReducedNode = _ref.returnReducedNode,
-      nameKey = _ref.nameKey;
+      nameKey = _ref.nameKey,
+      loadData = _ref.loadData;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -721,7 +731,7 @@ var Left = (function (_ref) {
     xl: 12
   }, /*#__PURE__*/React__default.createElement(_Card, {
     className: styles.card
-  }, deptSearch && /*#__PURE__*/React__default.createElement(Search$1, {
+  }, deptSearch && !loadData && /*#__PURE__*/React__default.createElement(Search$1, {
     placeholder: searchDeptPlaceholder,
     onSelect: onSearchDeptChange,
     onSearch: onSearchDept
@@ -733,7 +743,8 @@ var Left = (function (_ref) {
     onCheck: onDeptTreeCheck,
     checkStrictly: checkStrictly,
     defaultExpandedKeys: defaultExpandedKeys(),
-    treeData: formatDeptData(deptTree, deptNameKey)
+    treeData: formatDeptData(deptTree, deptNameKey),
+    loadData: loadData
   }), onDeptSearch && /*#__PURE__*/React__default.createElement(_List, {
     size: "small",
     bordered: false,
@@ -1227,7 +1238,8 @@ var Contacts = function Contacts(props) {
       checkStrictly = props.checkStrictly,
       showAllDeptTags = props.showAllDeptTags,
       Drag = props.Drag,
-      showLeft = props.showLeft;
+      showLeft = props.showLeft,
+      loadData = props.loadData;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1446,6 +1458,7 @@ var Contacts = function Contacts(props) {
     userData: userData,
     onSearch: onSearch,
     setOnSearch: setOnSearch,
+    loadData: loadData,
     nameKey: nameKey,
     setNameKey: setNameKey,
     selectUser: selectUser,
@@ -1511,7 +1524,9 @@ Contacts.propTypes = {
   returnReducedNode: PropTypes.bool,
   Drag: PropTypes.bool,
   // 显示左边部门树
-  showLeft: PropTypes.bool
+  showLeft: PropTypes.bool,
+  // 异步加载数据
+  loadData: PropTypes.func
 };
 Contacts.defaultProps = {
   users: {
@@ -1540,7 +1555,8 @@ Contacts.defaultProps = {
   returnReducedNode: false,
   Drag: false,
   // 显示左边部门树，默认显示
-  showLeft: true
+  showLeft: true,
+  loadData: false
 };
 
 module.exports = Contacts;

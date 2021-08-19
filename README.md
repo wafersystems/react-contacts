@@ -54,6 +54,7 @@ checkStrictly   | 	Check treeNode precisely; parent treeNode and children treeNo
 showAllDeptTags   | Whether Tags show all nodes | bool | false
 returnReducedNode | Department tree data reduction mode ([Department tree initialization data](###Department tree initialization data)) | bool | false
 showLeft | show Left Panel | bool | true
+loadData | 	Load data asynchronously | function(node) ([Dynamically load the department tree](###Dynamically load the department tree)) | false
 
 
 ### Department Data
@@ -141,6 +142,23 @@ showLeft | show Left Panel | bool | true
 ###Department tree initialization data
 
 returnReducedNode controls the data format of the department tree, true for simplified mode, false (default) for full data.
+
+###Dynamically load the department tree
+
+```javascript
+          loadData={({deptId, children})=>{
+            return new Promise(resolve => {
+              if (children) {
+                resolve();
+                return;
+              }
+              setTimeout(() => {
+              // 通过 deptId 查询下层数据，返回后合并到树的数据源上
+                resolve();
+              }, 1000);
+            });
+          }}
+```
 
 ####Lean mode
 If a node on the tree, its child nodes are all selected, the returned data only contains the parent node but not the child nodes
