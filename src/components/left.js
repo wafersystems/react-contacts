@@ -170,7 +170,7 @@ export default ({
         {deptSearch && !loadData &&
           <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
             onSearch={onSearchDept} />}
-        {deptSearch && <br />}
+        {deptSearch && !loadData && <br />}
         {!onDeptSearch && (
           <Tree
             // style={{paddingTop:5}}
