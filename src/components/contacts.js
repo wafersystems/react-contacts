@@ -31,7 +31,7 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags, Drag, showLeft
+    checkStrictly, showAllDeptTags, Drag, showLeft, loadData
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -203,7 +203,7 @@ const Contacts = (props) => {
             deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
             handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
             updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />}
-          <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch}
+          <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
             nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
             handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
             setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} />
@@ -269,7 +269,9 @@ Contacts.propTypes = {
   returnReducedNode: PropTypes.bool,
   Drag: PropTypes.bool,
   // 显示左边部门树
-  showLeft: PropTypes.bool
+  showLeft: PropTypes.bool,
+  // 异步加载数据
+  loadData: PropTypes.func
 };
 
 Contacts.defaultProps = {
@@ -299,7 +301,8 @@ Contacts.defaultProps = {
   returnReducedNode: false,
   Drag: false,
   // 显示左边部门树，默认显示
-  showLeft: true
+  showLeft: true,
+  loadData: false
 };
 
 export default Contacts;

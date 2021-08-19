@@ -61,10 +61,17 @@ export const filterDeptTagShow = (list) => {
  */
 export const formatDeptData = (treeData, deptNameKey) => {
     return treeData.map(v => {
-        v.key = v.id.toString();
+        if(!v.id){
+            v.id = v.deptId;
+        }
+        try{
+            v.key = v.id?v.id.toString():v.deptId.toString();
+        }catch (e){
+            v.key = new Date().getTime();
+        }
         v.title = v[deptNameKey];
-        v.isLeaf=true;
-        if (v.children.length > 0) {
+        v.isLeaf = !v.hasChild;
+        if (v.children && v.children.length > 0) {
             v.isLeaf=false;
             v.children = formatDeptData(v.children, deptNameKey)
         }
