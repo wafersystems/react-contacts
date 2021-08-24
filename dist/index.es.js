@@ -730,7 +730,7 @@ var Left = (function (_ref) {
     placeholder: searchDeptPlaceholder,
     onSelect: onSearchDeptChange,
     onSearch: onSearchDept
-  }), deptSearch && !loadData && /*#__PURE__*/React.createElement("br", null), !onDeptSearch && /*#__PURE__*/React.createElement(_Tree, {
+  }), deptSearch && !loadData && /*#__PURE__*/React.createElement("br", null), !onDeptSearch && deptTree.length > 0 && /*#__PURE__*/React.createElement(_Tree, {
     // style={{paddingTop:5}}
     checkable: deptCheckBox && !radio,
     checkedKeys: makeCheckedKeys(deptTreeNode),
