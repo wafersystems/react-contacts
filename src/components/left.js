@@ -171,7 +171,7 @@ export default ({
           <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
             onSearch={onSearchDept} />}
         {deptSearch && !loadData && <br />}
-        {!onDeptSearch && (
+        {!onDeptSearch && deptTree.length > 0 && (
           <Tree
             // style={{paddingTop:5}}
             checkable={deptCheckBox && !radio}
