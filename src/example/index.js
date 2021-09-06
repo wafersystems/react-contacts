@@ -40,7 +40,7 @@ ReactDOM.render(<div className="App"
     To get started, edit <code>src/App.js</code> and save to reload.
   </p>
   <div style={{ 'padding': '10px', 'margin': '10px', height: '100%' }}>
-    <Contacts deptTree={deptTree} users={u2} loading={false}
+    <Contacts deptTree={deptTree} users={userList} loading={false}
       defaultUserSelected={users}
       deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
       updateSelectUsers={updateSelectUsers} handleSearchUser={handleSearchUser} updateSelectDept={updateSelectDept}

@@ -8,7 +8,7 @@ export default ({
                   selectAllText, searchUserPlaceholder, deptSearch, userData,
                   handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
                   setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
-                  userNameKey, radio, showLeft
+                  userNameKey, radio, showLeft, enNameKey
                 }) => {
 
   const [selectAll, setSelectAll] = useState(false);
@@ -183,6 +183,7 @@ export default ({
             return (
               <List.Item>
                 <div className={styles.itemDiv}>
+                  <div className={styles.checkbox} title={item[userNameKey]}>
                   {radio &&
                     <Radio
                       className={styles.checkbox}
@@ -199,10 +200,13 @@ export default ({
                       data={item}
                       checked={isUserCheck(item)}
                       onChange={onUserCheck}
+                      title={item[userNameKey]}
                     >
                       {item[userNameKey]}
                     </Checkbox>}
-                  <div className={styles.deptName}>{item.deptName}</div>
+                  </div>
+                  <div className={styles.deptName} title={item.deptName}>{item.deptName}</div>
+                  {enNameKey && <div style={{ paddingLeft:'10px'}} title={item[enNameKey]} className={styles.deptName}>{item[enNameKey]}</div>}
                 </div>
               </List.Item>
             );

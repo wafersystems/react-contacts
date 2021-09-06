@@ -271,7 +271,9 @@ Contacts.propTypes = {
   // 显示左边部门树
   showLeft: PropTypes.bool,
   // 异步加载数据
-  loadData: PropTypes.func
+  loadData: PropTypes.func,
+  // 显示英文名key
+  enNameKey:PropTypes.string
 };
 
 Contacts.defaultProps = {
@@ -302,7 +304,8 @@ Contacts.defaultProps = {
   Drag: false,
   // 显示左边部门树，默认显示
   showLeft: true,
-  loadData: false
+  loadData: false,
+  enNameKey: 'username'
 };
 
 export default Contacts;
