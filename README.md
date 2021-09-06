@@ -55,6 +55,7 @@ showAllDeptTags   | Whether Tags show all nodes | bool | false
 returnReducedNode | Department tree data reduction mode ([Department tree initialization data](###Department tree initialization data)) | bool | false
 showLeft | show Left Panel | bool | true
 loadData | 	Load data asynchronously | function(node) ([Dynamically load the department tree](###Dynamically load the department tree)) | false
+enNameKey| 	English name key | string | false
 
 
 ### Department Data
