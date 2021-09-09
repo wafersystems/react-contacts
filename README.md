@@ -56,6 +56,7 @@ returnReducedNode | Department tree data reduction mode ([Department tree initia
 showLeft | show Left Panel | bool | true
 loadData | 	Load data asynchronously | function(node) ([Dynamically load the department tree](###Dynamically load the department tree)) | false
 enNameKey| 	English name key | string | false
+disableUsers| 	The user ID cannot be selected | array | []
 
 
 ### Department Data

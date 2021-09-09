@@ -54,6 +54,7 @@ returnReducedNode   | 部门树数据精简模式 ([部门树初始化数据](##
 showLeft | 显示左边部门树面板 | bool | true
 loadData | 动态加载部门树 | function(node) ([动态加载数据](###动态加载部门树)) | false
 enNameKey| 英文名字key | string | false
+disableUsers| 不可选择用户id | array | []
 
 
 ### 部门树数据

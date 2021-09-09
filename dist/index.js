@@ -193,8 +193,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n  display: contents;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n  text-align: left;\n  width: 120px;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX span:nth-child(2) {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--bg-color);\n  border: 1px solid var(--border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
-var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI"};
+var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 10px;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n  display: contents;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n  text-align: left;\n  width: 120px;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX span:nth-child(2) {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName_disabled__2Op9y {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n  color: rgba(0, 0, 0, 0.25);\n  cursor: not-allowed;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--bg-color);\n  border: 1px solid var(--border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
+var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","deptName_disabled":"contacts_deptName_disabled__2Op9y","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI"};
 styleInject(css_248z);
 
 var Search = _Input.Search;
@@ -217,7 +217,8 @@ var Right = (function (_ref) {
       userNameKey = _ref.userNameKey,
       radio = _ref.radio,
       showLeft = _ref.showLeft,
-      enNameKey = _ref.enNameKey;
+      enNameKey = _ref.enNameKey,
+      disableUsers = _ref.disableUsers;
 
   var _useState = React.useState(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -376,7 +377,7 @@ var Right = (function (_ref) {
           return val.userId === valUser.userId;
         });
 
-        if (!result) {
+        if (!result && disableUsers.indexOf(val.userId) === -1) {
           newSelectUser.push(val);
         }
       });
@@ -428,22 +429,24 @@ var Right = (function (_ref) {
         className: styles.checkbox,
         checked: isUserCheck(item),
         data: item,
-        onChange: onUserRadioCheck
+        onChange: onUserRadioCheck,
+        disabled: disableUsers.includes(item.userId)
       }, item[userNameKey]), !radio && /*#__PURE__*/React__default.createElement(_Checkbox, {
         className: styles.checkbox,
         data: item,
         checked: isUserCheck(item),
         onChange: onUserCheck,
-        title: item[userNameKey]
+        title: item[userNameKey],
+        disabled: disableUsers.includes(item.userId)
       }, item[userNameKey])), /*#__PURE__*/React__default.createElement("div", {
-        className: styles.deptName,
+        className: disableUsers.includes(item.userId) ? styles.deptName_disabled : styles.deptName,
         title: item.deptName
       }, item.deptName), enNameKey && /*#__PURE__*/React__default.createElement("div", {
         style: {
           paddingLeft: '10px'
         },
         title: item[enNameKey],
-        className: styles.deptName
+        className: disableUsers.includes(item.userId) ? styles.deptName_disabled : styles.deptName
       }, item[enNameKey])));
     }
   })), /*#__PURE__*/React__default.createElement("div", {
@@ -1251,7 +1254,8 @@ var Contacts = function Contacts(props) {
       showAllDeptTags = props.showAllDeptTags,
       Drag = props.Drag,
       showLeft = props.showLeft,
-      loadData = props.loadData;
+      loadData = props.loadData,
+      disableUsers = props.disableUsers;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1479,7 +1483,8 @@ var Contacts = function Contacts(props) {
     deptId: deptId,
     setSelectUser: setSelectUser,
     radio: radio,
-    showLeft: showLeft
+    showLeft: showLeft,
+    disableUsers: disableUsers
   })), /*#__PURE__*/React__default.createElement(_Col, {
     xs: 24,
     sm: 24,
@@ -1540,7 +1545,9 @@ Contacts.propTypes = {
   // 异步加载数据
   loadData: PropTypes.func,
   // 显示英文名key
-  enNameKey: PropTypes.string
+  enNameKey: PropTypes.string,
+  // 不可选择用户id列表
+  disableUsers: PropTypes.array
 };
 Contacts.defaultProps = {
   users: {
@@ -1571,7 +1578,8 @@ Contacts.defaultProps = {
   // 显示左边部门树，默认显示
   showLeft: true,
   loadData: false,
-  enNameKey: 'username'
+  enNameKey: 'username',
+  disableUsers: []
 };
 
 module.exports = Contacts;

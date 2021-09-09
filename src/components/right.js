@@ -8,7 +8,7 @@ export default ({
                   selectAllText, searchUserPlaceholder, deptSearch, userData,
                   handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
                   setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
-                  userNameKey, radio, showLeft, enNameKey
+                  userNameKey, radio, showLeft, enNameKey, disableUsers
                 }) => {
 
   const [selectAll, setSelectAll] = useState(false);
@@ -144,7 +144,7 @@ export default ({
       // 如果是选中，遍历添加，重复的不添加
       tmp.forEach(val => {
         const result = selectUser.find(valUser => val.userId === valUser.userId);
-        if (!result) {
+        if (!result && disableUsers.indexOf(val.userId) === -1) {
           newSelectUser.push(val);
         }
       });
@@ -190,6 +190,7 @@ export default ({
                       checked={isUserCheck(item)}
                       data={item}
                       onChange={onUserRadioCheck}
+                      disabled={disableUsers.includes(item.userId)}
                     >
                       {item[userNameKey]}
                     </Radio>
@@ -201,12 +202,13 @@ export default ({
                       checked={isUserCheck(item)}
                       onChange={onUserCheck}
                       title={item[userNameKey]}
+                      disabled={disableUsers.includes(item.userId)}
                     >
                       {item[userNameKey]}
                     </Checkbox>}
                   </div>
-                  <div className={styles.deptName} title={item.deptName}>{item.deptName}</div>
-                  {enNameKey && <div style={{ paddingLeft:'10px'}} title={item[enNameKey]} className={styles.deptName}>{item[enNameKey]}</div>}
+                  <div className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName} title={item.deptName}>{item.deptName}</div>
+                  {enNameKey && <div style={{ paddingLeft:'10px'}} title={item[enNameKey]} className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName}>{item[enNameKey]}</div>}
                 </div>
               </List.Item>
             );

@@ -12,7 +12,7 @@ const updateSelectDept = deptList => {
 };
 
 const users = [
-  { userId: 101, username: 'admin1' }, { userId: 11, username: 'admin01' }
+  { userId: 101, username: 'admin1' }, { userId: 110, username: 'admin01' }
 ];
 
 const dept = [{ "id": 1, "parentId": 0, name: "山东农信" },
@@ -44,7 +44,7 @@ ReactDOM.render(<div className="App"
       defaultUserSelected={users}
       deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
       updateSelectUsers={updateSelectUsers} handleSearchUser={handleSearchUser} updateSelectDept={updateSelectDept}
-      defaultDeptSelected={dept} radio={false} Drag={true}
+      defaultDeptSelected={dept} radio={false} Drag={true} disableUsers={[11]}
     />
   </div>
 </div>, document.getElementById('root'));

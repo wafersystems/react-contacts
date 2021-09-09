@@ -31,7 +31,7 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags, Drag, showLeft, loadData
+    checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -206,7 +206,7 @@ const Contacts = (props) => {
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
             nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
             handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
-            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} />
+            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} disableUsers={disableUsers} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false} layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
@@ -273,7 +273,9 @@ Contacts.propTypes = {
   // 异步加载数据
   loadData: PropTypes.func,
   // 显示英文名key
-  enNameKey:PropTypes.string
+  enNameKey:PropTypes.string,
+  // 不可选择用户id列表
+  disableUsers:PropTypes.array
 };
 
 Contacts.defaultProps = {
@@ -305,7 +307,8 @@ Contacts.defaultProps = {
   // 显示左边部门树，默认显示
   showLeft: true,
   loadData: false,
-  enNameKey: 'username'
+  enNameKey: 'username',
+  disableUsers: []
 };
 
 export default Contacts;
