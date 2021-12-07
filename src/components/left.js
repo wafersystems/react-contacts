@@ -166,7 +166,7 @@ export default ({
 
   return (
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-      <Card className={styles.card}>
+      <Card style={{borderBottomRightRadius:0,borderBottomLeftRadius:'6px',borderTopRightRadius:0,borderTopLeftRadius:'6px'}} className={styles.card}>
         {deptSearch && !loadData &&
           <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
             onSearch={onSearchDept} />}

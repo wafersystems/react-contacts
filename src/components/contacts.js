@@ -7,10 +7,9 @@ import {
   Row,
   Spin,
   Tag,
-  Icon,
   message,
 } from 'antd';
-
+import { createFromIconfontCN } from '@ant-design/icons';
 import Right from './right';
 import Left from './left';
 import DndWrapper from './dnd/index'
@@ -19,7 +18,11 @@ import styles from './contacts.less';
 
 const { Search } = Input;
 
-
+const IconFont = createFromIconfontCN({
+  scriptUrl: [
+    '//at.alicdn.com/t/font_1596018_xkmgoaljpq.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
+  ],
+});
 
 const Contacts = (props) => {
 
@@ -29,7 +32,7 @@ const Contacts = (props) => {
     searchResult,
     userSearch = false,
     searchUserPlaceholder,
-    numberColor, totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
+    totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
     checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers
   } = props;
@@ -79,7 +82,7 @@ const Contacts = (props) => {
         unCheckDept(v);
       }}
     >
-      {v[deptNameKey]} <Icon type="close-circle" theme="filled" />
+      {v[deptNameKey]} <IconFont  type="icon-delete2" style={{color:'#D8D8D8'}} />
     </Tag>
   );
 
@@ -130,7 +133,7 @@ const Contacts = (props) => {
           unCheckUser(v);
         }}
       >
-        {v[userNameKey]} <Icon type="close-circle" theme="filled" />
+        {v[userNameKey]} <IconFont type="icon-delete2" style={{color:'#D8D8D8'}} />
       </Tag>
     );
   };
@@ -165,8 +168,7 @@ const Contacts = (props) => {
         length = deptTreeNode.length + selectUser.length
       }
       return (
-        <div>{font} <span
-          style={{ color: numberColor }}>{length}</span> {end}
+        <div>{font} <span className={styles.number}>{length}</span> {end}
         </div>
       );
     }
@@ -176,8 +178,7 @@ const Contacts = (props) => {
       name = use[userNameKey];
     }
     return (
-      <div>{radioShowText} <span
-        style={{ color: numberColor }}>{name}</span>
+      <div>{radioShowText} <span className={styles.number}>{name}</span>
       </div>
     );
 

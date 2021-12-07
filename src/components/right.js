@@ -165,7 +165,7 @@ export default ({
 
   return (
      <Col xs={colWidth} sm={colWidth} md={colWidth} lg={colWidth} xl={colWidth} className={styles.treeLeft}>
-      <Card className={styles.card}>
+      <Card style={{borderBottomRightRadius:'6px',borderBottomLeftRadius:0,borderTopRightRadius:'6px',borderTopLeftRadius:0,borderLeft:0}} className={styles.card}>
         {deptSearch && (
           <Search
             placeholder={searchUserPlaceholder}
