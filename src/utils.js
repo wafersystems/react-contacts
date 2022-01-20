@@ -57,9 +57,10 @@ export const filterDeptTagShow = (list) => {
  *  格式化树数据
  * @param treeData
  * @param deptNameKey
+ * @param disableDept
  * @returns {*}
  */
-export const formatDeptData = (treeData, deptNameKey) => {
+export const formatDeptData = (treeData, deptNameKey,disableDept=[]) => {
     return treeData.map(v => {
         if(!v.id){
             v.id = v.deptId;
@@ -69,11 +70,16 @@ export const formatDeptData = (treeData, deptNameKey) => {
         }catch (e){
             v.key = new Date().getTime();
         }
+        console.log(disableDept.includes(v.id),v.id)
+        if(disableDept.includes(v.id)){
+            v.disabled= true;
+            console.log(v)
+        }
         v.title = v[deptNameKey];
         v.isLeaf = !v.hasChild;
         if (v.children && v.children.length > 0) {
             v.isLeaf=false;
-            v.children = formatDeptData(v.children, deptNameKey)
+            v.children = formatDeptData(v.children, deptNameKey,disableDept);
         }
         return v;
     });

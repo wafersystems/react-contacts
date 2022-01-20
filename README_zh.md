@@ -26,35 +26,36 @@ import Contacts from 'react-contacts'
 
 ```
 
-属性  | 描述 | 类型 | 默认值
-------------- | ------------- | --------------| ------------- 
-deptTree  | 部门树数据（[数据](###部门树数据)） | array | []
-users  | 用户数据 （[数据](### 用户和搜索结果数据)） | object | { records: []}
-loading | 加载状态 | bool | false
-searchResult | 用户查询结果 （[数据](###用户和搜索结果数据)） | object | { records: []}
-handleSearchUser | 搜索用户和反应回调 | func | function(page,nameKey,depId)，三个参数，page（页码），nameKey（用户名搜索关键字），depId（部门id）
-deptSearch | 部门搜索框显示 | bool | tree
-updateSelectUsers | 更新选定用户数据 | func | function(userSelected)
-updateSelectDept | 更新选定部门数据 | func | function(deptSelected)
-deptCheckBox | 部门checkbox显示 | bool | true
-searchDeptPlaceholder | 搜索部门输入框提示 | string | '请输入搜索部门'
-searchUserPlaceholder | 搜索用户输入框提示 | string | '请输入搜索姓名'
-defaultUserSelected   | 默认选择用户 | array | [{userId:'abc',username:'CCC'}] 
-defaultDeptSelected   | 默认选择部门节点([注意](###部门树初始化数据)) | array | [{id:1,name:'ABC'}] 
-numberColor   | 选择的总数字颜色 | sring | #1B9AFF 
-selectAllText   | 全选框描述文字 | string | 全选 
-totalShowText   | 选择的总数文字 | string | 共选择了$个 
-userNameKey   | 取用户名称和选中的key | string | 'username'
-deptNameKey   | 取部门树和选中名称的key | string | 'name' 
-radio   | 控制用户单选开关 | bool | false
-radioShowText   | 用户选择为radio时，显示文字内容 | string | '已经选择' 
+属性  | 描述                                  | 类型 | 默认值
+------------- |-------------------------------------| --------------| ------------- 
+deptTree  | 部门树数据（[数据](###部门树数据)）               | array | []
+users  | 用户数据 （[数据](### 用户和搜索结果数据)）          | object | { records: []}
+loading | 加载状态                                | bool | false
+searchResult | 用户查询结果 （[数据](###用户和搜索结果数据)）         | object | { records: []}
+handleSearchUser | 搜索用户和反应回调                           | func | function(page,nameKey,depId)，三个参数，page（页码），nameKey（用户名搜索关键字），depId（部门id）
+deptSearch | 部门搜索框显示                             | bool | tree
+updateSelectUsers | 更新选定用户数据                            | func | function(userSelected)
+updateSelectDept | 更新选定部门数据                            | func | function(deptSelected)
+deptCheckBox | 部门checkbox显示                        | bool | true
+searchDeptPlaceholder | 搜索部门输入框提示                           | string | '请输入搜索部门'
+searchUserPlaceholder | 搜索用户输入框提示                           | string | '请输入搜索姓名'
+defaultUserSelected   | 默认选择用户                              | array | [{userId:'abc',username:'CCC'}] 
+defaultDeptSelected   | 默认选择部门节点([注意](###部门树初始化数据))         | array | [{id:1,name:'ABC'}] 
+numberColor   | 选择的总数字颜色                            | sring | #1B9AFF 
+selectAllText   | 全选框描述文字                             | string | 全选 
+totalShowText   | 选择的总数文字                             | string | 共选择了$个 
+userNameKey   | 取用户名称和选中的key                        | string | 'username'
+deptNameKey   | 取部门树和选中名称的key                       | string | 'name' 
+radio   | 控制用户单选开关                            | bool | false
+radioShowText   | 用户选择为radio时，显示文字内容                  | string | '已经选择' 
 checkStrictly   | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | bool | false
-showAllDeptTags   | Tags是否显示所有节点 | bool | false
+showAllDeptTags   | Tags是否显示所有节点                        | bool | false
 returnReducedNode   | 部门树数据精简模式 ([部门树初始化数据](###部门树初始化数据)) | bool | false
-showLeft | 显示左边部门树面板 | bool | true
-loadData | 动态加载部门树 | function(node) ([动态加载数据](###动态加载部门树)) | false
-enNameKey| 英文名字key | string | false
-disableUsers| 不可选择用户id | array | []
+showLeft | 显示左边部门树面板                           | bool | true
+loadData | 动态加载部门树                             | function(node) ([动态加载数据](###动态加载部门树)) | false
+enNameKey| 英文名字key                             | string | false
+disableUsers| 不可选择用户id                            | array | []
+disableDept| 不可选择部门id                            | array | []
 
 
 ### 部门树数据

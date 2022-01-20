@@ -28,35 +28,36 @@ import Contacts from 'react-contacts'
 
 ```
 
-Properties  | Description | Type | Default Values
-------------- | ------------- | --------------| ------------- 
-deptTree  | Department of Tree（[Department Data](###Department Data)） | array | []
-users  | User data （[User & Search Result Data](###User & Search Result Data)） | object | { records: []}
-loading | Loading status | bool | false
-searchResult | Query user data return results （[User & Search Result Data](###User & Search Result Data)） | object | { records: []}
-handleSearchUser | Handle search user function | func | function(page,nameKey,depId)
-deptSearch | Show department search input | bool | tree
-updateSelectUsers | Update user list when select user | func | function(userSelected)
-updateSelectDept | Update dept list when select dept | func | function(deptSelected)
-deptCheckBox | Show department checkbox | bool | true
-searchDeptPlaceholder | search department placeholder | string | '请输入搜索部门'
-searchUserPlaceholder | search department placeholder | string | '请输入搜索姓名'
-defaultUserSelected   | default user selected | array | [{userId:'abc',username:'CCC'}] 
-defaultDeptSelected   | default user selected ([Note](###Department tree initialization data)) | array | [{id:1,name:'ABC'}] 
-numberColor   | total number color | sring | #1B9AFF 
-selectAllText   | select all text | string | 全选 
-totalShowText   | totalShowText | string | 共选择了$个
-userNameKey | fetch user name and selected key | string | 'username'
-deptNameKey | Take the department tree and select the name of the key | string | 'name' 
-radio   | show radio on user selected | bool | false
-radioShowText   | when user selected on radio, show tip text. | string | '已经选择' 
-checkStrictly   | 	Check treeNode precisely; parent treeNode and children treeNodes are not associated | bool | false
-showAllDeptTags   | Whether Tags show all nodes | bool | false
+Properties  | Description                                                                                                         | Type | Default Values
+------------- |---------------------------------------------------------------------------------------------------------------------| --------------| ------------- 
+deptTree  | Department of Tree（[Department Data](###Department Data)）                                                           | array | []
+users  | User data （[User & Search Result Data](###User & Search Result Data)）                                               | object | { records: []}
+loading | Loading status                                                                                                      | bool | false
+searchResult | Query user data return results （[User & Search Result Data](###User & Search Result Data)）                          | object | { records: []}
+handleSearchUser | Handle search user function                                                                                         | func | function(page,nameKey,depId)
+deptSearch | Show department search input                                                                                        | bool | tree
+updateSelectUsers | Update user list when select user                                                                                   | func | function(userSelected)
+updateSelectDept | Update dept list when select dept                                                                                   | func | function(deptSelected)
+deptCheckBox | Show department checkbox                                                                                            | bool | true
+searchDeptPlaceholder | search department placeholder                                                                                       | string | '请输入搜索部门'
+searchUserPlaceholder | search department placeholder                                                                                       | string | '请输入搜索姓名'
+defaultUserSelected   | default user selected                                                                                               | array | [{userId:'abc',username:'CCC'}] 
+defaultDeptSelected   | default user selected ([Note](###Department tree initialization data))                                              | array | [{id:1,name:'ABC'}] 
+numberColor   | total number color                                                                                                  | sring | #1B9AFF 
+selectAllText   | select all text                                                                                                     | string | 全选 
+totalShowText   | totalShowText                                                                                                       | string | 共选择了$个
+userNameKey | fetch user name and selected key                                                                                    | string | 'username'
+deptNameKey | Take the department tree and select the name of the key                                                             | string | 'name' 
+radio   | show radio on user selected                                                                                         | bool | false
+radioShowText   | when user selected on radio, show tip text.                                                                         | string | '已经选择' 
+checkStrictly   | 	Check treeNode precisely; parent treeNode and children treeNodes are not associated                                | bool | false
+showAllDeptTags   | Whether Tags show all nodes                                                                                         | bool | false
 returnReducedNode | Department tree data reduction mode ([Department tree initialization data](###Department tree initialization data)) | bool | false
-showLeft | show Left Panel | bool | true
-loadData | 	Load data asynchronously | function(node) ([Dynamically load the department tree](###Dynamically load the department tree)) | false
-enNameKey| 	English name key | string | false
-disableUsers| 	The user ID cannot be selected | array | []
+showLeft | show Left Panel                                                                                                     | bool | true
+loadData | 	Load data asynchronously                                                                                           | function(node) ([Dynamically load the department tree](###Dynamically load the department tree)) | false
+enNameKey| 	English name key                                                                                                   | string | false
+disableUsers| 	The user ID cannot be selected                                                                                     | array | []
+disableDept| 	The department ID cannot be selected                                                                               | array | []
 
 
 ### Department Data

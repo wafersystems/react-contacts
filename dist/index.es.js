@@ -34,14 +34,9 @@ function ownKeys(object, enumerableOnly) {
 
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
-
-    if (enumerableOnly) {
-      symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-    }
-
-    keys.push.apply(keys, symbols);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
   }
 
   return keys;
@@ -49,19 +44,12 @@ function ownKeys(object, enumerableOnly) {
 
 function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
   }
 
   return target;
@@ -181,14 +169,9 @@ function ownKeys$1(object, enumerableOnly) {
 
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
-
-    if (enumerableOnly) {
-      symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-    }
-
-    keys.push.apply(keys, symbols);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
   }
 
   return keys;
@@ -196,19 +179,12 @@ function ownKeys$1(object, enumerableOnly) {
 
 function _objectSpread2$1(target) {
   for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys$1(Object(source), true).forEach(function (key) {
-        _defineProperty$1(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys$1(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys$1(Object(source), !0).forEach(function (key) {
+      _defineProperty$1(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$1(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
   }
 
   return target;
@@ -375,17 +351,11 @@ var classnames = createCommonjsModule(function (module) {
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
 }
 
 /**
@@ -1982,10 +1952,12 @@ var filterDeptTagShow = function filterDeptTagShow(list) {
  *  格式化树数据
  * @param treeData
  * @param deptNameKey
+ * @param disableDept
  * @returns {*}
  */
 
 var formatDeptData = function formatDeptData(treeData, deptNameKey) {
+  var disableDept = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
   return treeData.map(function (v) {
     if (!v.id) {
       v.id = v.deptId;
@@ -1997,12 +1969,19 @@ var formatDeptData = function formatDeptData(treeData, deptNameKey) {
       v.key = new Date().getTime();
     }
 
+    console.log(disableDept.includes(v.id), v.id);
+
+    if (disableDept.includes(v.id)) {
+      v.disabled = true;
+      console.log(v);
+    }
+
     v.title = v[deptNameKey];
     v.isLeaf = !v.hasChild;
 
     if (v.children && v.children.length > 0) {
       v.isLeaf = false;
-      v.children = formatDeptData(v.children, deptNameKey);
+      v.children = formatDeptData(v.children, deptNameKey, disableDept);
     }
 
     return v;
@@ -2027,7 +2006,8 @@ var Left = (function (_ref) {
       checkStrictly = _ref.checkStrictly,
       returnReducedNode = _ref.returnReducedNode,
       nameKey = _ref.nameKey,
-      loadData = _ref.loadData;
+      loadData = _ref.loadData,
+      disableDept = _ref.disableDept;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2216,6 +2196,7 @@ var Left = (function (_ref) {
     }
   };
 
+  console.log(disableDept, deptTree);
   return /*#__PURE__*/React__default.createElement(_Col, {
     xs: 12,
     sm: 12,
@@ -2242,7 +2223,7 @@ var Left = (function (_ref) {
     onCheck: onDeptTreeCheck,
     checkStrictly: checkStrictly,
     defaultExpandedKeys: defaultExpandedKeys(),
-    treeData: formatDeptData(deptTree, deptNameKey),
+    treeData: formatDeptData(deptTree, deptNameKey, disableDept),
     loadData: loadData
   }), onDeptSearch && /*#__PURE__*/React__default.createElement(_List, {
     size: "small",
@@ -2734,7 +2715,8 @@ var Contacts = function Contacts(props) {
       Drag = props.Drag,
       showLeft = props.showLeft,
       loadData = props.loadData,
-      disableUsers = props.disableUsers;
+      disableUsers = props.disableUsers,
+      disableDept = props.disableDept;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2948,7 +2930,8 @@ var Contacts = function Contacts(props) {
     updateSelectDept: updateSelectDept,
     deptNameKey: deptNameKey,
     radio: radio,
-    nameKey: nameKey
+    nameKey: nameKey,
+    disableDept: disableDept
   })), /*#__PURE__*/React__default.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,
@@ -3026,7 +3009,9 @@ Contacts.propTypes = {
   // 显示英文名key
   enNameKey: PropTypes.string,
   // 不可选择用户id列表
-  disableUsers: PropTypes.array
+  disableUsers: PropTypes.array,
+  // 不可选择部门id列表
+  disableDept: PropTypes.array
 };
 Contacts.defaultProps = {
   users: {
@@ -3058,7 +3043,8 @@ Contacts.defaultProps = {
   showLeft: true,
   loadData: false,
   enNameKey: 'username',
-  disableUsers: []
+  disableUsers: [],
+  disableDept: []
 };
 
 export default Contacts;

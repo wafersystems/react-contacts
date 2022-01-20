@@ -44,7 +44,7 @@ ReactDOM.render(<div className="App"
       defaultUserSelected={users}
       deptSearch={true} userSearch={true} deptCheckBox={true} searchUserPlaceholder={'HI'}
       updateSelectUsers={updateSelectUsers} handleSearchUser={handleSearchUser} updateSelectDept={updateSelectDept}
-      defaultDeptSelected={dept} radio={false} Drag={true} disableUsers={[11]}
+      defaultDeptSelected={dept} radio={false} Drag={true} disableUsers={[11]} disableDept={[1,3]}
     />
   </div>
 </div>, document.getElementById('root'));

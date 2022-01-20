@@ -8,7 +8,7 @@ const { Search } = Input;
 export default ({
   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-  updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey, loadData
+  updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey, loadData, disableDept
 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -164,6 +164,8 @@ export default ({
     }
   }
 
+  console.log(disableDept,deptTree)
+
   return (
     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card style={{borderBottomRightRadius:0,borderBottomLeftRadius:'6px',borderTopRightRadius:0,borderTopLeftRadius:'6px'}} className={styles.card}>
@@ -180,7 +182,7 @@ export default ({
             onCheck={onDeptTreeCheck}
             checkStrictly={checkStrictly}
             defaultExpandedKeys={defaultExpandedKeys()}
-            treeData={formatDeptData(deptTree,deptNameKey)}
+            treeData={formatDeptData(deptTree,deptNameKey,disableDept)}
             loadData={loadData}
           >
             {/*{makeTreeNode(deptTree, deptNameKey)}*/}

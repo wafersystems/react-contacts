@@ -34,7 +34,7 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers
+    checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers, disableDept
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -203,7 +203,9 @@ const Contacts = (props) => {
           {showLeft && <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
             deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
             handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-            updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey} />}
+            updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey}
+                             disableDept={disableDept}
+          />}
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
             nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
             handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
@@ -276,7 +278,9 @@ Contacts.propTypes = {
   // 显示英文名key
   enNameKey:PropTypes.string,
   // 不可选择用户id列表
-  disableUsers:PropTypes.array
+  disableUsers:PropTypes.array,
+  // 不可选择部门id列表
+  disableDept:PropTypes.array
 };
 
 Contacts.defaultProps = {
@@ -309,7 +313,8 @@ Contacts.defaultProps = {
   showLeft: true,
   loadData: false,
   enNameKey: 'username',
-  disableUsers: []
+  disableUsers: [],
+  disableDept:[]
 };
 
 export default Contacts;
