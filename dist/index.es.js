@@ -27,6 +27,21 @@ import _Checkbox from 'antd/es/checkbox';
 import 'antd/es/tree/style';
 import _Tree from 'antd/es/tree';
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function _extends() {
   _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -43,6 +58,40 @@ function _extends() {
   };
 
   return _extends.apply(this, arguments);
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
 }
 
 function _slicedToArray(arr, i) {
@@ -150,7 +199,8 @@ var Right = (function (_ref) {
       tableColumnsKey = _ref.tableColumnsKey,
       tableRowKey = _ref.tableRowKey,
       emptyTip = _ref.emptyTip,
-      tableCheckboxDisabled = _ref.tableCheckboxDisabled;
+      tableCheckboxDisabled = _ref.tableCheckboxDisabled,
+      selectionType = _ref.selectionType;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -205,6 +255,12 @@ var Right = (function (_ref) {
 
   var onSelect = function onSelect(record, selected) {
     if (selected) {
+      if (selectionType === 'radio') {
+        setSelectUser([record]);
+        updateSelectUsers([record]);
+        return;
+      }
+
       var tmp = [];
       tmp.push(record);
       var newList = selectUser.concat(tmp);
@@ -264,11 +320,13 @@ var Right = (function (_ref) {
     onChange: handleSearchChange
   }), /*#__PURE__*/React.createElement(_Table, {
     size: 'small',
-    rowSelection: rowSelection,
+    rowSelection: _objectSpread2({
+      type: selectionType
+    }, rowSelection),
     columns: columns,
     style: {
       marginTop: 2,
-      height: 281
+      height: 288
     },
     dataSource: userData.records,
     pagination: false,
@@ -621,7 +679,8 @@ var Contacts = function Contacts(props) {
       emptyTip = props.emptyTip,
       _props$debug = props.debug,
       debug = _props$debug === void 0 ? false : _props$debug,
-      tableCheckboxDisabled = props.tableCheckboxDisabled;
+      tableCheckboxDisabled = props.tableCheckboxDisabled,
+      selectionType = props.selectionType;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -797,7 +856,8 @@ var Contacts = function Contacts(props) {
     tableColumnsKey: tableColumnsKey,
     tableRowKey: tableRowKey,
     emptyTip: emptyTip,
-    tableCheckboxDisabled: tableCheckboxDisabled
+    tableCheckboxDisabled: tableCheckboxDisabled,
+    selectionType: selectionType
   }))), /*#__PURE__*/React.createElement("div", {
     className: styles.pagination2
   }, /*#__PURE__*/React.createElement(_Pagination, {
@@ -855,7 +915,8 @@ Contacts.propTypes = {
   showAllDeptTags: PropTypes.bool,
   // 返回精简节点，如果为true，只返回精简的节点，比如子节点全部选中，只返回父节点一个node
   returnReducedNode: PropTypes.bool,
-  tableCheckboxDisabled: PropTypes.array
+  tableCheckboxDisabled: PropTypes.array,
+  selectionType: PropTypes.oneOf(['checkbox', 'radio'])
 };
 Contacts.defaultProps = {
   users: {
@@ -887,7 +948,8 @@ Contacts.defaultProps = {
   tableColumnsKey: ['chsName', 'accountName'],
   tableRowKey: 'accountName',
   emptyTip: '什么都没有哦~',
-  tableCheckboxDisabled: []
+  tableCheckboxDisabled: [],
+  selectionType: 'checkbox'
 };
 
 export default Contacts;

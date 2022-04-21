@@ -10,7 +10,8 @@ export default ({
                   searchUserPlaceholder, deptSearch, userData,
                   handleSearch, updateSelectUsers,
                   setOnSearch, setNameKey, selectUser, setSelectUser,
-                  nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip,tableCheckboxDisabled
+                  nameText, workNumberNumber, tableColumnsKey, tableRowKey, emptyTip,tableCheckboxDisabled,
+                  selectionType
                 }) => {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -58,6 +59,11 @@ export default ({
 
   const onSelect = (record, selected) => {
     if (selected) {
+      if(selectionType === 'radio'){
+        setSelectUser([record]);
+        updateSelectUsers([record]);
+        return
+      }
       const tmp = [];
       tmp.push(record);
       const newList = selectUser.concat(tmp);
@@ -107,8 +113,16 @@ export default ({
                   onChange={handleSearchChange}
           />
         )}
-        <Table size={'small'} rowSelection={rowSelection} columns={columns} style={{marginTop: 2, height: 288}}
-               dataSource={userData.records} pagination={false} rowKey={record => record[tableRowKey]}
+        <Table size={'small'}
+               rowSelection={{
+                 type: selectionType,
+                ...rowSelection
+        }}
+               columns={columns}
+               style={{marginTop: 2, height: 288}}
+               dataSource={userData.records}
+               pagination={false}
+               rowKey={record => record[tableRowKey]}
                locale={{
                  emptyText: <div style={{marginTop: 24}}><img alt={'f'} style={{width: 80, height: 80}} src={emptyImg}/><br/>
                    <div style={{height: 10}}/>
