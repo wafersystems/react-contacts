@@ -31,6 +31,7 @@ export default ({
     if (!e.target.value) {
       setOnSearch(false);
       setNameKey(null);
+      handleSearch('')
     }
   };
 
