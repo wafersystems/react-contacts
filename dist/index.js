@@ -1,33 +1,38 @@
-import 'antd/es/spin/style';
-import _Spin from 'antd/es/spin';
-import 'antd/es/col/style';
-import _Col from 'antd/es/col';
-import 'antd/es/form/style';
-import _Form from 'antd/es/form';
-import 'antd/es/row/style';
-import _Row from 'antd/es/row';
-import 'antd/es/tag/style';
-import _Tag from 'antd/es/tag';
-import 'antd/es/message/style';
-import _message from 'antd/es/message';
-import 'antd/es/input/style';
-import _Input from 'antd/es/input';
-import React__default, { createContext, useContext, useEffect, forwardRef, createElement, Children, isValidElement, useState, useRef, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import 'antd/es/pagination/style';
-import _Pagination from 'antd/es/pagination';
-import 'antd/es/card/style';
-import _Card from 'antd/es/card';
-import 'antd/es/list/style';
-import _List from 'antd/es/list';
-import 'antd/es/checkbox/style';
-import _Checkbox from 'antd/es/checkbox';
-import 'antd/es/radio/style';
-import _Radio from 'antd/es/radio';
-import 'antd/es/tree/style';
-import _Tree from 'antd/es/tree';
-import { useDrop, useDrag, DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+'use strict';
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+require('antd/es/spin/style');
+var _Spin = _interopDefault(require('antd/es/spin'));
+require('antd/es/col/style');
+var _Col = _interopDefault(require('antd/es/col'));
+require('antd/es/form/style');
+var _Form = _interopDefault(require('antd/es/form'));
+require('antd/es/row/style');
+var _Row = _interopDefault(require('antd/es/row'));
+require('antd/es/tag/style');
+var _Tag = _interopDefault(require('antd/es/tag'));
+require('antd/es/message/style');
+var _message = _interopDefault(require('antd/es/message'));
+require('antd/es/input/style');
+var _Input = _interopDefault(require('antd/es/input'));
+var React = require('react');
+var React__default = _interopDefault(React);
+var PropTypes = _interopDefault(require('prop-types'));
+require('antd/es/pagination/style');
+var _Pagination = _interopDefault(require('antd/es/pagination'));
+require('antd/es/card/style');
+var _Card = _interopDefault(require('antd/es/card'));
+require('antd/es/list/style');
+var _List = _interopDefault(require('antd/es/list'));
+require('antd/es/checkbox/style');
+var _Checkbox = _interopDefault(require('antd/es/checkbox'));
+require('antd/es/radio/style');
+var _Radio = _interopDefault(require('antd/es/radio'));
+require('antd/es/tree/style');
+var _Tree = _interopDefault(require('antd/es/tree'));
+var reactDnd = require('react-dnd');
+var reactDndHtml5Backend = require('react-dnd-html5-backend');
 
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
@@ -147,7 +152,7 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-var IconContext = /*#__PURE__*/createContext({});
+var IconContext = /*#__PURE__*/React.createContext({});
 
 function _defineProperty$1(obj, key, value) {
   if (key in obj) {
@@ -1319,10 +1324,10 @@ var iconStyles = "\n.anticon {\n  display: inline-block;\n  color: inherit;\n  f
 var useInsertStyles = function useInsertStyles() {
   var styleStr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : iconStyles;
 
-  var _useContext = useContext(IconContext),
+  var _useContext = React.useContext(IconContext),
       csp = _useContext.csp;
 
-  useEffect(function () {
+  React.useEffect(function () {
     updateCSS(styleStr, '@ant-design-icons', {
       prepend: true,
       csp: csp
@@ -1423,7 +1428,7 @@ var _excluded$1 = ["className", "icon", "spin", "rotate", "tabIndex", "onClick",
 // should move it to antd main repo?
 
 setTwoToneColor('#1890ff');
-var Icon = /*#__PURE__*/forwardRef(function (props, ref) {
+var Icon = /*#__PURE__*/React.forwardRef(function (props, ref) {
   var _classNames;
 
   var className = props.className,
@@ -1435,7 +1440,7 @@ var Icon = /*#__PURE__*/forwardRef(function (props, ref) {
       twoToneColor = props.twoToneColor,
       restProps = _objectWithoutProperties(props, _excluded$1);
 
-  var _React$useContext = useContext(IconContext),
+  var _React$useContext = React.useContext(IconContext),
       _React$useContext$pre = _React$useContext.prefixCls,
       prefixCls = _React$useContext$pre === void 0 ? 'anticon' : _React$useContext$pre;
 
@@ -1456,7 +1461,7 @@ var Icon = /*#__PURE__*/forwardRef(function (props, ref) {
       primaryColor = _normalizeTwoToneColo2[0],
       secondaryColor = _normalizeTwoToneColo2[1];
 
-  return /*#__PURE__*/createElement("span", _objectSpread2$1(_objectSpread2$1({
+  return /*#__PURE__*/React.createElement("span", _objectSpread2$1(_objectSpread2$1({
     role: "img",
     "aria-label": icon.name
   }, restProps), {}, {
@@ -1464,7 +1469,7 @@ var Icon = /*#__PURE__*/forwardRef(function (props, ref) {
     tabIndex: iconTabIndex,
     onClick: onClick,
     className: classString
-  }), /*#__PURE__*/createElement(IconBase, {
+  }), /*#__PURE__*/React.createElement(IconBase, {
     icon: icon,
     primaryColor: primaryColor,
     secondaryColor: secondaryColor,
@@ -1476,7 +1481,7 @@ Icon.getTwoToneColor = getTwoToneColor;
 Icon.setTwoToneColor = setTwoToneColor;
 
 var _excluded$2 = ["className", "component", "viewBox", "spin", "rotate", "tabIndex", "onClick", "children"];
-var Icon$1 = /*#__PURE__*/forwardRef(function (props, ref) {
+var Icon$1 = /*#__PURE__*/React.forwardRef(function (props, ref) {
   var className = props.className,
       Component = props.component,
       viewBox = props.viewBox,
@@ -1490,7 +1495,7 @@ var Icon$1 = /*#__PURE__*/forwardRef(function (props, ref) {
   warning$1(Boolean(Component || children), 'Should have `component` prop or `children`.');
   useInsertStyles();
 
-  var _React$useContext = useContext(IconContext),
+  var _React$useContext = React.useContext(IconContext),
       _React$useContext$pre = _React$useContext.prefixCls,
       prefixCls = _React$useContext$pre === void 0 ? 'anticon' : _React$useContext$pre;
 
@@ -1514,12 +1519,12 @@ var Icon$1 = /*#__PURE__*/forwardRef(function (props, ref) {
 
   var renderInnerNode = function renderInnerNode() {
     if (Component) {
-      return /*#__PURE__*/createElement(Component, _objectSpread2$1({}, innerSvgProps), children);
+      return /*#__PURE__*/React.createElement(Component, _objectSpread2$1({}, innerSvgProps), children);
     }
 
     if (children) {
-      warning$1(Boolean(viewBox) || Children.count(children) === 1 && /*#__PURE__*/isValidElement(children) && Children.only(children).type === 'use', 'Make sure that you provide correct `viewBox`' + ' prop (default `0 0 1024 1024`) to the icon.');
-      return /*#__PURE__*/createElement("svg", _objectSpread2$1(_objectSpread2$1({}, innerSvgProps), {}, {
+      warning$1(Boolean(viewBox) || React.Children.count(children) === 1 && /*#__PURE__*/React.isValidElement(children) && React.Children.only(children).type === 'use', 'Make sure that you provide correct `viewBox`' + ' prop (default `0 0 1024 1024`) to the icon.');
+      return /*#__PURE__*/React.createElement("svg", _objectSpread2$1(_objectSpread2$1({}, innerSvgProps), {}, {
         viewBox: viewBox
       }), children);
     }
@@ -1533,7 +1538,7 @@ var Icon$1 = /*#__PURE__*/forwardRef(function (props, ref) {
     iconTabIndex = -1;
   }
 
-  return /*#__PURE__*/createElement("span", _objectSpread2$1(_objectSpread2$1({
+  return /*#__PURE__*/React.createElement("span", _objectSpread2$1(_objectSpread2$1({
     role: "img"
   }, restProps), {}, {
     ref: ref,
@@ -1596,7 +1601,7 @@ function create() {
     }
   }
 
-  var Iconfont = /*#__PURE__*/forwardRef(function (props, ref) {
+  var Iconfont = /*#__PURE__*/React.forwardRef(function (props, ref) {
     var type = props.type,
         children = props.children,
         restProps = _objectWithoutProperties(props, _excluded$3); // children > type
@@ -1605,7 +1610,7 @@ function create() {
     var content = null;
 
     if (props.type) {
-      content = /*#__PURE__*/createElement("use", {
+      content = /*#__PURE__*/React.createElement("use", {
         xlinkHref: "#".concat(type)
       });
     }
@@ -1614,7 +1619,7 @@ function create() {
       content = children;
     }
 
-    return /*#__PURE__*/createElement(Icon$1, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, extraCommonProps), restProps), {}, {
+    return /*#__PURE__*/React.createElement(Icon$1, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, extraCommonProps), restProps), {}, {
       ref: ref
     }), content);
   });
@@ -1678,17 +1683,17 @@ var Right = (function (_ref) {
       enNameKey = _ref.enNameKey,
       disableUsers = _ref.disableUsers;
 
-  var _useState = useState(false),
+  var _useState = React.useState(false),
       _useState2 = _slicedToArray(_useState, 2),
       selectAll = _useState2[0],
       setSelectAll = _useState2[1]; // 当列表数据发生变化时，重新计算全选
 
 
-  useEffect(function () {
+  React.useEffect(function () {
     calculateSelectAll(selectUser);
   }, [userData]); // 当选中人数据发生变化，重新计算全选
 
-  useEffect(function () {
+  React.useEffect(function () {
     calculateSelectAll(selectUser);
   }, [selectUser]);
   /**
@@ -2027,12 +2032,12 @@ var Left = (function (_ref) {
       loadData = _ref.loadData,
       disableDept = _ref.disableDept;
 
-  var _useState = useState([]),
+  var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
       deptSearchResult = _useState2[0],
       setDeptSearchResult = _useState2[1];
 
-  var _useState3 = useState(false),
+  var _useState3 = React.useState(false),
       _useState4 = _slicedToArray(_useState3, 2),
       onDeptSearch = _useState4[0],
       setOnDeptSearch = _useState4[1];
@@ -2277,9 +2282,9 @@ var Card = function Card(_ref) {
       moveCard = _ref.moveCard,
       unCheckUser = _ref.unCheckUser,
       card = _ref.card;
-  var ref = useRef(null);
+  var ref = React.useRef(null);
 
-  var _useDrop = useDrop({
+  var _useDrop = reactDnd.useDrop({
     accept: ItemTypes,
     collect: function collect(monitor) {
       return {
@@ -2333,7 +2338,7 @@ var Card = function Card(_ref) {
       handlerId = _useDrop2[0].handlerId,
       drop = _useDrop2[1];
 
-  var _useDrag = useDrag({
+  var _useDrag = reactDnd.useDrag({
     type: ItemTypes,
     item: function item() {
       return {
@@ -2634,20 +2639,20 @@ var Container = function Container(_ref) {
       updateSelectUsers = _ref.updateSelectUsers,
       userNameKey = _ref.userNameKey;
 
-  var _useState = useState([]),
+  var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
       cards = _useState2[0],
       setCards = _useState2[1];
 
-  var _useState3 = useState(false),
+  var _useState3 = React.useState(false),
       _useState4 = _slicedToArray(_useState3, 2),
       returncards = _useState4[0],
       setreturncards = _useState4[1];
 
-  useEffect(function () {
+  React.useEffect(function () {
     setCards(data);
   }, [data]);
-  var moveCard = useCallback(function (dragIndex, hoverIndex) {
+  var moveCard = React.useCallback(function (dragIndex, hoverIndex) {
     var dragCard = cards[dragIndex];
     setCards(update(cards, {
       $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
@@ -2683,8 +2688,8 @@ var Container = function Container(_ref) {
 function App(props) {
   return /*#__PURE__*/React__default.createElement("div", {
     className: "App"
-  }, /*#__PURE__*/React__default.createElement(DndProvider, {
-    backend: HTML5Backend
+  }, /*#__PURE__*/React__default.createElement(reactDnd.DndProvider, {
+    backend: reactDndHtml5Backend.HTML5Backend
   }, /*#__PURE__*/React__default.createElement(Container, props)));
 }
 
@@ -2720,36 +2725,36 @@ var Contacts = function Contacts(props) {
       disableUsers = props.disableUsers,
       disableDept = props.disableDept;
 
-  var _useState = useState([]),
+  var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
       deptTreeNode = _useState2[0],
       setDeptTreeNode = _useState2[1];
 
-  var _useState3 = useState([]),
+  var _useState3 = React.useState([]),
       _useState4 = _slicedToArray(_useState3, 2),
       selectUser = _useState4[0],
       setSelectUser = _useState4[1];
 
-  var _useState5 = useState(false),
+  var _useState5 = React.useState(false),
       _useState6 = _slicedToArray(_useState5, 2),
       onSearch = _useState6[0],
       setOnSearch = _useState6[1];
 
-  var _useState7 = useState(null),
+  var _useState7 = React.useState(null),
       _useState8 = _slicedToArray(_useState7, 2),
       deptId = _useState8[0],
       setDeptId = _useState8[1];
 
-  var _useState9 = useState(null),
+  var _useState9 = React.useState(null),
       _useState10 = _slicedToArray(_useState9, 2),
       nameKey = _useState10[0],
       setNameKey = _useState10[1];
 
-  useEffect(function () {
+  React.useEffect(function () {
     updateSelectUsers(defaultUserSelected);
     setSelectUser(defaultUserSelected);
   }, [defaultUserSelected]);
-  useEffect(function () {
+  React.useEffect(function () {
     updateSelectDept(defaultDeptSelected);
     setDeptTreeNode(defaultDeptSelected);
   }, [defaultDeptSelected]);
@@ -3049,5 +3054,5 @@ Contacts.defaultProps = {
   disableDept: []
 };
 
-export default Contacts;
-//# sourceMappingURL=index.es.js.map
+module.exports = Contacts;
+//# sourceMappingURL=index.js.map
