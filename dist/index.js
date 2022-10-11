@@ -2274,6 +2274,10 @@ var Left = (function (_ref) {
 });
 
 var ItemTypes = 'card';
+var IconFont = create({
+  scriptUrl: ['//at.alicdn.com/t/font_1596018_xkmgoaljpq.js' // icon-javascript, icon-java, icon-shoppingcart (overrided)
+  ]
+});
 
 var Card = function Card(_ref) {
   var id = _ref.id,
@@ -2367,7 +2371,12 @@ var Card = function Card(_ref) {
     style: opacity,
     "data-handler-id": handlerId // longpress={() => { console.log('longe') }}
 
-  }, text);
+  }, text, /*#__PURE__*/React__default.createElement(IconFont, {
+    type: "icon-delete2",
+    style: {
+      color: '#D8D8D8'
+    }
+  }));
 };
 
 var immutabilityHelper = createCommonjsModule(function (module, exports) {
@@ -2694,7 +2703,7 @@ function App(props) {
 }
 
 var Search$2 = _Input.Search;
-var IconFont = create({
+var IconFont$1 = create({
   scriptUrl: ['//at.alicdn.com/t/font_1596018_xkmgoaljpq.js' // icon-javascript, icon-java, icon-shoppingcart (overrided)
   ]
 });
@@ -2790,7 +2799,7 @@ var Contacts = function Contacts(props) {
         e.preventDefault();
         unCheckDept(v);
       }
-    }, v[deptNameKey], " ", /*#__PURE__*/React__default.createElement(IconFont, {
+    }, v[deptNameKey], " ", /*#__PURE__*/React__default.createElement(IconFont$1, {
       type: "icon-delete2",
       style: {
         color: '#D8D8D8'
@@ -2847,7 +2856,7 @@ var Contacts = function Contacts(props) {
         e.preventDefault();
         unCheckUser(v);
       }
-    }, v[userNameKey], " ", /*#__PURE__*/React__default.createElement(IconFont, {
+    }, v[userNameKey], " ", /*#__PURE__*/React__default.createElement(IconFont$1, {
       type: "icon-delete2",
       style: {
         color: '#D8D8D8'
