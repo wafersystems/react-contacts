@@ -1,11 +1,16 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { createFromIconfontCN } from '@ant-design/icons';
 import { Tag } from 'antd'
 
 import styles from '../contacts.less';
 
 const ItemTypes = 'card'
-
+const IconFont = createFromIconfontCN({
+  scriptUrl: [
+    '//at.alicdn.com/t/font_1596018_xkmgoaljpq.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
+  ],
+});
 const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
   const ref = useRef(null);
   const [{ handlerId }, drop] = useDrop({
@@ -75,7 +80,7 @@ const Card = ({ id, text, index, moveCard, unCheckUser, card }) => {
       data-handler-id={handlerId}
     // longpress={() => { console.log('longe') }}
     >
-      {text}
+      {text}<IconFont type="icon-delete2" style={{color:'#D8D8D8'}} />
     </Tag>
   );
 };
