@@ -8,11 +8,13 @@ const { Search } = Input;
 export default ({
   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
-  updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey, loadData, disableDept
+  updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey, loadData, disableDept,
+  commonUserTextOfSmt,isSelectedOfMeeting,setIsSelectedOfMeeting,isClickUserOfSmt,isShowUserOfSmt
 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
   const [onDeptSearch, setOnDeptSearch] = useState(false);
+  const [selectedKeys, setSelectedKeys] = useState([]);
 
   const onSearchDeptChange = e => {
     if (!e.target.value) {
@@ -73,6 +75,9 @@ export default ({
       handleSearchUser(0, nameKey, deptId);
       setOnSearch(true);
       setDeptId(deptId);
+      setSelectedKeys(selectedKeys)
+      setIsSelectedOfMeeting(false)
+      isClickUserOfSmt(false)
     } else {
       message.error('search function not found.');
     }
@@ -146,6 +151,8 @@ export default ({
       handleSearchUser(0, null, item.id);
       setOnSearch(true);
       setDeptId(item.id);
+      setIsSelectedOfMeeting(false)
+      isClickUserOfSmt(false)
     } else {
       message.error('search function not found.');
     }
@@ -163,6 +170,14 @@ export default ({
       return [];
     }
   }
+  const onSelectOfMeeting=()=>{
+    setIsSelectedOfMeeting(!isSelectedOfMeeting)  
+    isClickUserOfSmt(!isSelectedOfMeeting)
+    setDeptTreeNode([])
+    setDeptId(null)
+    setSelectedKeys([])
+    
+  }
 
   console.log(disableDept,deptTree)
 
@@ -173,6 +188,11 @@ export default ({
           <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
             onSearch={onSearchDept} />}
         {deptSearch && !loadData && <br />}
+        {isShowUserOfSmt&&<div  onClick={ ()=>{ 
+            onSelectOfMeeting()
+          }} className={styles.userTextWrapper}> 
+         <span  className={`${styles.userText} ${isSelectedOfMeeting?styles.textColor:''}`}  >{commonUserTextOfSmt} </span> 
+         </div>}
         {!onDeptSearch && deptTree.length > 0 && (
           <Tree
             // style={{paddingTop:5}}
@@ -181,6 +201,7 @@ export default ({
             onSelect={onTreeSelect}
             onCheck={onDeptTreeCheck}
             checkStrictly={checkStrictly}
+            selectedKeys={selectedKeys}
             defaultExpandedKeys={defaultExpandedKeys()}
             treeData={formatDeptData(deptTree,deptNameKey,disableDept)}
             loadData={loadData}

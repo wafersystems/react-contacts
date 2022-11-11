@@ -163,7 +163,7 @@ export default ({
     setSelectUser(newSelectUser);
   };
   const colWidth = showLeft?12:24;
-
+  console.log(userData,'===userData==')
   return (
      <Col xs={colWidth} sm={colWidth} md={colWidth} lg={colWidth} xl={colWidth} className={styles.treeLeft}>
       <Card style={{borderBottomRightRadius:'6px',borderBottomLeftRadius:0,borderTopRightRadius:'6px',borderTopLeftRadius:0,borderLeft:0}} className={styles.card}>

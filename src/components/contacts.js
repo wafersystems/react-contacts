@@ -34,7 +34,8 @@ const Contacts = (props) => {
     searchUserPlaceholder,
     totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers, disableDept
+    checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers, disableDept,
+    commonUserTextOfSmt,isClickUserOfSmt,isShowUserOfSmt
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -42,6 +43,7 @@ const Contacts = (props) => {
   const [onSearch, setOnSearch] = useState(false);
   const [deptId, setDeptId] = useState(null);
   const [nameKey, setNameKey] = useState(null);
+  const [isSelectedOfMeeting, setIsSelectedOfMeeting] = useState(false);
 
   useEffect(() => {
     updateSelectUsers(defaultUserSelected);
@@ -204,7 +206,9 @@ const Contacts = (props) => {
             deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
             handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
             updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey}
-                             disableDept={disableDept}
+                             disableDept={disableDept}  commonUserTextOfSmt={commonUserTextOfSmt}  
+                             isSelectedOfMeeting={isSelectedOfMeeting}  setIsSelectedOfMeeting={setIsSelectedOfMeeting} 
+                             isClickUserOfSmt={isClickUserOfSmt}  isShowUserOfSmt={isShowUserOfSmt}
           />}
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
             nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
@@ -280,7 +284,12 @@ Contacts.propTypes = {
   // 不可选择用户id列表
   disableUsers:PropTypes.array,
   // 不可选择部门id列表
-  disableDept:PropTypes.array
+  disableDept:PropTypes.array,
+  // 会议常用联系人文字
+  // 是否显示会议常用联系人
+  isShowUserOfSmt:PropTypes.bool,
+  commonUserTextOfSmt:PropTypes.string,
+  isClickUserOfSmt:PropTypes.func
 };
 
 Contacts.defaultProps = {
@@ -314,7 +323,9 @@ Contacts.defaultProps = {
   loadData: false,
   enNameKey: 'username',
   disableUsers: [],
-  disableDept:[]
+  disableDept:[],
+  commonUserTextOfSmt:'常用联系人',
+  isShowUserOfSmt:true
 };
 
 export default Contacts;
