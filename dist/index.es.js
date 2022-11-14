@@ -34,9 +34,14 @@ function ownKeys(object, enumerableOnly) {
 
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
+    keys.push.apply(keys, symbols);
   }
 
   return keys;
@@ -44,12 +49,19 @@ function ownKeys(object, enumerableOnly) {
 
 function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-    });
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
   }
 
   return target;
@@ -169,9 +181,14 @@ function ownKeys$1(object, enumerableOnly) {
 
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
+    keys.push.apply(keys, symbols);
   }
 
   return keys;
@@ -179,12 +196,19 @@ function ownKeys$1(object, enumerableOnly) {
 
 function _objectSpread2$1(target) {
   for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys$1(Object(source), !0).forEach(function (key) {
-      _defineProperty$1(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$1(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-    });
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys$1(Object(source), true).forEach(function (key) {
+        _defineProperty$1(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$1(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
   }
 
   return target;
@@ -351,11 +375,17 @@ var classnames = createCommonjsModule(function (module) {
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, _typeof(obj);
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
 }
 
 /**
@@ -422,7 +452,7 @@ function boundAlpha(a) {
  */
 function convertToPercentage(n) {
     if (n <= 1) {
-        return "".concat(Number(n) * 100, "%");
+        return Number(n) * 100 + "%";
     }
     return n;
 }
@@ -804,12 +834,12 @@ var CSS_INTEGER = '[-\\+]?\\d+%?';
 // <http://www.w3.org/TR/css3-values/#number-value>
 var CSS_NUMBER = '[-\\+]?\\d*\\.\\d+%?';
 // Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.
-var CSS_UNIT = "(?:".concat(CSS_NUMBER, ")|(?:").concat(CSS_INTEGER, ")");
+var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";
 // Actual matching.
 // Parentheses and commas are optional, but not required.
 // Whitespace can take the place of commas or opening paren
-var PERMISSIVE_MATCH3 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
-var PERMISSIVE_MATCH4 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
+var PERMISSIVE_MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
+var PERMISSIVE_MATCH4 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
 var matchers = {
     CSS_UNIT: new RegExp(CSS_UNIT),
     rgb: new RegExp('rgb' + PERMISSIVE_MATCH3),
@@ -1160,17 +1190,6 @@ function canUseDom() {
 
 var MARK_KEY = "rc-util-key";
 
-function getMark() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      mark = _ref.mark;
-
-  if (mark) {
-    return mark.startsWith('data-') ? mark : "data-".concat(mark);
-  }
-
-  return MARK_KEY;
-}
-
 function getContainer(option) {
   if (option.attachTo) {
     return option.attachTo;
@@ -1214,14 +1233,6 @@ function injectCSS(css) {
   return styleNode;
 }
 var containerCache = new Map();
-
-function findExistNode(key) {
-  var option = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var container = getContainer(option);
-  return Array.from(containerCache.get(container).children).find(function (node) {
-    return node.tagName === 'STYLE' && node.getAttribute(getMark(option)) === key;
-  });
-}
 function updateCSS(css, key) {
   var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   var container = getContainer(option); // Get real parent
@@ -1233,7 +1244,9 @@ function updateCSS(css, key) {
     parentNode.removeChild(placeholderStyle);
   }
 
-  var existNode = findExistNode(key, option);
+  var existNode = Array.from(containerCache.get(container).children).find(function (node) {
+    return node.tagName === 'STYLE' && node[MARK_KEY] === key;
+  });
 
   if (existNode) {
     var _option$csp3, _option$csp4;
@@ -1252,7 +1265,7 @@ function updateCSS(css, key) {
   }
 
   var newNode = injectCSS(css, option);
-  newNode.setAttribute(getMark(option), key);
+  newNode[MARK_KEY] = key;
   return newNode;
 }
 
@@ -1651,8 +1664,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 0;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n  display: contents;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n  text-align: left;\n  width: 120px;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX span:nth-child(2) {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName_disabled__2Op9y {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n  color: rgba(0, 0, 0, 0.25);\n  cursor: not-allowed;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_number__3CopY {\n  color: var(--react-contacts-number-color);\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--react-contacts-bg-color);\n  border: 1px solid var(--border-color);\n  border-radius: 6px;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n";
-var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","deptName_disabled":"contacts_deptName_disabled__2Op9y","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","number":"contacts_number__3CopY","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI"};
+var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 0;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n  display: contents;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n  text-align: left;\n  width: 120px;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX span:nth-child(2) {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName_disabled__2Op9y {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n  color: rgba(0, 0, 0, 0.25);\n  cursor: not-allowed;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_number__3CopY {\n  color: var(--react-contacts-number-color);\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--react-contacts-bg-color);\n  border: 1px solid var(--border-color);\n  border-radius: 6px;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n.contacts_userText__1-U5C {\n  cursor: pointer;\n}\n.contacts_textColor__1w1Zd {\n  color: #2ea498;\n  font-weight: 400;\n  background-color: #f8f8f8;\n}\n.contacts_userTextWrapper__3qNCL {\n  display: flex;\n  align-items: center;\n  margin: 4px 0 4px 23px;\n}\n";
+var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","deptName_disabled":"contacts_deptName_disabled__2Op9y","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","number":"contacts_number__3CopY","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI","userText":"contacts_userText__1-U5C","textColor":"contacts_textColor__1w1Zd","userTextWrapper":"contacts_userTextWrapper__3qNCL"};
 styleInject(css_248z);
 
 var Search = _Input.Search;
@@ -1676,7 +1689,8 @@ var Right = (function (_ref) {
       radio = _ref.radio,
       showLeft = _ref.showLeft,
       enNameKey = _ref.enNameKey,
-      disableUsers = _ref.disableUsers;
+      disableUsers = _ref.disableUsers,
+      isSelectedOfMeeting = _ref.isSelectedOfMeeting;
 
   var _useState = useState(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1779,8 +1793,13 @@ var Right = (function (_ref) {
     }
 
     if (handleSearchUser) {
-      handleSearchUser(page, nameKey, deptId);
-      setOnSearch(true);
+      handleSearchUser(page, nameKey, deptId, isSelectedOfMeeting);
+
+      if (isSelectedOfMeeting) {
+        setOnSearch(false);
+      } else {
+        setOnSearch(true);
+      }
     } else {
       _message.error('search function not found.');
     }
@@ -1859,6 +1878,7 @@ var Right = (function (_ref) {
   };
 
   var colWidth = showLeft ? 12 : 24;
+  console.log(userData, '===userData==');
   return /*#__PURE__*/React__default.createElement(_Col, {
     xs: colWidth,
     sm: colWidth,
@@ -2025,7 +2045,11 @@ var Left = (function (_ref) {
       returnReducedNode = _ref.returnReducedNode,
       nameKey = _ref.nameKey,
       loadData = _ref.loadData,
-      disableDept = _ref.disableDept;
+      disableDept = _ref.disableDept,
+      commonUserTextOfSmt = _ref.commonUserTextOfSmt,
+      isSelectedOfMeeting = _ref.isSelectedOfMeeting,
+      setIsSelectedOfMeeting = _ref.setIsSelectedOfMeeting,
+      isShowUserOfSmt = _ref.isShowUserOfSmt;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2036,6 +2060,11 @@ var Left = (function (_ref) {
       _useState4 = _slicedToArray(_useState3, 2),
       onDeptSearch = _useState4[0],
       setOnDeptSearch = _useState4[1];
+
+  var _useState5 = useState([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      selectedKeys = _useState6[0],
+      setSelectedKeys = _useState6[1];
 
   var onSearchDeptChange = function onSearchDeptChange(e) {
     if (!e.target.value) {
@@ -2102,9 +2131,11 @@ var Left = (function (_ref) {
       var _selectedKeys = _slicedToArray(selectedKeys, 1),
           deptId = _selectedKeys[0];
 
-      handleSearchUser(0, nameKey, deptId);
+      handleSearchUser(0, nameKey, deptId, isSelectedOfMeeting);
       setOnSearch(true);
       setDeptId(deptId);
+      setSelectedKeys(selectedKeys);
+      setIsSelectedOfMeeting(false);
     } else {
       _message.error('search function not found.');
     }
@@ -2193,9 +2224,10 @@ var Left = (function (_ref) {
 
   var onDeptSelect = function onDeptSelect(item) {
     if (handleSearchUser) {
-      handleSearchUser(0, null, item.id);
+      handleSearchUser(0, null, item.id, isSelectedOfMeeting);
       setOnSearch(true);
       setDeptId(item.id);
+      setIsSelectedOfMeeting(false);
     } else {
       _message.error('search function not found.');
     }
@@ -2212,6 +2244,14 @@ var Left = (function (_ref) {
       window.console.error(e);
       return [];
     }
+  };
+
+  var onSelectOfMeeting = function onSelectOfMeeting() {
+    setIsSelectedOfMeeting(!isSelectedOfMeeting);
+    setDeptTreeNode([]);
+    setDeptId(null);
+    setSelectedKeys([]);
+    setOnSearch(false);
   };
 
   console.log(disableDept, deptTree);
@@ -2233,13 +2273,21 @@ var Left = (function (_ref) {
     placeholder: searchDeptPlaceholder,
     onSelect: onSearchDeptChange,
     onSearch: onSearchDept
-  }), deptSearch && !loadData && /*#__PURE__*/React__default.createElement("br", null), !onDeptSearch && deptTree.length > 0 && /*#__PURE__*/React__default.createElement(_Tree, {
+  }), deptSearch && !loadData && /*#__PURE__*/React__default.createElement("br", null), isShowUserOfSmt && /*#__PURE__*/React__default.createElement("div", {
+    onClick: function onClick() {
+      onSelectOfMeeting();
+    },
+    className: styles.userTextWrapper
+  }, /*#__PURE__*/React__default.createElement("span", {
+    className: "".concat(styles.userText, " ").concat(isSelectedOfMeeting ? styles.textColor : '')
+  }, commonUserTextOfSmt, " ")), !onDeptSearch && deptTree.length > 0 && /*#__PURE__*/React__default.createElement(_Tree, {
     // style={{paddingTop:5}}
     checkable: deptCheckBox && !radio,
     checkedKeys: makeCheckedKeys(deptTreeNode),
     onSelect: onTreeSelect,
     onCheck: onDeptTreeCheck,
     checkStrictly: checkStrictly,
+    selectedKeys: selectedKeys,
     defaultExpandedKeys: defaultExpandedKeys(),
     treeData: formatDeptData(deptTree, deptNameKey, disableDept),
     loadData: loadData
@@ -2298,38 +2346,54 @@ var Card = function Card(_ref) {
       var dragIndex = item.index;
       var hoverIndex = index; // Don't replace items with themselves
 
+      // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return;
       } // Determine rectangle on screen
 
 
+      // Determine rectangle on screen
       var hoverBoundingRect = ref.current && ref.current.getBoundingClientRect(); // Get vertical middle
 
+      // Get vertical middle
       var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2; // Determine mouse position
 
+      // Determine mouse position
       var clientOffset = monitor.getClientOffset(); // Get pixels to the top
 
+      // Get pixels to the top
       var hoverClientY = clientOffset.y - hoverBoundingRect.top; // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%
       // When dragging upwards, only move when the cursor is above 50%
       // Dragging downwards
 
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       } // Dragging upwards
 
 
+      // Dragging upwards
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       } // Time to actually perform the action
 
 
+      // Time to actually perform the action
       moveCard(dragIndex, hoverIndex); // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
       // eslint-disable-next-line no-param-reassign
 
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      // eslint-disable-next-line no-param-reassign
       item.index = hoverIndex;
     }
   }),
@@ -2727,7 +2791,10 @@ var Contacts = function Contacts(props) {
       showLeft = props.showLeft,
       loadData = props.loadData,
       disableUsers = props.disableUsers,
-      disableDept = props.disableDept;
+      disableDept = props.disableDept,
+      commonUserTextOfSmt = props.commonUserTextOfSmt,
+      isShowUserOfSmt = props.isShowUserOfSmt,
+      commonUserData = props.commonUserData;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2754,6 +2821,11 @@ var Contacts = function Contacts(props) {
       nameKey = _useState10[0],
       setNameKey = _useState10[1];
 
+  var _useState11 = useState(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      isSelectedOfMeeting = _useState12[0],
+      setIsSelectedOfMeeting = _useState12[1];
+
   useEffect(function () {
     updateSelectUsers(defaultUserSelected);
     setSelectUser(defaultUserSelected);
@@ -2772,8 +2844,14 @@ var Contacts = function Contacts(props) {
     var nameKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, deptId);
-      setOnSearch(true);
+      handleSearchUser(0, nameKey, deptId, isSelectedOfMeeting);
+
+      if (isSelectedOfMeeting) {
+        setOnSearch(false);
+      } else {
+        setOnSearch(true);
+      }
+
       setNameKey(nameKey);
     } else {
       _message.error('search function not found.');
@@ -2918,6 +2996,8 @@ var Contacts = function Contacts(props) {
 
   if (onSearch) {
     userData = searchResult;
+  } else if (isSelectedOfMeeting) {
+    userData = commonUserData;
   } else {
     userData = users;
   }
@@ -2942,7 +3022,11 @@ var Contacts = function Contacts(props) {
     deptNameKey: deptNameKey,
     radio: radio,
     nameKey: nameKey,
-    disableDept: disableDept
+    disableDept: disableDept,
+    commonUserTextOfSmt: commonUserTextOfSmt,
+    isSelectedOfMeeting: isSelectedOfMeeting,
+    setIsSelectedOfMeeting: setIsSelectedOfMeeting,
+    isShowUserOfSmt: isShowUserOfSmt
   })), /*#__PURE__*/React__default.createElement(Right, _extends({}, props, {
     userData: userData,
     onSearch: onSearch,
@@ -2954,6 +3038,7 @@ var Contacts = function Contacts(props) {
     handleSearch: handleSearch,
     userNameKey: userNameKey,
     deptId: deptId,
+    isSelectedOfMeeting: isSelectedOfMeeting,
     setSelectUser: setSelectUser,
     radio: radio,
     showLeft: showLeft,
@@ -3022,7 +3107,12 @@ Contacts.propTypes = {
   // 不可选择用户id列表
   disableUsers: PropTypes.array,
   // 不可选择部门id列表
-  disableDept: PropTypes.array
+  disableDept: PropTypes.array,
+  // 会议常用联系人文字
+  // 是否显示会议常用联系人
+  isShowUserOfSmt: PropTypes.bool,
+  commonUserTextOfSmt: PropTypes.string,
+  commonUserData: PropTypes.object
 };
 Contacts.defaultProps = {
   users: {
@@ -3055,7 +3145,12 @@ Contacts.defaultProps = {
   loadData: false,
   enNameKey: 'username',
   disableUsers: [],
-  disableDept: []
+  disableDept: [],
+  commonUserTextOfSmt: '常用联系人',
+  isShowUserOfSmt: true,
+  commonUserData: {
+    records: []
+  }
 };
 
 export default Contacts;

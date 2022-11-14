@@ -8,7 +8,7 @@ export default ({
                   selectAllText, searchUserPlaceholder, deptSearch, userData,
                   handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
                   setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
-                  userNameKey, radio, showLeft, enNameKey, disableUsers
+                  userNameKey, radio, showLeft, enNameKey, disableUsers,isSelectedOfMeeting
                 }) => {
 
   const [selectAll, setSelectAll] = useState(false);
@@ -97,8 +97,13 @@ export default ({
       window.console.log(page)
     }
     if (handleSearchUser) {
-      handleSearchUser(page, nameKey, deptId);
-      setOnSearch(true);
+      handleSearchUser(page, nameKey, deptId,isSelectedOfMeeting);
+      if(isSelectedOfMeeting){
+        setOnSearch(false);
+      }else{
+        setOnSearch(true);
+      }
+     
     } else {
       message.error('search function not found.');
     }
@@ -110,8 +115,12 @@ export default ({
    */
   const calculateSelectAll = (newSelectUser) => {
     let tmp = [];
+    console.log(disableUsers,'+== console.log(disableUsers)=')
     userData.records.forEach(value => {
-      tmp.push(value);
+      if(!disableUsers.includes(value.userId)){
+        tmp.push(value);
+      }
+      
     });
     if (tmp.length === 0) {
       setSelectAll(false);
@@ -141,6 +150,7 @@ export default ({
       tmp.push(value);
     });
     let newSelectUser = [];
+    console.log(checked,"+===checked===")
     if (checked) {
       // 如果是选中，遍历添加，重复的不添加
       tmp.forEach(val => {

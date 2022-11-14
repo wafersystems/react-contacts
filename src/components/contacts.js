@@ -35,7 +35,7 @@ const Contacts = (props) => {
     totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
     checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers, disableDept,
-    commonUserTextOfSmt,isClickUserOfSmt,isShowUserOfSmt
+    commonUserTextOfSmt,isShowUserOfSmt,commonUserData
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -62,8 +62,12 @@ const Contacts = (props) => {
    */
   const handleSearch = (nameKey = null) => {
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, deptId);
-      setOnSearch(true);
+      handleSearchUser(0, nameKey, deptId,isSelectedOfMeeting);
+      if(isSelectedOfMeeting){
+        setOnSearch(false);
+      }else{
+        setOnSearch(true);
+      }
       setNameKey(nameKey);
     } else {
       message.error('search function not found.');
@@ -189,7 +193,9 @@ const Contacts = (props) => {
   let userData;
   if (onSearch) {
     userData = searchResult;
-  } else {
+  } else if(isSelectedOfMeeting) {
+    userData = commonUserData;
+  }else {
     userData = users;
   }
   return (
@@ -208,11 +214,11 @@ const Contacts = (props) => {
             updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey}
                              disableDept={disableDept}  commonUserTextOfSmt={commonUserTextOfSmt}  
                              isSelectedOfMeeting={isSelectedOfMeeting}  setIsSelectedOfMeeting={setIsSelectedOfMeeting} 
-                             isClickUserOfSmt={isClickUserOfSmt}  isShowUserOfSmt={isShowUserOfSmt}
+                             isShowUserOfSmt={isShowUserOfSmt}
           />}
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
             nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
-            handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId}
+            handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId} isSelectedOfMeeting={isSelectedOfMeeting} 
             setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} disableUsers={disableUsers} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false} layout='vertical'>
@@ -289,7 +295,7 @@ Contacts.propTypes = {
   // 是否显示会议常用联系人
   isShowUserOfSmt:PropTypes.bool,
   commonUserTextOfSmt:PropTypes.string,
-  isClickUserOfSmt:PropTypes.func
+  commonUserData:PropTypes.object,
 };
 
 Contacts.defaultProps = {
@@ -325,7 +331,10 @@ Contacts.defaultProps = {
   disableUsers: [],
   disableDept:[],
   commonUserTextOfSmt:'常用联系人',
-  isShowUserOfSmt:true
+  isShowUserOfSmt:true,
+  commonUserData: {
+    records: [],
+  },
 };
 
 export default Contacts;

@@ -9,7 +9,7 @@ export default ({
   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
   updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey, loadData, disableDept,
-  commonUserTextOfSmt,isSelectedOfMeeting,setIsSelectedOfMeeting,isClickUserOfSmt,isShowUserOfSmt
+  commonUserTextOfSmt,isSelectedOfMeeting,setIsSelectedOfMeeting,isShowUserOfSmt
 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -72,12 +72,11 @@ export default ({
   const onTreeSelect = selectedKeys => {
     if (handleSearchUser) {
       const [deptId] = selectedKeys;
-      handleSearchUser(0, nameKey, deptId);
+      handleSearchUser(0, nameKey, deptId,isSelectedOfMeeting);
       setOnSearch(true);
       setDeptId(deptId);
       setSelectedKeys(selectedKeys)
       setIsSelectedOfMeeting(false)
-      isClickUserOfSmt(false)
     } else {
       message.error('search function not found.');
     }
@@ -148,11 +147,10 @@ export default ({
    */
   const onDeptSelect = item => {
     if (handleSearchUser) {
-      handleSearchUser(0, null, item.id);
+      handleSearchUser(0, null, item.id,isSelectedOfMeeting);
       setOnSearch(true);
       setDeptId(item.id);
       setIsSelectedOfMeeting(false)
-      isClickUserOfSmt(false)
     } else {
       message.error('search function not found.');
     }
@@ -172,11 +170,10 @@ export default ({
   }
   const onSelectOfMeeting=()=>{
     setIsSelectedOfMeeting(!isSelectedOfMeeting)  
-    isClickUserOfSmt(!isSelectedOfMeeting)
     setDeptTreeNode([])
     setDeptId(null)
     setSelectedKeys([])
-    
+    setOnSearch(false);
   }
 
   console.log(disableDept,deptTree)
