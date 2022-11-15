@@ -72,7 +72,7 @@ export default ({
   const onTreeSelect = selectedKeys => {
     if (handleSearchUser) {
       const [deptId] = selectedKeys;
-      handleSearchUser(0, nameKey, deptId,isSelectedOfMeeting);
+      handleSearchUser(0, nameKey, deptId,false);
       setOnSearch(true);
       setDeptId(deptId);
       setSelectedKeys(selectedKeys)
@@ -147,7 +147,7 @@ export default ({
    */
   const onDeptSelect = item => {
     if (handleSearchUser) {
-      handleSearchUser(0, null, item.id,isSelectedOfMeeting);
+      handleSearchUser(0, null, item.id,false);
       setOnSearch(true);
       setDeptId(item.id);
       setIsSelectedOfMeeting(false)

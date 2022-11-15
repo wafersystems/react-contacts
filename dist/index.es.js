@@ -1812,8 +1812,11 @@ var Right = (function (_ref) {
 
   var calculateSelectAll = function calculateSelectAll(newSelectUser) {
     var tmp = [];
+    console.log(disableUsers, '+== console.log(disableUsers)=');
     userData.records.forEach(function (value) {
-      tmp.push(value);
+      if (!disableUsers.includes(value.userId)) {
+        tmp.push(value);
+      }
     });
 
     if (tmp.length === 0) {
@@ -1847,6 +1850,7 @@ var Right = (function (_ref) {
       tmp.push(value);
     });
     var newSelectUser = [];
+    console.log(checked, "+===checked===");
 
     if (checked) {
       // 如果是选中，遍历添加，重复的不添加
@@ -2131,7 +2135,7 @@ var Left = (function (_ref) {
       var _selectedKeys = _slicedToArray(selectedKeys, 1),
           deptId = _selectedKeys[0];
 
-      handleSearchUser(0, nameKey, deptId, isSelectedOfMeeting);
+      handleSearchUser(0, nameKey, deptId, false);
       setOnSearch(true);
       setDeptId(deptId);
       setSelectedKeys(selectedKeys);
@@ -2224,7 +2228,7 @@ var Left = (function (_ref) {
 
   var onDeptSelect = function onDeptSelect(item) {
     if (handleSearchUser) {
-      handleSearchUser(0, null, item.id, isSelectedOfMeeting);
+      handleSearchUser(0, null, item.id, false);
       setOnSearch(true);
       setDeptId(item.id);
       setIsSelectedOfMeeting(false);
@@ -3002,6 +3006,7 @@ var Contacts = function Contacts(props) {
     userData = users;
   }
 
+  console.log(onSearch, '==onSearch=', isSelectedOfMeeting, userData);
   return /*#__PURE__*/React__default.createElement("div", {
     style: {
       height: '100%'
