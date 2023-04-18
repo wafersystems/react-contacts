@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Card, Checkbox, Radio, Col, Input, List, message, Pagination } from 'antd';
 import styles from './contacts.less';
 
+let timeout;
 const { Search } = Input;
 
 export default ({
                   selectAllText, searchUserPlaceholder, deptSearch, userData,
                   handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
                   setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
-                  userNameKey, radio, showLeft, enNameKey, disableUsers,isSelectedOfMeeting
+                  userNameKey, radio, showLeft, enNameKey, disableUsers,isSelectedOfMeeting,allowQueryNow
                 }) => {
 
   const [selectAll, setSelectAll] = useState(false);
@@ -28,6 +29,17 @@ export default ({
    * @param e
    */
   const handleSearchChange = e => {
+    const str = e.target.value.replace(/\s*/g, '');
+    if(allowQueryNow&&str&&handleSearch){
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      timeout = setTimeout(() => {
+        handleSearch(str);
+      }, 300);
+    }
+
     if (!e.target.value) {
       setOnSearch(false);
       setNameKey(null);

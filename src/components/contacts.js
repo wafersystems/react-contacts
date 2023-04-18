@@ -35,7 +35,7 @@ const Contacts = (props) => {
     totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
     checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers, disableDept,
-    commonUserTextOfSmt,isShowUserOfSmt,commonUserData
+    commonUserTextOfSmt,isShowUserOfSmt,commonUserData,allowQueryNow
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
@@ -219,7 +219,7 @@ const Contacts = (props) => {
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
             nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
             handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId} isSelectedOfMeeting={isSelectedOfMeeting} 
-            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} disableUsers={disableUsers} />
+            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} disableUsers={disableUsers} allowQueryNow={allowQueryNow}/>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false} layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
@@ -296,6 +296,8 @@ Contacts.propTypes = {
   isShowUserOfSmt:PropTypes.bool,
   commonUserTextOfSmt:PropTypes.string,
   commonUserData:PropTypes.object,
+  // 是否允许输入后直接立刻查询用户数据（不用点按钮）
+  allowQueryNow:PropTypes.bool,
 };
 
 Contacts.defaultProps = {
@@ -335,6 +337,7 @@ Contacts.defaultProps = {
   commonUserData: {
     records: [],
   },
+  allowQueryNow:false,
 };
 
 export default Contacts;
