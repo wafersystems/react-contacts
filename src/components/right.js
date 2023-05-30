@@ -219,7 +219,7 @@ export default ({
                     </Checkbox>}
                   </div>
                   <div className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName} title={item.deptName}>{item.deptName}</div>
-                  {enNameKey && <div style={{ paddingLeft:'10px'}} title={item[enNameKey]} className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName}>{item[enNameKey]}</div>}
+                  {/* {enNameKey && <div style={{ paddingLeft:'10px'}} title={item[enNameKey]} className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName}>{item[enNameKey]}</div>} */}
                 </div>
               </List.Item>
             );
