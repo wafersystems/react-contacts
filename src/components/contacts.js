@@ -1,59 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import {
-  Col,
-  Form,
-  Input,
-  Row,
-  Spin,
-  Tag,
-  message,
-} from 'antd';
-import { createFromIconfontCN } from '@ant-design/icons';
-import Right from './right';
-import Left from './left';
+import { createFromIconfontCN } from '@ant-design/icons'
+import { Col, Form, Input, message, Row, Spin, Tag } from 'antd'
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
+import { filterDeptTagShow } from '../utils'
+import styles from './contacts.less'
 import DndWrapper from './dnd/index'
-import { filterDeptTagShow } from '../utils';
-import styles from './contacts.less';
+import Left from './left'
+import Right from './right'
 
-const { Search } = Input;
+const { Search } = Input
 
 const IconFont = createFromIconfontCN({
   scriptUrl: [
     '//at.alicdn.com/t/font_1596018_xkmgoaljpq.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
   ],
-});
+})
 
 const Contacts = (props) => {
-
   const {
     users,
     loading = false,
     searchResult,
     userSearch = false,
     searchUserPlaceholder,
-    totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
-    defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
-    checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers, disableDept,
-    commonUserTextOfSmt,isShowUserOfSmt,commonUserData,allowQueryNow
-  } = props;
+    totalShowText,
+    handleSearchUser,
+    updateSelectUsers,
+    defaultUserSelected,
+    defaultDeptSelected,
+    updateSelectDept,
+    userNameKey,
+    deptNameKey,
+    radio,
+    radioShowText,
+    checkStrictly,
+    showAllDeptTags,
+    Drag,
+    showLeft,
+    loadData,
+    disableUsers,
+    disableDept,
+    commonUserTextOfSmt,
+    isShowUserOfSmt,
+    commonUserData,
+    allowQueryNow,
+    showUserAccount,
+  } = props
 
-  const [deptTreeNode, setDeptTreeNode] = useState([]);
-  const [selectUser, setSelectUser] = useState([]);
-  const [onSearch, setOnSearch] = useState(false);
-  const [deptId, setDeptId] = useState(null);
-  const [nameKey, setNameKey] = useState(null);
-  const [isSelectedOfMeeting, setIsSelectedOfMeeting] = useState(false);
+  const [deptTreeNode, setDeptTreeNode] = useState([])
+  const [selectUser, setSelectUser] = useState([])
+  const [onSearch, setOnSearch] = useState(false)
+  const [deptId, setDeptId] = useState(null)
+  const [nameKey, setNameKey] = useState(null)
+  const [isSelectedOfMeeting, setIsSelectedOfMeeting] = useState(false)
 
   useEffect(() => {
-    updateSelectUsers(defaultUserSelected);
-    setSelectUser(defaultUserSelected);
-  }, [defaultUserSelected]);
+    updateSelectUsers(defaultUserSelected)
+    setSelectUser(defaultUserSelected)
+  }, [defaultUserSelected])
 
   useEffect(() => {
-    updateSelectDept(defaultDeptSelected);
-    setDeptTreeNode(defaultDeptSelected);
-  }, [defaultDeptSelected]);
+    updateSelectDept(defaultDeptSelected)
+    setDeptTreeNode(defaultDeptSelected)
+  }, [defaultDeptSelected])
 
   /**
    *  点击查询回调，会把name key 和 dept id 回传，外部调用查询用
@@ -62,35 +71,36 @@ const Contacts = (props) => {
    */
   const handleSearch = (nameKey = null) => {
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, deptId,isSelectedOfMeeting);
-      if(isSelectedOfMeeting){
-        setOnSearch(false);
-      }else{
-        setOnSearch(true);
+      handleSearchUser(0, nameKey, deptId, isSelectedOfMeeting)
+      if (isSelectedOfMeeting) {
+        setOnSearch(false)
+      } else {
+        setOnSearch(true)
       }
-      setNameKey(nameKey);
+      setNameKey(nameKey)
     } else {
-      message.error('search function not found.');
+      message.error('search function not found.')
     }
-  };
+  }
 
   /**
    * 生成显示的部门Tag
    * @param v
    * @return {*}
    */
-  const makeDeptTag = v => (
+  const makeDeptTag = (v) => (
     <Tag
       key={v.id}
       className={styles.deptTag}
-      onClick={e => {
-        e.preventDefault();
-        unCheckDept(v);
+      onClick={(e) => {
+        e.preventDefault()
+        unCheckDept(v)
       }}
     >
-      {v[deptNameKey]} <IconFont  type="icon-delete2" style={{color:'#D8D8D8'}} />
+      {v[deptNameKey]}{' '}
+      <IconFont type="icon-delete2" style={{ color: '#D8D8D8' }} />
     </Tag>
-  );
+  )
 
   /**
    *
@@ -98,10 +108,10 @@ const Contacts = (props) => {
    * @param key
    */
   const delObjProperty = (object, key) => {
-    const t = object[key];
+    const t = object[key]
     if (t) {
-      delete object[key];
-      delObjProperty(object, t.parentId);
+      delete object[key]
+      delObjProperty(object, t.parentId)
     }
   }
 
@@ -109,127 +119,164 @@ const Contacts = (props) => {
    *
    * @param data
    */
-  const unCheckDept = data => {
+  const unCheckDept = (data) => {
     console.log(data, '删除')
-    const dept = [];
-    const obj = {};
-    deptTreeNode.forEach(value => {
-      obj[value.id] = value;
-    });
-    delObjProperty(obj, data.id);
-    Object.keys(obj).forEach(key => {
-      dept.push(obj[key]);
+    const dept = []
+    const obj = {}
+    deptTreeNode.forEach((value) => {
+      obj[value.id] = value
     })
-    updateSelectDept(dept);
-    setDeptTreeNode(dept);
-  };
+    delObjProperty(obj, data.id)
+    Object.keys(obj).forEach((key) => {
+      dept.push(obj[key])
+    })
+    updateSelectDept(dept)
+    setDeptTreeNode(dept)
+  }
 
   /**
    * 生成显示的用户Tag
    * @param v
    * @return {*}
    */
-  const makeUserTag = v => {
+  const makeUserTag = (v) => {
     return (
       <Tag
         key={v.userId}
         className={styles.userTag}
-        onClick={e => {
-          e.preventDefault();
-          unCheckUser(v);
+        onClick={(e) => {
+          e.preventDefault()
+          unCheckUser(v)
         }}
       >
-        {v[userNameKey]} <IconFont type="icon-delete2" style={{color:'#D8D8D8'}} />
+        {v[userNameKey]}{' '}
+        <IconFont type="icon-delete2" style={{ color: '#D8D8D8' }} />
       </Tag>
-    );
-  };
+    )
+  }
 
   /**
    * 点击用户Tag时取消选择
    * @param data
    */
-  const unCheckUser = data => {
-    const tmp = [];
-    const result = selectUser.filter(value => value.userId !== data.userId);
-    const userList = result.concat(tmp);
-    updateSelectUsers(userList);
-    setSelectUser(userList);
-  };
+  const unCheckUser = (data) => {
+    const tmp = []
+    const result = selectUser.filter((value) => value.userId !== data.userId)
+    const userList = result.concat(tmp)
+    updateSelectUsers(userList)
+    setSelectUser(userList)
+  }
 
   const makeShowMsg = () => {
     if (!radio) {
-      const tmp = totalShowText.split('$');
-      let font = '';
-      let end = '';
+      const tmp = totalShowText.split('$')
+      let font = ''
+      let end = ''
       if (tmp.length === 2) {
-        font = tmp[0];
-        end = tmp[1];
+        font = tmp[0]
+        end = tmp[1]
       } else {
-        font = totalShowText;
+        font = totalShowText
       }
-      let length = 0;
+      let length = 0
       if (!showAllDeptTags) {
         length = filterDeptTagShow(deptTreeNode).length + selectUser.length
       } else {
         length = deptTreeNode.length + selectUser.length
       }
       return (
-        <div>{font} <span className={styles.number}>{length}</span> {end}
+        <div>
+          {font} <span className={styles.number}>{length}</span> {end}
         </div>
-      );
+      )
     }
-    let name = '';
+    let name = ''
     if (selectUser.length > 0) {
-      const [use] = selectUser;
-      name = use[userNameKey];
+      const [use] = selectUser
+      name = use[userNameKey]
     }
     return (
-      <div>{radioShowText} <span className={styles.number}>{name}</span>
+      <div>
+        {radioShowText} <span className={styles.number}>{name}</span>
       </div>
-    );
+    )
+  }
 
-  };
-
-  let userData;
+  let userData
   if (onSearch) {
-    userData = searchResult;
-  } else if(isSelectedOfMeeting) {
-    userData = commonUserData;
-  }else {
-    userData = users;
+    userData = searchResult
+  } else if (isSelectedOfMeeting) {
+    userData = commonUserData
+  } else {
+    userData = users
   }
   return (
     <div style={{ height: '100%' }}>
       <Spin spinning={loading}>
         {userSearch && (
           <Row>
-            <Search placeholder={searchUserPlaceholder} onSearch={handleSearch} />
+            <Search
+              placeholder={searchUserPlaceholder}
+              onSearch={handleSearch}
+            />
           </Row>
         )}
         {userSearch && <br />}
         <Row>
-          {showLeft && <Left {...props} setDeptId={setDeptId} setOnSearch={setOnSearch}
-            deptTreeNode={deptTreeNode} setDeptTreeNode={setDeptTreeNode}
-            handleSearchUser={handleSearchUser} checkStrictly={checkStrictly}
-            updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey}
-                             disableDept={disableDept}  commonUserTextOfSmt={commonUserTextOfSmt}  
-                             isSelectedOfMeeting={isSelectedOfMeeting}  setIsSelectedOfMeeting={setIsSelectedOfMeeting} 
-                             isShowUserOfSmt={isShowUserOfSmt}
-          />}
-          <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
-            nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
-            handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId} isSelectedOfMeeting={isSelectedOfMeeting} 
-            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} disableUsers={disableUsers} allowQueryNow={allowQueryNow}/>
+          {showLeft && (
+            <Left
+              {...props}
+              setDeptId={setDeptId}
+              setOnSearch={setOnSearch}
+              deptTreeNode={deptTreeNode}
+              setDeptTreeNode={setDeptTreeNode}
+              handleSearchUser={handleSearchUser}
+              checkStrictly={checkStrictly}
+              updateSelectDept={updateSelectDept}
+              deptNameKey={deptNameKey}
+              radio={radio}
+              nameKey={nameKey}
+              disableDept={disableDept}
+              commonUserTextOfSmt={commonUserTextOfSmt}
+              isSelectedOfMeeting={isSelectedOfMeeting}
+              setIsSelectedOfMeeting={setIsSelectedOfMeeting}
+              isShowUserOfSmt={isShowUserOfSmt}
+            />
+          )}
+          <Right
+            {...props}
+            userData={userData}
+            onSearch={onSearch}
+            setOnSearch={setOnSearch}
+            loadData={loadData}
+            nameKey={nameKey}
+            setNameKey={setNameKey}
+            selectUser={selectUser}
+            handleSearch={handleSearch}
+            userNameKey={userNameKey}
+            deptId={deptId}
+            isSelectedOfMeeting={isSelectedOfMeeting}
+            setSelectUser={setSelectUser}
+            radio={radio}
+            showLeft={showLeft}
+            disableUsers={disableUsers}
+            allowQueryNow={allowQueryNow}
+          />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Form colon={false} layout='vertical'>
+            <Form colon={false} layout="vertical">
               <Form.Item className={styles.label} label={makeShowMsg()}>
-                {!radio &&
+                {!radio && (
                   <div className={styles.resultDiv}>
-                    {!showAllDeptTags && deptTreeNode && filterDeptTagShow(deptTreeNode).map(v => makeDeptTag(v))}
-                    {showAllDeptTags && deptTreeNode && deptTreeNode.map(v => makeDeptTag(v))}
-                    {
-                      Drag ? (
-                        selectUser.length > 0 && (
+                    {!showAllDeptTags &&
+                      deptTreeNode &&
+                      filterDeptTagShow(deptTreeNode).map((v) =>
+                        makeDeptTag(v),
+                      )}
+                    {showAllDeptTags &&
+                      deptTreeNode &&
+                      deptTreeNode.map((v) => makeDeptTag(v))}
+                    {Drag
+                      ? selectUser.length > 0 && (
                           <DndWrapper
                             updateSelectUsers={updateSelectUsers}
                             data={selectUser}
@@ -237,13 +284,9 @@ const Contacts = (props) => {
                             userNameKey={userNameKey}
                           />
                         )
-
-                      ) : (
-                        selectUser && selectUser.map(v => makeUserTag(v))
-                      )
-                    }
+                      : selectUser && selectUser.map((v) => makeUserTag(v))}
                   </div>
-                }
+                )}
               </Form.Item>
             </Form>
           </Col>
@@ -251,8 +294,7 @@ const Contacts = (props) => {
       </Spin>
     </div>
   )
-
-};
+}
 
 Contacts.propTypes = {
   deptTree: PropTypes.array.isRequired,
@@ -286,19 +328,20 @@ Contacts.propTypes = {
   // 异步加载数据
   loadData: PropTypes.func,
   // 显示英文名key
-  enNameKey:PropTypes.string,
+  enNameKey: PropTypes.string,
   // 不可选择用户id列表
-  disableUsers:PropTypes.array,
+  disableUsers: PropTypes.array,
   // 不可选择部门id列表
-  disableDept:PropTypes.array,
+  disableDept: PropTypes.array,
   // 会议常用联系人文字
   // 是否显示会议常用联系人
-  isShowUserOfSmt:PropTypes.bool,
-  commonUserTextOfSmt:PropTypes.string,
-  commonUserData:PropTypes.object,
+  isShowUserOfSmt: PropTypes.bool,
+  commonUserTextOfSmt: PropTypes.string,
+  commonUserData: PropTypes.object,
   // 是否允许输入后直接立刻查询用户数据（不用点按钮）
-  allowQueryNow:PropTypes.bool,
-};
+  allowQueryNow: PropTypes.bool,
+  showUserAccount: PropTypes.bool,
+}
 
 Contacts.defaultProps = {
   users: {
@@ -331,13 +374,14 @@ Contacts.defaultProps = {
   loadData: false,
   enNameKey: 'username',
   disableUsers: [],
-  disableDept:[],
-  commonUserTextOfSmt:'常用联系人',
-  isShowUserOfSmt:true,
+  disableDept: [],
+  commonUserTextOfSmt: '常用联系人',
+  isShowUserOfSmt: true,
   commonUserData: {
     records: [],
   },
-  allowQueryNow:false,
-};
+  allowQueryNow: false,
+  showUserAccount: false,
+}
 
-export default Contacts;
+export default Contacts

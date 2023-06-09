@@ -1,0 +1,154 @@
+.rightAlign {
+  text-align: right;
+}
+.treeLeft {
+  padding-left: 0;
+}
+/* 定义滚动条轨道 */
+.card::-webkit-scrollbar-track {
+  background: #e9e9e9;
+}
+/* 定义滑块 */
+.card::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 19px;
+}
+.card {
+  min-height: 347px;
+  max-height: 347px;
+  overflow-y: auto;
+}
+.card :global .ant-card-body {
+  padding: 16px 7px 7px 8px;
+}
+.card :global .ant-list-sm .ant-list-item {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.list {
+  width: max-content;
+  padding-right: 5px;
+}
+.listEmpty {
+  padding-right: 5px;
+}
+.deptInfo {
+  height: 21px;
+  font-weight: bold;
+  font-size: 15px;
+}
+.itemDiv {
+  width: 100%;
+  display: contents;
+}
+.itemDiv .checkbox {
+  float: left;
+  text-align: left;
+  width: 100px;
+}
+.itemDiv .checkbox span:nth-child(2) {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.itemDiv .userName {
+  width: 120px;
+  float: right;
+  text-align: left;
+  margin-right: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.itemDiv .deptName {
+  float: right;
+  text-align: left;
+  width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.itemDiv .deptName_disabled {
+  float: right;
+  text-align: left;
+  width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+.itemDiv .userName_disabled {
+  width: 120px;
+  float: right;
+  text-align: left;
+  margin-right: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+.itemDiv:hover {
+  background: var(--list-item-hover-color);
+}
+.pagination {
+  width: 100%;
+  margin-top: 9px;
+}
+.pagination .checkbox {
+  float: left;
+  padding-left: 10px;
+}
+.pagination .pageNoe {
+  float: right;
+}
+.label :global .ant-form-item-label {
+  line-height: 1;
+}
+.number {
+  color: var(--react-contacts-number-color);
+}
+.resultDiv {
+  width: 100%;
+  min-height: 100px;
+  max-height: 123px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--react-contacts-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+.resultDiv .deptTag {
+  height: 24px;
+  margin-top: 8px;
+  margin-left: 10px;
+  color: var(--react-contacts-dept-color);
+  background-color: var(--react-contacts-dept-backgroud-color);
+  border: 1px solid var(--react-contacts-dept-border-color);
+}
+.resultDiv .userTag {
+  height: 24px;
+  margin-top: 8px;
+  margin-left: 10px;
+  color: var(--react-contacts-user-color);
+  background-color: var(--react-contacts-user-backgroud-color);
+  border: 1px solid var(--react-contacts-user-border-color);
+  border-radius: 4px;
+}
+.resultDiv :global .ant-form-item {
+  margin-bottom: 2px;
+}
+.userText {
+  cursor: pointer;
+}
+.textColor {
+  color: #2ea498;
+  font-weight: 400;
+  background-color: #f8f8f8;
+}
+.userTextWrapper {
+  display: flex;
+  align-items: center;
+  margin: 4px 0 4px 23px;
+}
