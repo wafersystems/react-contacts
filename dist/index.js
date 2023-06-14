@@ -19,20 +19,20 @@ var _Input = _interopDefault(require('antd/es/input'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var PropTypes = _interopDefault(require('prop-types'));
-require('antd/es/pagination/style');
-var _Pagination = _interopDefault(require('antd/es/pagination'));
+require('antd/es/tree/style');
+var _Tree = _interopDefault(require('antd/es/tree'));
+var reactDnd = require('react-dnd');
+var reactDndHtml5Backend = require('react-dnd-html5-backend');
 require('antd/es/card/style');
 var _Card = _interopDefault(require('antd/es/card'));
 require('antd/es/list/style');
 var _List = _interopDefault(require('antd/es/list'));
 require('antd/es/checkbox/style');
 var _Checkbox = _interopDefault(require('antd/es/checkbox'));
+require('antd/es/pagination/style');
+var _Pagination = _interopDefault(require('antd/es/pagination'));
 require('antd/es/radio/style');
 var _Radio = _interopDefault(require('antd/es/radio'));
-require('antd/es/tree/style');
-var _Tree = _interopDefault(require('antd/es/tree'));
-var reactDnd = require('react-dnd');
-var reactDndHtml5Backend = require('react-dnd-html5-backend');
 
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
@@ -1642,324 +1642,6 @@ function create() {
 
 var IconProvider = IconContext.Provider;
 
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 0;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n  display: contents;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n  text-align: left;\n  width: 120px;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX span:nth-child(2) {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName_disabled__2Op9y {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n  color: rgba(0, 0, 0, 0.25);\n  cursor: not-allowed;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_number__3CopY {\n  color: var(--react-contacts-number-color);\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--react-contacts-bg-color);\n  border: 1px solid var(--border-color);\n  border-radius: 6px;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n.contacts_userText__1-U5C {\n  cursor: pointer;\n}\n.contacts_textColor__1w1Zd {\n  color: #2ea498;\n  font-weight: 400;\n  background-color: #f8f8f8;\n}\n.contacts_userTextWrapper__3qNCL {\n  display: flex;\n  align-items: center;\n  margin: 4px 0 4px 23px;\n}\n";
-var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","deptName":"contacts_deptName__29k1a","deptName_disabled":"contacts_deptName_disabled__2Op9y","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","number":"contacts_number__3CopY","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI","userText":"contacts_userText__1-U5C","textColor":"contacts_textColor__1w1Zd","userTextWrapper":"contacts_userTextWrapper__3qNCL"};
-styleInject(css_248z);
-
-var Search = _Input.Search;
-var Right = (function (_ref) {
-  var selectAllText = _ref.selectAllText,
-      searchUserPlaceholder = _ref.searchUserPlaceholder,
-      deptSearch = _ref.deptSearch,
-      userData = _ref.userData,
-      handleSearch = _ref.handleSearch,
-      handleSearchUser = _ref.handleSearchUser,
-      deptId = _ref.deptId,
-      updateSelectUsers = _ref.updateSelectUsers,
-      _ref$debug = _ref.debug,
-      debug = _ref$debug === void 0 ? false : _ref$debug,
-      setOnSearch = _ref.setOnSearch,
-      nameKey = _ref.nameKey,
-      setNameKey = _ref.setNameKey,
-      selectUser = _ref.selectUser,
-      setSelectUser = _ref.setSelectUser,
-      userNameKey = _ref.userNameKey,
-      radio = _ref.radio,
-      showLeft = _ref.showLeft,
-      enNameKey = _ref.enNameKey,
-      disableUsers = _ref.disableUsers,
-      isSelectedOfMeeting = _ref.isSelectedOfMeeting;
-
-  var _useState = React.useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      selectAll = _useState2[0],
-      setSelectAll = _useState2[1]; // 当列表数据发生变化时，重新计算全选
-
-
-  React.useEffect(function () {
-    calculateSelectAll(selectUser);
-  }, [userData]); // 当选中人数据发生变化，重新计算全选
-
-  React.useEffect(function () {
-    calculateSelectAll(selectUser);
-  }, [selectUser]);
-  /**
-   * 姓名搜索为空时处理
-   * @param e
-   */
-
-  var handleSearchChange = function handleSearchChange(e) {
-    if (!e.target.value) {
-      setOnSearch(false);
-      setNameKey(null);
-      handleSearch('');
-    }
-  };
-  /**
-   * 判断用户是否选择
-   * @param data
-   * @return {boolean}
-   */
-
-
-  var isUserCheck = function isUserCheck(data) {
-    var result = selectUser.find(function (value) {
-      return value.userId === data.userId;
-    });
-    return !!result;
-  };
-  /**
-   * 点击用户列表的回调
-   * @param e
-   */
-
-
-  var onUserCheck = function onUserCheck(e) {
-    var _e$target = e.target,
-        checked = _e$target.checked,
-        data = _e$target.data;
-    var tmp = [];
-    var newSelectUser;
-
-    if (checked) {
-      tmp.push(data);
-      newSelectUser = selectUser.concat(tmp);
-    } else {
-      var result = selectUser.filter(function (value) {
-        return value.userId !== data.userId;
-      });
-      newSelectUser = result.concat(tmp);
-    }
-
-    setSelectUser(newSelectUser);
-    updateSelectUsers(newSelectUser);
-
-    if (checked) {
-      calculateSelectAll(newSelectUser);
-    } else {
-      setSelectAll(false);
-    }
-  };
-  /**
-   * Radio时点击用户列表的回调
-   * @param e
-   */
-
-
-  var onUserRadioCheck = function onUserRadioCheck(e) {
-    var _e$target2 = e.target,
-        checked = _e$target2.checked,
-        data = _e$target2.data;
-    var newSelectUser = [];
-
-    if (checked) {
-      newSelectUser.push(data);
-    }
-
-    setSelectUser(newSelectUser);
-    updateSelectUsers(newSelectUser);
-  };
-  /**
-   * 翻页查询处理
-   * @param page
-   */
-
-
-  var onPageChange = function onPageChange(page) {
-    if (debug) {
-      window.console.log(page);
-    }
-
-    if (handleSearchUser) {
-      handleSearchUser(page, nameKey, deptId, isSelectedOfMeeting);
-
-      if (isSelectedOfMeeting) {
-        setOnSearch(false);
-      } else {
-        setOnSearch(true);
-      }
-    } else {
-      _message.error('search function not found.');
-    }
-  };
-  /**
-   * 计算是否全部选中
-   * @param newSelectUser
-   */
-
-
-  var calculateSelectAll = function calculateSelectAll(newSelectUser) {
-    var tmp = [];
-    console.log(disableUsers, '+== console.log(disableUsers)=');
-    userData.records.forEach(function (value) {
-      if (!disableUsers.includes(value.userId)) {
-        tmp.push(value);
-      }
-    });
-
-    if (tmp.length === 0) {
-      setSelectAll(false);
-      return;
-    }
-
-    var count = 0;
-    tmp.forEach(function (val) {
-      var result = newSelectUser.find(function (valUser) {
-        return val.userId === valUser.userId;
-      });
-
-      if (result) {
-        count += 1;
-      }
-    });
-    setSelectAll(count === tmp.length);
-  };
-  /**
-   * 点击用户全选的回调
-   * @param e
-   */
-
-
-  var onCheckAll = function onCheckAll(e) {
-    var checked = e.target.checked;
-    setSelectAll(checked);
-    var tmp = [];
-    userData.records.forEach(function (value) {
-      tmp.push(value);
-    });
-    var newSelectUser = [];
-    console.log(checked, "+===checked===");
-
-    if (checked) {
-      // 如果是选中，遍历添加，重复的不添加
-      tmp.forEach(function (val) {
-        var result = selectUser.find(function (valUser) {
-          return val.userId === valUser.userId;
-        });
-
-        if (!result && disableUsers.indexOf(val.userId) === -1) {
-          newSelectUser.push(val);
-        }
-      });
-      newSelectUser = selectUser.concat(newSelectUser);
-    } else {
-      // 不选中的遍历删除
-      selectUser.forEach(function (val) {
-        var result = tmp.find(function (valUser) {
-          return val.userId === valUser.userId;
-        });
-
-        if (!result) {
-          newSelectUser.push(val);
-        }
-      });
-    }
-
-    updateSelectUsers(newSelectUser);
-    setSelectUser(newSelectUser);
-  };
-
-  var colWidth = showLeft ? 12 : 24;
-  console.log(userData, '===userData==');
-  return /*#__PURE__*/React__default.createElement(_Col, {
-    xs: colWidth,
-    sm: colWidth,
-    md: colWidth,
-    lg: colWidth,
-    xl: colWidth,
-    className: styles.treeLeft
-  }, /*#__PURE__*/React__default.createElement(_Card, {
-    style: {
-      borderBottomRightRadius: '6px',
-      borderBottomLeftRadius: 0,
-      borderTopRightRadius: '6px',
-      borderTopLeftRadius: 0,
-      borderLeft: 0
-    },
-    className: styles.card
-  }, deptSearch && /*#__PURE__*/React__default.createElement(Search, {
-    placeholder: searchUserPlaceholder,
-    onSearch: handleSearch,
-    onChange: handleSearchChange
-  }), deptSearch && /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement(_List, {
-    className: userData.records.length === 0 ? styles.listEmpty : styles.list,
-    size: "small",
-    bordered: false,
-    dataSource: userData.records,
-    split: false,
-    renderItem: function renderItem(item) {
-      return /*#__PURE__*/React__default.createElement(_List.Item, null, /*#__PURE__*/React__default.createElement("div", {
-        className: styles.itemDiv
-      }, /*#__PURE__*/React__default.createElement("div", {
-        className: styles.checkbox,
-        title: item[userNameKey]
-      }, radio && /*#__PURE__*/React__default.createElement(_Radio, {
-        className: styles.checkbox,
-        checked: isUserCheck(item),
-        data: item,
-        onChange: onUserRadioCheck,
-        disabled: disableUsers.includes(item.userId)
-      }, item[userNameKey]), !radio && /*#__PURE__*/React__default.createElement(_Checkbox, {
-        className: styles.checkbox,
-        data: item,
-        checked: isUserCheck(item),
-        onChange: onUserCheck,
-        title: item[userNameKey],
-        disabled: disableUsers.includes(item.userId)
-      }, item[userNameKey])), /*#__PURE__*/React__default.createElement("div", {
-        className: disableUsers.includes(item.userId) ? styles.deptName_disabled : styles.deptName,
-        title: item.deptName
-      }, item.deptName), enNameKey && /*#__PURE__*/React__default.createElement("div", {
-        style: {
-          paddingLeft: '10px'
-        },
-        title: item[enNameKey],
-        className: disableUsers.includes(item.userId) ? styles.deptName_disabled : styles.deptName
-      }, item[enNameKey])));
-    }
-  })), /*#__PURE__*/React__default.createElement("div", {
-    className: styles.pagination
-  }, !radio && /*#__PURE__*/React__default.createElement(_Checkbox, {
-    onChange: onCheckAll,
-    className: styles.checkbox,
-    checked: selectAll
-  }, selectAllText), /*#__PURE__*/React__default.createElement(_Pagination, {
-    className: styles.pageNoe,
-    simple: true,
-    current: userData.current || 1,
-    pageSize: userData.size,
-    total: userData.total,
-    onChange: onPageChange
-  })));
-});
-
 var TreeNode = _Tree.TreeNode;
 /**
  * 过滤dept节点,如果父节点选中不显示子节点
@@ -2035,295 +1717,36 @@ var formatDeptData = function formatDeptData(treeData, deptNameKey) {
   });
 };
 
-var Search$1 = _Input.Search;
-var Left = (function (_ref) {
-  var searchDeptPlaceholder = _ref.searchDeptPlaceholder,
-      deptSearch = _ref.deptSearch,
-      deptCheckBox = _ref.deptCheckBox,
-      _ref$deptTree = _ref.deptTree,
-      deptTree = _ref$deptTree === void 0 ? [] : _ref$deptTree,
-      handleSearchUser = _ref.handleSearchUser,
-      setDeptId = _ref.setDeptId,
-      setOnSearch = _ref.setOnSearch,
-      deptTreeNode = _ref.deptTreeNode,
-      setDeptTreeNode = _ref.setDeptTreeNode,
-      updateSelectDept = _ref.updateSelectDept,
-      deptNameKey = _ref.deptNameKey,
-      radio = _ref.radio,
-      checkStrictly = _ref.checkStrictly,
-      returnReducedNode = _ref.returnReducedNode,
-      nameKey = _ref.nameKey,
-      loadData = _ref.loadData,
-      disableDept = _ref.disableDept,
-      commonUserTextOfSmt = _ref.commonUserTextOfSmt,
-      isSelectedOfMeeting = _ref.isSelectedOfMeeting,
-      setIsSelectedOfMeeting = _ref.setIsSelectedOfMeeting,
-      isShowUserOfSmt = _ref.isShowUserOfSmt;
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
 
-  var _useState = React.useState([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      deptSearchResult = _useState2[0],
-      setDeptSearchResult = _useState2[1];
+  if (!css || typeof document === 'undefined') { return; }
 
-  var _useState3 = React.useState(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      onDeptSearch = _useState4[0],
-      setOnDeptSearch = _useState4[1];
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
 
-  var _useState5 = React.useState([]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      selectedKeys = _useState6[0],
-      setSelectedKeys = _useState6[1];
-
-  var onSearchDeptChange = function onSearchDeptChange(e) {
-    if (!e.target.value) {
-      setDeptSearchResult([]);
-      setOnDeptSearch(false);
-    }
-  };
-  /**
-   * 根据关键字搜索部门树
-   * @param key
-   * @param deptTree
-   * @param dataList
-   */
-
-
-  var searchByKey = function searchByKey(key, deptTree, dataList) {
-    deptTree.forEach(function (item) {
-      if (item.name.indexOf(key) > -1) {
-        dataList.push(item);
-      }
-
-      if (item.children && item.children.length > 0) {
-        searchByKey(key, item.children, dataList);
-      }
-    });
-  };
-  /**
-   * 根据关键字搜索部门
-   * @param value
-   */
-
-
-  var onSearchDept = function onSearchDept(value) {
-    if (!value) {
-      setDeptSearchResult([]);
-      setOnDeptSearch(!!value);
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
     } else {
-      var dataList = [];
-      searchByKey(value.trim(), deptTree, dataList);
-      setDeptSearchResult(dataList);
-      setOnDeptSearch(!!value);
+      head.appendChild(style);
     }
-  };
-  /**
-   * 生成选择树
-   * @param data
-   * @return {*}
-   */
+  } else {
+    head.appendChild(style);
+  }
 
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
 
-  var makeCheckedKeys = function makeCheckedKeys(data) {
-    return data.map(function (v) {
-      return v.id.toString();
-    });
-  };
-  /**
-   * 点击部门树时传递部门id到回调里面
-   * @param selectedKeys 选择的部门id
-   */
-
-
-  var onTreeSelect = function onTreeSelect(selectedKeys) {
-    if (handleSearchUser) {
-      var _selectedKeys = _slicedToArray(selectedKeys, 1),
-          deptId = _selectedKeys[0];
-
-      handleSearchUser(0, nameKey, deptId, false);
-      setOnSearch(true);
-      setDeptId(deptId);
-      setSelectedKeys(selectedKeys);
-      setIsSelectedOfMeeting(false);
-    } else {
-      _message.error('search function not found.');
-    }
-  };
-  /**
-   * 点击树的check box 回调
-   * @param checkedKeys
-   * @param checked
-   * @param checkedNodes
-   * @param node
-   */
-
-
-  var onDeptTreeCheck = function onDeptTreeCheck(checkedKeys, _ref2) {
-    var checked = _ref2.checked,
-        checkedNodes = _ref2.checkedNodes,
-        node = _ref2.node;
-    var tmp = [];
-    console.log(checked, checkedNodes, node);
-    checkedNodes.forEach(function (v) {
-      tmp.push(v);
-    });
-
-    if (returnReducedNode) {
-      updateSelectDept(filterDeptTagShow(tmp));
-    } else {
-      updateSelectDept(tmp);
-    }
-
-    setDeptTreeNode(tmp);
-  };
-  /**
-   * 判断部门是否选择
-   * @param data
-   * @return {boolean}
-   */
-
-
-  var isDeptCheck = function isDeptCheck(data) {
-    var result = deptTreeNode.find(function (value) {
-      return value.id === data.id;
-    });
-    return !!result;
-  };
-  /**
-   * 部门查询结果点击checkbox
-   * @param e
-   */
-
-
-  var onDeptCheck = function onDeptCheck(e) {
-    var _e$target = e.target,
-        checked = _e$target.checked,
-        data = _e$target.data;
-    var tmp = [];
-
-    if (checked) {
-      tmp.push(data);
-
-      if (returnReducedNode) {
-        updateSelectDept(filterDeptTagShow(deptTreeNode.concat(tmp)));
-      } else {
-        updateSelectDept(deptTreeNode.concat(tmp));
-      }
-
-      setDeptTreeNode(deptTreeNode.concat(tmp));
-    } else {
-      var result = deptTreeNode.filter(function (value) {
-        return value.id !== data.id;
-      });
-
-      if (returnReducedNode) {
-        updateSelectDept(filterDeptTagShow(result.concat(tmp)));
-      } else {
-        updateSelectDept(result.concat(tmp));
-      }
-
-      setDeptTreeNode(result.concat(tmp));
-    }
-  };
-  /**
-   * 点击部门查询结果后，传递部门ID给外部查询
-   * @param item
-   */
-
-
-  var onDeptSelect = function onDeptSelect(item) {
-    if (handleSearchUser) {
-      handleSearchUser(0, null, item.id, false);
-      setOnSearch(true);
-      setDeptId(item.id);
-      setIsSelectedOfMeeting(false);
-    } else {
-      _message.error('search function not found.');
-    }
-  };
-
-  var defaultExpandedKeys = function defaultExpandedKeys() {
-    try {
-      if (deptTree.length > 0 && deptTree[0] && deptTree[0].id) {
-        return [deptTree[0].id.toString()];
-      } else {
-        return [];
-      }
-    } catch (e) {
-      window.console.error(e);
-      return [];
-    }
-  };
-
-  var onSelectOfMeeting = function onSelectOfMeeting() {
-    setIsSelectedOfMeeting(!isSelectedOfMeeting);
-    setDeptTreeNode([]);
-    setDeptId(null);
-    setSelectedKeys([]);
-    setOnSearch(false);
-  };
-
-  console.log(disableDept, deptTree);
-  return /*#__PURE__*/React__default.createElement(_Col, {
-    xs: 12,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 12
-  }, /*#__PURE__*/React__default.createElement(_Card, {
-    style: {
-      borderBottomRightRadius: 0,
-      borderBottomLeftRadius: '6px',
-      borderTopRightRadius: 0,
-      borderTopLeftRadius: '6px'
-    },
-    className: styles.card
-  }, deptSearch && !loadData && /*#__PURE__*/React__default.createElement(Search$1, {
-    placeholder: searchDeptPlaceholder,
-    onSelect: onSearchDeptChange,
-    onSearch: onSearchDept
-  }), deptSearch && !loadData && /*#__PURE__*/React__default.createElement("br", null), isShowUserOfSmt && /*#__PURE__*/React__default.createElement("div", {
-    onClick: function onClick() {
-      onSelectOfMeeting();
-    },
-    className: styles.userTextWrapper
-  }, /*#__PURE__*/React__default.createElement("span", {
-    className: "".concat(styles.userText, " ").concat(isSelectedOfMeeting ? styles.textColor : '')
-  }, commonUserTextOfSmt, " ")), !onDeptSearch && deptTree.length > 0 && /*#__PURE__*/React__default.createElement(_Tree, {
-    // style={{paddingTop:5}}
-    checkable: deptCheckBox && !radio,
-    checkedKeys: makeCheckedKeys(deptTreeNode),
-    onSelect: onTreeSelect,
-    onCheck: onDeptTreeCheck,
-    checkStrictly: checkStrictly,
-    selectedKeys: selectedKeys,
-    defaultExpandedKeys: defaultExpandedKeys(),
-    treeData: formatDeptData(deptTree, deptNameKey, disableDept),
-    loadData: loadData
-  }), onDeptSearch && /*#__PURE__*/React__default.createElement(_List, {
-    size: "small",
-    bordered: false,
-    dataSource: deptSearchResult,
-    split: false,
-    renderItem: function renderItem(item) {
-      return /*#__PURE__*/React__default.createElement(_List.Item, null, /*#__PURE__*/React__default.createElement("div", {
-        className: styles.itemDiv
-      }, deptCheckBox && /*#__PURE__*/React__default.createElement(_Checkbox, {
-        className: styles.checkbox,
-        data: item,
-        checked: isDeptCheck(item),
-        onChange: onDeptCheck
-      }), /*#__PURE__*/React__default.createElement("span", {
-        style: {
-          marginLeft: '10px'
-        },
-        onClick: function onClick() {
-          return onDeptSelect(item);
-        }
-      }, item[deptNameKey])));
-    }
-  })));
-});
+var css_248z = ".contacts_rightAlign__2DAXJ {\n  text-align: right;\n}\n.contacts_treeLeft__zvPEq {\n  padding-left: 0;\n}\n/* 定义滚动条轨道 */\n.contacts_card__9kiRW::-webkit-scrollbar-track {\n  background: #e9e9e9;\n}\n/* 定义滑块 */\n.contacts_card__9kiRW::-webkit-scrollbar-thumb {\n  background: rgba(0, 0, 0, 0.45);\n  border-radius: 19px;\n}\n.contacts_card__9kiRW {\n  min-height: 347px;\n  max-height: 347px;\n  overflow-y: auto;\n}\n.contacts_card__9kiRW .ant-card-body {\n  padding: 16px 7px 7px 8px;\n}\n.contacts_card__9kiRW .ant-list-sm .ant-list-item {\n  padding-top: 4px;\n  padding-bottom: 4px;\n}\n.contacts_list__2oGRy {\n  width: max-content;\n  padding-right: 5px;\n}\n.contacts_listEmpty__YZiVJ {\n  padding-right: 5px;\n}\n.contacts_deptInfo__3e5E7 {\n  height: 21px;\n  font-weight: bold;\n  font-size: 15px;\n}\n.contacts_itemDiv__3FGhc {\n  width: 100%;\n  display: contents;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX {\n  float: left;\n  text-align: left;\n  width: 100px;\n}\n.contacts_itemDiv__3FGhc .contacts_checkbox__tJaOX span:nth-child(2) {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_userName__1k4Dr {\n  width: 120px;\n  float: right;\n  text-align: left;\n  margin-right: 10px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName__29k1a {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.contacts_itemDiv__3FGhc .contacts_deptName_disabled__2Op9y {\n  float: right;\n  text-align: left;\n  width: 100px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n  color: rgba(0, 0, 0, 0.25);\n  cursor: not-allowed;\n}\n.contacts_itemDiv__3FGhc .contacts_userName_disabled__1gv84 {\n  width: 120px;\n  float: right;\n  text-align: left;\n  margin-right: 10px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n  color: rgba(0, 0, 0, 0.25);\n  cursor: not-allowed;\n}\n.contacts_itemDiv__3FGhc:hover {\n  background: var(--list-item-hover-color);\n}\n.contacts_pagination__XYaLU {\n  width: 100%;\n  margin-top: 9px;\n}\n.contacts_pagination__XYaLU .contacts_checkbox__tJaOX {\n  float: left;\n  padding-left: 10px;\n}\n.contacts_pagination__XYaLU .contacts_pageNoe__1EStH {\n  float: right;\n}\n.contacts_label__VCr20 .ant-form-item-label {\n  line-height: 1;\n}\n.contacts_number__3CopY {\n  color: var(--react-contacts-number-color);\n}\n.contacts_resultDiv__2wcEb {\n  width: 100%;\n  min-height: 100px;\n  max-height: 123px;\n  overflow-x: hidden;\n  overflow-y: auto;\n  background: var(--react-contacts-bg-color);\n  border: 1px solid var(--border-color);\n  border-radius: 6px;\n}\n.contacts_resultDiv__2wcEb .contacts_deptTag__3mANU {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-dept-color);\n  background-color: var(--react-contacts-dept-backgroud-color);\n  border: 1px solid var(--react-contacts-dept-border-color);\n}\n.contacts_resultDiv__2wcEb .contacts_userTag__20MmI {\n  height: 24px;\n  margin-top: 8px;\n  margin-left: 10px;\n  color: var(--react-contacts-user-color);\n  background-color: var(--react-contacts-user-backgroud-color);\n  border: 1px solid var(--react-contacts-user-border-color);\n  border-radius: 4px;\n}\n.contacts_resultDiv__2wcEb .ant-form-item {\n  margin-bottom: 2px;\n}\n.contacts_userText__1-U5C {\n  cursor: pointer;\n}\n.contacts_textColor__1w1Zd {\n  color: #2ea498;\n  font-weight: 400;\n  background-color: #f8f8f8;\n}\n.contacts_userTextWrapper__3qNCL {\n  display: flex;\n  align-items: center;\n  margin: 4px 0 4px 23px;\n}\n";
+var styles = {"rightAlign":"contacts_rightAlign__2DAXJ","treeLeft":"contacts_treeLeft__zvPEq","card":"contacts_card__9kiRW","list":"contacts_list__2oGRy","listEmpty":"contacts_listEmpty__YZiVJ","deptInfo":"contacts_deptInfo__3e5E7","itemDiv":"contacts_itemDiv__3FGhc","checkbox":"contacts_checkbox__tJaOX","userName":"contacts_userName__1k4Dr","deptName":"contacts_deptName__29k1a","deptName_disabled":"contacts_deptName_disabled__2Op9y","userName_disabled":"contacts_userName_disabled__1gv84","pagination":"contacts_pagination__XYaLU","pageNoe":"contacts_pageNoe__1EStH","label":"contacts_label__VCr20","number":"contacts_number__3CopY","resultDiv":"contacts_resultDiv__2wcEb","deptTag":"contacts_deptTag__3mANU","userTag":"contacts_userTag__20MmI","userText":"contacts_userText__1-U5C","textColor":"contacts_textColor__1w1Zd","userTextWrapper":"contacts_userTextWrapper__3qNCL"};
+styleInject(css_248z);
 
 var ItemTypes = 'card';
 var IconFont = create({
@@ -2770,6 +2193,602 @@ function App(props) {
   }, /*#__PURE__*/React__default.createElement(Container, props)));
 }
 
+var Search = _Input.Search;
+var Left = (function (_ref) {
+  var searchDeptPlaceholder = _ref.searchDeptPlaceholder,
+      deptSearch = _ref.deptSearch,
+      deptCheckBox = _ref.deptCheckBox,
+      _ref$deptTree = _ref.deptTree,
+      deptTree = _ref$deptTree === void 0 ? [] : _ref$deptTree,
+      handleSearchUser = _ref.handleSearchUser,
+      setDeptId = _ref.setDeptId,
+      setOnSearch = _ref.setOnSearch,
+      deptTreeNode = _ref.deptTreeNode,
+      setDeptTreeNode = _ref.setDeptTreeNode,
+      updateSelectDept = _ref.updateSelectDept,
+      deptNameKey = _ref.deptNameKey,
+      radio = _ref.radio,
+      checkStrictly = _ref.checkStrictly,
+      returnReducedNode = _ref.returnReducedNode,
+      nameKey = _ref.nameKey,
+      loadData = _ref.loadData,
+      disableDept = _ref.disableDept,
+      commonUserTextOfSmt = _ref.commonUserTextOfSmt,
+      isSelectedOfMeeting = _ref.isSelectedOfMeeting,
+      setIsSelectedOfMeeting = _ref.setIsSelectedOfMeeting,
+      isShowUserOfSmt = _ref.isShowUserOfSmt;
+
+  var _useState = React.useState([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      deptSearchResult = _useState2[0],
+      setDeptSearchResult = _useState2[1];
+
+  var _useState3 = React.useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      onDeptSearch = _useState4[0],
+      setOnDeptSearch = _useState4[1];
+
+  var _useState5 = React.useState([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      selectedKeys = _useState6[0],
+      setSelectedKeys = _useState6[1];
+
+  var onSearchDeptChange = function onSearchDeptChange(e) {
+    if (!e.target.value) {
+      setDeptSearchResult([]);
+      setOnDeptSearch(false);
+    }
+  };
+  /**
+   * 根据关键字搜索部门树
+   * @param key
+   * @param deptTree
+   * @param dataList
+   */
+
+
+  var searchByKey = function searchByKey(key, deptTree, dataList) {
+    deptTree.forEach(function (item) {
+      if (item.name.indexOf(key) > -1) {
+        dataList.push(item);
+      }
+
+      if (item.children && item.children.length > 0) {
+        searchByKey(key, item.children, dataList);
+      }
+    });
+  };
+  /**
+   * 根据关键字搜索部门
+   * @param value
+   */
+
+
+  var onSearchDept = function onSearchDept(value) {
+    if (!value) {
+      setDeptSearchResult([]);
+      setOnDeptSearch(!!value);
+    } else {
+      var dataList = [];
+      searchByKey(value.trim(), deptTree, dataList);
+      setDeptSearchResult(dataList);
+      setOnDeptSearch(!!value);
+    }
+  };
+  /**
+   * 生成选择树
+   * @param data
+   * @return {*}
+   */
+
+
+  var makeCheckedKeys = function makeCheckedKeys(data) {
+    return data.map(function (v) {
+      return v.id.toString();
+    });
+  };
+  /**
+   * 点击部门树时传递部门id到回调里面
+   * @param selectedKeys 选择的部门id
+   */
+
+
+  var onTreeSelect = function onTreeSelect(selectedKeys) {
+    if (handleSearchUser) {
+      var _selectedKeys = _slicedToArray(selectedKeys, 1),
+          deptId = _selectedKeys[0];
+
+      handleSearchUser(0, nameKey, deptId, false);
+      setOnSearch(true);
+      setDeptId(deptId);
+      setSelectedKeys(selectedKeys);
+      setIsSelectedOfMeeting(false);
+    } else {
+      _message.error('search function not found.');
+    }
+  };
+  /**
+   * 点击树的check box 回调
+   * @param checkedKeys
+   * @param checked
+   * @param checkedNodes
+   * @param node
+   */
+
+
+  var onDeptTreeCheck = function onDeptTreeCheck(checkedKeys, _ref2) {
+    var checked = _ref2.checked,
+        checkedNodes = _ref2.checkedNodes,
+        node = _ref2.node;
+    var tmp = [];
+    console.log(checked, checkedNodes, node);
+    checkedNodes.forEach(function (v) {
+      tmp.push(v);
+    });
+
+    if (returnReducedNode) {
+      updateSelectDept(filterDeptTagShow(tmp));
+    } else {
+      updateSelectDept(tmp);
+    }
+
+    setDeptTreeNode(tmp);
+  };
+  /**
+   * 判断部门是否选择
+   * @param data
+   * @return {boolean}
+   */
+
+
+  var isDeptCheck = function isDeptCheck(data) {
+    var result = deptTreeNode.find(function (value) {
+      return value.id === data.id;
+    });
+    return !!result;
+  };
+  /**
+   * 部门查询结果点击checkbox
+   * @param e
+   */
+
+
+  var onDeptCheck = function onDeptCheck(e) {
+    var _e$target = e.target,
+        checked = _e$target.checked,
+        data = _e$target.data;
+    var tmp = [];
+
+    if (checked) {
+      tmp.push(data);
+
+      if (returnReducedNode) {
+        updateSelectDept(filterDeptTagShow(deptTreeNode.concat(tmp)));
+      } else {
+        updateSelectDept(deptTreeNode.concat(tmp));
+      }
+
+      setDeptTreeNode(deptTreeNode.concat(tmp));
+    } else {
+      var result = deptTreeNode.filter(function (value) {
+        return value.id !== data.id;
+      });
+
+      if (returnReducedNode) {
+        updateSelectDept(filterDeptTagShow(result.concat(tmp)));
+      } else {
+        updateSelectDept(result.concat(tmp));
+      }
+
+      setDeptTreeNode(result.concat(tmp));
+    }
+  };
+  /**
+   * 点击部门查询结果后，传递部门ID给外部查询
+   * @param item
+   */
+
+
+  var onDeptSelect = function onDeptSelect(item) {
+    if (handleSearchUser) {
+      handleSearchUser(0, null, item.id, false);
+      setOnSearch(true);
+      setDeptId(item.id);
+      setIsSelectedOfMeeting(false);
+    } else {
+      _message.error('search function not found.');
+    }
+  };
+
+  var defaultExpandedKeys = function defaultExpandedKeys() {
+    try {
+      if (deptTree.length > 0 && deptTree[0] && deptTree[0].id) {
+        return [deptTree[0].id.toString()];
+      } else {
+        return [];
+      }
+    } catch (e) {
+      window.console.error(e);
+      return [];
+    }
+  };
+
+  var onSelectOfMeeting = function onSelectOfMeeting() {
+    setIsSelectedOfMeeting(!isSelectedOfMeeting);
+    setDeptTreeNode([]);
+    setDeptId(null);
+    setSelectedKeys([]);
+    setOnSearch(false);
+  };
+
+  console.log(disableDept, deptTree);
+  return /*#__PURE__*/React__default.createElement(_Col, {
+    xs: 12,
+    sm: 12,
+    md: 12,
+    lg: 12,
+    xl: 12
+  }, /*#__PURE__*/React__default.createElement(_Card, {
+    style: {
+      borderBottomRightRadius: 0,
+      borderBottomLeftRadius: '6px',
+      borderTopRightRadius: 0,
+      borderTopLeftRadius: '6px'
+    },
+    className: styles.card
+  }, deptSearch && !loadData && /*#__PURE__*/React__default.createElement(Search, {
+    placeholder: searchDeptPlaceholder,
+    onSelect: onSearchDeptChange,
+    onSearch: onSearchDept
+  }), deptSearch && !loadData && /*#__PURE__*/React__default.createElement("br", null), isShowUserOfSmt && /*#__PURE__*/React__default.createElement("div", {
+    onClick: function onClick() {
+      onSelectOfMeeting();
+    },
+    className: styles.userTextWrapper
+  }, /*#__PURE__*/React__default.createElement("span", {
+    className: "".concat(styles.userText, " ").concat(isSelectedOfMeeting ? styles.textColor : '')
+  }, commonUserTextOfSmt, " ")), !onDeptSearch && deptTree.length > 0 && /*#__PURE__*/React__default.createElement(_Tree, {
+    // style={{paddingTop:5}}
+    checkable: deptCheckBox && !radio,
+    checkedKeys: makeCheckedKeys(deptTreeNode),
+    onSelect: onTreeSelect,
+    onCheck: onDeptTreeCheck,
+    checkStrictly: checkStrictly,
+    selectedKeys: selectedKeys,
+    defaultExpandedKeys: defaultExpandedKeys(),
+    treeData: formatDeptData(deptTree, deptNameKey, disableDept),
+    loadData: loadData
+  }), onDeptSearch && /*#__PURE__*/React__default.createElement(_List, {
+    size: "small",
+    bordered: false,
+    dataSource: deptSearchResult,
+    split: false,
+    renderItem: function renderItem(item) {
+      return /*#__PURE__*/React__default.createElement(_List.Item, null, /*#__PURE__*/React__default.createElement("div", {
+        className: styles.itemDiv
+      }, deptCheckBox && /*#__PURE__*/React__default.createElement(_Checkbox, {
+        className: styles.checkbox,
+        data: item,
+        checked: isDeptCheck(item),
+        onChange: onDeptCheck
+      }), /*#__PURE__*/React__default.createElement("span", {
+        style: {
+          marginLeft: '10px'
+        },
+        onClick: function onClick() {
+          return onDeptSelect(item);
+        }
+      }, item[deptNameKey])));
+    }
+  })));
+});
+
+var timeout;
+var Search$1 = _Input.Search;
+var Right = (function (_ref) {
+  var selectAllText = _ref.selectAllText,
+      searchUserPlaceholder = _ref.searchUserPlaceholder,
+      deptSearch = _ref.deptSearch,
+      userData = _ref.userData,
+      handleSearch = _ref.handleSearch,
+      handleSearchUser = _ref.handleSearchUser,
+      deptId = _ref.deptId,
+      updateSelectUsers = _ref.updateSelectUsers,
+      _ref$debug = _ref.debug,
+      debug = _ref$debug === void 0 ? false : _ref$debug,
+      setOnSearch = _ref.setOnSearch,
+      nameKey = _ref.nameKey,
+      setNameKey = _ref.setNameKey,
+      selectUser = _ref.selectUser,
+      setSelectUser = _ref.setSelectUser,
+      userNameKey = _ref.userNameKey,
+      radio = _ref.radio,
+      showLeft = _ref.showLeft,
+      enNameKey = _ref.enNameKey,
+      disableUsers = _ref.disableUsers,
+      isSelectedOfMeeting = _ref.isSelectedOfMeeting,
+      allowQueryNow = _ref.allowQueryNow,
+      _ref$showUserAccount = _ref.showUserAccount,
+      showUserAccount = _ref$showUserAccount === void 0 ? false : _ref$showUserAccount;
+
+  var _useState = React.useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectAll = _useState2[0],
+      setSelectAll = _useState2[1]; // 当列表数据发生变化时，重新计算全选
+
+
+  React.useEffect(function () {
+    calculateSelectAll(selectUser);
+  }, [userData]); // 当选中人数据发生变化，重新计算全选
+
+  React.useEffect(function () {
+    calculateSelectAll(selectUser);
+  }, [selectUser]);
+  /**
+   * 姓名搜索为空时处理
+   * @param e
+   */
+
+  var handleSearchChange = function handleSearchChange(e) {
+    var str = e.target.value.replace(/\s*/g, '');
+
+    if (allowQueryNow && str && handleSearch) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+
+      timeout = setTimeout(function () {
+        handleSearch(str);
+      }, 300);
+    }
+
+    if (!e.target.value) {
+      setOnSearch(false);
+      setNameKey(null);
+      handleSearch('');
+    }
+  };
+  /**
+   * 判断用户是否选择
+   * @param data
+   * @return {boolean}
+   */
+
+
+  var isUserCheck = function isUserCheck(data) {
+    var result = selectUser.find(function (value) {
+      return value.userId === data.userId;
+    });
+    return !!result;
+  };
+  /**
+   * 点击用户列表的回调
+   * @param e
+   */
+
+
+  var onUserCheck = function onUserCheck(e) {
+    var _e$target = e.target,
+        checked = _e$target.checked,
+        data = _e$target.data;
+    var tmp = [];
+    var newSelectUser;
+
+    if (checked) {
+      tmp.push(data);
+      newSelectUser = selectUser.concat(tmp);
+    } else {
+      var result = selectUser.filter(function (value) {
+        return value.userId !== data.userId;
+      });
+      newSelectUser = result.concat(tmp);
+    }
+
+    setSelectUser(newSelectUser);
+    updateSelectUsers(newSelectUser);
+
+    if (checked) {
+      calculateSelectAll(newSelectUser);
+    } else {
+      setSelectAll(false);
+    }
+  };
+  /**
+   * Radio时点击用户列表的回调
+   * @param e
+   */
+
+
+  var onUserRadioCheck = function onUserRadioCheck(e) {
+    var _e$target2 = e.target,
+        checked = _e$target2.checked,
+        data = _e$target2.data;
+    var newSelectUser = [];
+
+    if (checked) {
+      newSelectUser.push(data);
+    }
+
+    setSelectUser(newSelectUser);
+    updateSelectUsers(newSelectUser);
+  };
+  /**
+   * 翻页查询处理
+   * @param page
+   */
+
+
+  var onPageChange = function onPageChange(page) {
+    if (debug) {
+      window.console.log(page);
+    }
+
+    if (handleSearchUser) {
+      handleSearchUser(page, nameKey, deptId, isSelectedOfMeeting);
+
+      if (isSelectedOfMeeting) {
+        setOnSearch(false);
+      } else {
+        setOnSearch(true);
+      }
+    } else {
+      _message.error('search function not found.');
+    }
+  };
+  /**
+   * 计算是否全部选中
+   * @param newSelectUser
+   */
+
+
+  var calculateSelectAll = function calculateSelectAll(newSelectUser) {
+    var tmp = [];
+    console.log(disableUsers, '+== console.log(disableUsers)=');
+    userData.records.forEach(function (value) {
+      if (!disableUsers.includes(value.userId)) {
+        tmp.push(value);
+      }
+    });
+
+    if (tmp.length === 0) {
+      setSelectAll(false);
+      return;
+    }
+
+    var count = 0;
+    tmp.forEach(function (val) {
+      var result = newSelectUser.find(function (valUser) {
+        return val.userId === valUser.userId;
+      });
+
+      if (result) {
+        count += 1;
+      }
+    });
+    setSelectAll(count === tmp.length);
+  };
+  /**
+   * 点击用户全选的回调
+   * @param e
+   */
+
+
+  var onCheckAll = function onCheckAll(e) {
+    var checked = e.target.checked;
+    setSelectAll(checked);
+    var tmp = [];
+    userData.records.forEach(function (value) {
+      tmp.push(value);
+    });
+    var newSelectUser = [];
+    console.log(checked, '+===checked===');
+
+    if (checked) {
+      // 如果是选中，遍历添加，重复的不添加
+      tmp.forEach(function (val) {
+        var result = selectUser.find(function (valUser) {
+          return val.userId === valUser.userId;
+        });
+
+        if (!result && disableUsers.indexOf(val.userId) === -1) {
+          newSelectUser.push(val);
+        }
+      });
+      newSelectUser = selectUser.concat(newSelectUser);
+    } else {
+      // 不选中的遍历删除
+      selectUser.forEach(function (val) {
+        var result = tmp.find(function (valUser) {
+          return val.userId === valUser.userId;
+        });
+
+        if (!result) {
+          newSelectUser.push(val);
+        }
+      });
+    }
+
+    updateSelectUsers(newSelectUser);
+    setSelectUser(newSelectUser);
+  };
+
+  var colWidth = showLeft ? 12 : 24;
+  console.log(userData, '===userData==');
+  return /*#__PURE__*/React__default.createElement(_Col, {
+    xs: colWidth,
+    sm: colWidth,
+    md: colWidth,
+    lg: colWidth,
+    xl: colWidth,
+    className: styles.treeLeft
+  }, /*#__PURE__*/React__default.createElement(_Card, {
+    style: {
+      borderBottomRightRadius: '6px',
+      borderBottomLeftRadius: 0,
+      borderTopRightRadius: '6px',
+      borderTopLeftRadius: 0,
+      borderLeft: 0
+    },
+    className: styles.card
+  }, deptSearch && /*#__PURE__*/React__default.createElement(Search$1, {
+    placeholder: searchUserPlaceholder,
+    onSearch: handleSearch,
+    onChange: handleSearchChange
+  }), deptSearch && /*#__PURE__*/React__default.createElement("br", null), /*#__PURE__*/React__default.createElement(_List, {
+    className: userData.records.length === 0 ? styles.listEmpty : styles.list,
+    size: "small",
+    bordered: false,
+    dataSource: userData.records,
+    split: false,
+    renderItem: function renderItem(item) {
+      return /*#__PURE__*/React__default.createElement(_List.Item, null, /*#__PURE__*/React__default.createElement("div", {
+        className: styles.itemDiv
+      }, /*#__PURE__*/React__default.createElement("div", {
+        className: styles.checkbox,
+        title: item[userNameKey]
+      }, radio && /*#__PURE__*/React__default.createElement(_Radio, {
+        className: styles.checkbox,
+        checked: isUserCheck(item),
+        data: item,
+        onChange: onUserRadioCheck,
+        disabled: disableUsers.includes(item.userId)
+      }, item[userNameKey]), !radio && /*#__PURE__*/React__default.createElement(_Checkbox, {
+        className: styles.checkbox,
+        data: item,
+        checked: isUserCheck(item),
+        onChange: onUserCheck,
+        title: item[userNameKey],
+        disabled: disableUsers.includes(item.userId)
+      }, item[userNameKey])), showUserAccount && /*#__PURE__*/React__default.createElement("div", {
+        className: disableUsers.includes(item.userId) ? styles.userName_disabled : styles.userName
+      }, "-", item.username || ''), /*#__PURE__*/React__default.createElement("div", {
+        className: disableUsers.includes(item.userId) ? styles.deptName_disabled : styles.deptName,
+        title: item.deptName
+      }, item.deptName), enNameKey && /*#__PURE__*/React__default.createElement("div", {
+        style: {
+          paddingLeft: '10px'
+        },
+        title: item[enNameKey],
+        className: disableUsers.includes(item.userId) ? styles.deptName_disabled : styles.deptName
+      }, item[enNameKey])));
+    }
+  })), /*#__PURE__*/React__default.createElement("div", {
+    className: styles.pagination
+  }, !radio && /*#__PURE__*/React__default.createElement(_Checkbox, {
+    onChange: onCheckAll,
+    className: styles.checkbox,
+    checked: selectAll
+  }, selectAllText), /*#__PURE__*/React__default.createElement(_Pagination, {
+    className: styles.pageNoe,
+    simple: true,
+    current: userData.current || 1,
+    pageSize: userData.size,
+    total: userData.total,
+    onChange: onPageChange
+  })));
+});
+
 var Search$2 = _Input.Search;
 var IconFont$1 = create({
   scriptUrl: ['//at.alicdn.com/t/font_1596018_xkmgoaljpq.js' // icon-javascript, icon-java, icon-shoppingcart (overrided)
@@ -2803,7 +2822,9 @@ var Contacts = function Contacts(props) {
       disableDept = props.disableDept,
       commonUserTextOfSmt = props.commonUserTextOfSmt,
       isShowUserOfSmt = props.isShowUserOfSmt,
-      commonUserData = props.commonUserData;
+      commonUserData = props.commonUserData,
+      allowQueryNow = props.allowQueryNow,
+      showUserAccount = props.showUserAccount;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2881,7 +2902,7 @@ var Contacts = function Contacts(props) {
         e.preventDefault();
         unCheckDept(v);
       }
-    }, v[deptNameKey], " ", /*#__PURE__*/React__default.createElement(IconFont$1, {
+    }, v[deptNameKey], ' ', /*#__PURE__*/React__default.createElement(IconFont$1, {
       type: "icon-delete2",
       style: {
         color: '#D8D8D8'
@@ -2938,7 +2959,7 @@ var Contacts = function Contacts(props) {
         e.preventDefault();
         unCheckUser(v);
       }
-    }, v[userNameKey], " ", /*#__PURE__*/React__default.createElement(IconFont$1, {
+    }, v[userNameKey], ' ', /*#__PURE__*/React__default.createElement(IconFont$1, {
       type: "icon-delete2",
       style: {
         color: '#D8D8D8'
@@ -3011,7 +3032,6 @@ var Contacts = function Contacts(props) {
     userData = users;
   }
 
-  console.log(onSearch, '==onSearch=', isSelectedOfMeeting, userData);
   return /*#__PURE__*/React__default.createElement("div", {
     style: {
       height: '100%'
@@ -3052,7 +3072,8 @@ var Contacts = function Contacts(props) {
     setSelectUser: setSelectUser,
     radio: radio,
     showLeft: showLeft,
-    disableUsers: disableUsers
+    disableUsers: disableUsers,
+    allowQueryNow: allowQueryNow
   })), /*#__PURE__*/React__default.createElement(_Col, {
     xs: 24,
     sm: 24,
@@ -3122,7 +3143,10 @@ Contacts.propTypes = {
   // 是否显示会议常用联系人
   isShowUserOfSmt: PropTypes.bool,
   commonUserTextOfSmt: PropTypes.string,
-  commonUserData: PropTypes.object
+  commonUserData: PropTypes.object,
+  // 是否允许输入后直接立刻查询用户数据（不用点按钮）
+  allowQueryNow: PropTypes.bool,
+  showUserAccount: PropTypes.bool
 };
 Contacts.defaultProps = {
   users: {
@@ -3160,7 +3184,9 @@ Contacts.defaultProps = {
   isShowUserOfSmt: true,
   commonUserData: {
     records: []
-  }
+  },
+  allowQueryNow: false,
+  showUserAccount: false
 };
 
 module.exports = Contacts;
