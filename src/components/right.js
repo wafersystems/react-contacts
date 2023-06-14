@@ -288,7 +288,7 @@ export default ({
                           : styles.userName
                       }
                     >
-                      -{item.username || ''}
+                      {item.username || ''}
                     </div>
                   )}
 
