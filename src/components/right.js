@@ -8,7 +8,7 @@ export default ({
                   selectAllText, searchUserPlaceholder, deptSearch, userData,
                   handleSearch, handleSearchUser, deptId, updateSelectUsers, debug = false,
                   setOnSearch, nameKey, setNameKey, selectUser, setSelectUser,
-                  userNameKey, radio, showLeft, enNameKey, disableUsers,isSelectedOfMeeting
+                  userNameKey, radio, showLeft, enNameKey, disableUsers,isSelectedOfMeeting, tabKey,
                 }) => {
 
   const [selectAll, setSelectAll] = useState(false);
@@ -97,7 +97,10 @@ export default ({
       window.console.log(page)
     }
     if (handleSearchUser) {
-      handleSearchUser(page, nameKey, deptId,isSelectedOfMeeting);
+      let from = 'dept';
+      if(Number(tabKey) === 1 && deptId) from = 'group';
+      console.log(tabKey, deptId, from,'+===from===');
+      handleSearchUser(from, page, nameKey, deptId,isSelectedOfMeeting);
       if(isSelectedOfMeeting){
         setOnSearch(false);
       }else{
@@ -218,7 +221,7 @@ export default ({
                       {item[userNameKey]}
                     </Checkbox>}
                   </div>
-                  <div className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName} title={item.deptName}>{item.deptName}</div>
+                  {Number(tabKey) !==1 && <div className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName} title={item.deptName}>{item.deptName}</div>}
                   {enNameKey && <div style={{ paddingLeft:'10px'}} title={item[enNameKey]} className={disableUsers.includes(item.userId)?styles.deptName_disabled:styles.deptName}>{item[enNameKey]}</div>}
                 </div>
               </List.Item>

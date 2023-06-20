@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Card, Checkbox, Col, List, message, Tree, Input } from 'antd';
+import { Card, Checkbox, Col, List, message, Tree, Input, Tabs } from 'antd';
 import styles from './contacts.less';
 import { filterDeptTagShow, formatDeptData} from '../utils';
 
 const { Search } = Input;
+const { TabPane } = Tabs;
 
 export default ({
   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
   updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey, loadData, disableDept,
-  commonUserTextOfSmt,isSelectedOfMeeting,setIsSelectedOfMeeting,isShowUserOfSmt
+  commonUserTextOfSmt,isSelectedOfMeeting,setIsSelectedOfMeeting,isShowUserOfSmt, showTabs, groupTree,
 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
   const [onDeptSearch, setOnDeptSearch] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState([]);
+  const [tabKey, setTabKey] = useState(0);
 
   const onSearchDeptChange = e => {
     if (!e.target.value) {
@@ -69,10 +71,12 @@ export default ({
    * 点击部门树时传递部门id到回调里面
    * @param selectedKeys 选择的部门id
    */
-  const onTreeSelect = selectedKeys => {
+  const onTreeSelect = (key, selectedKeys) => {
     if (handleSearchUser) {
+      let from = 'dept';
+      if(Number(key) === 1) from = 'group';
       const [deptId] = selectedKeys;
-      handleSearchUser(0, nameKey, deptId,false);
+      handleSearchUser(from,0, nameKey, deptId,false);
       setOnSearch(true);
       setDeptId(deptId);
       setSelectedKeys(selectedKeys)
@@ -81,6 +85,13 @@ export default ({
       message.error('search function not found.');
     }
   };
+
+  const onTabChange = key => {
+    setTabKey(Number(key));
+    sessionStorage.setItem('tabKey', key);
+    onTreeSelect(0, []);
+  }
+
 
   /**
    * 点击树的check box 回调
@@ -147,7 +158,9 @@ export default ({
    */
   const onDeptSelect = item => {
     if (handleSearchUser) {
-      handleSearchUser(0, null, item.id,false);
+      let from = 'dept';
+      if(Number(tabKey) === 1) from = 'group';
+      handleSearchUser(from,0, null, item.id,false);
       setOnSearch(true);
       setDeptId(item.id);
       setIsSelectedOfMeeting(false)
@@ -176,11 +189,9 @@ export default ({
     setOnSearch(false);
   }
 
-  console.log(disableDept,deptTree)
-
-  return (
-    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-      <Card style={{borderBottomRightRadius:0,borderBottomLeftRadius:'6px',borderTopRightRadius:0,borderTopLeftRadius:'6px'}} className={styles.card}>
+  const renderDept = () => {
+    return(
+      <>
         {deptSearch && !loadData &&
           <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}
             onSearch={onSearchDept} />}
@@ -195,7 +206,7 @@ export default ({
             // style={{paddingTop:5}}
             checkable={deptCheckBox && !radio}
             checkedKeys={makeCheckedKeys(deptTreeNode)}
-            onSelect={onTreeSelect}
+            onSelect={key => onTreeSelect(0, key)}
             onCheck={onDeptTreeCheck}
             checkStrictly={checkStrictly}
             selectedKeys={selectedKeys}
@@ -231,6 +242,48 @@ export default ({
             }}
           />
         )}
+      </>
+    )
+  };
+
+  const renderGroup = () => {
+    return(
+      <>
+        {groupTree.length > 0 && (
+          <Tree
+            // style={{paddingTop:5}}
+            checkable={deptCheckBox && !radio}
+            checkedKeys={makeCheckedKeys(deptTreeNode)}
+            onSelect={key => onTreeSelect(1, key)}
+            onCheck={onDeptTreeCheck}
+            checkStrictly={checkStrictly}
+            selectedKeys={selectedKeys}
+            defaultExpandedKeys={defaultExpandedKeys()}
+            treeData={groupTree}
+            loadData={loadData}
+          >
+            {/*{makeTreeNode(deptTree, deptNameKey)}*/}
+          </Tree>
+        )}
+      </>
+    )
+  };
+
+  const renderTabs = () => {
+    return(
+      <Tabs onChange={onTabChange}>
+        <TabPane tab="按部门" key={0}>{renderDept()}</TabPane>
+        <TabPane tab="按用户组" key={1}>{renderGroup()}</TabPane>
+      </Tabs>
+    )
+  }
+
+  console.log(disableDept,deptTree)
+
+  return (
+    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+      <Card style={{borderBottomRightRadius:0,borderBottomLeftRadius:'6px',borderTopRightRadius:0,borderTopLeftRadius:'6px'}} className={styles.card}>
+      {showTabs ? renderTabs() : renderDept()}
       </Card>
     </Col>
   )

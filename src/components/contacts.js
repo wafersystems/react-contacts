@@ -35,15 +35,23 @@ const Contacts = (props) => {
     totalShowText, handleSearchUser, updateSelectUsers, defaultUserSelected,
     defaultDeptSelected, updateSelectDept, userNameKey, deptNameKey, radio, radioShowText,
     checkStrictly, showAllDeptTags, Drag, showLeft, loadData, disableUsers, disableDept,
-    commonUserTextOfSmt,isShowUserOfSmt,commonUserData
+    commonUserTextOfSmt,isShowUserOfSmt,commonUserData, showTabs, groupTree,
   } = props;
 
   const [deptTreeNode, setDeptTreeNode] = useState([]);
   const [selectUser, setSelectUser] = useState([]);
   const [onSearch, setOnSearch] = useState(false);
   const [deptId, setDeptId] = useState(null);
+  const [groupId, setGroupId] = useState(null);
   const [nameKey, setNameKey] = useState(null);
   const [isSelectedOfMeeting, setIsSelectedOfMeeting] = useState(false);
+  const tabKey = sessionStorage.getItem('tabKey');
+
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem('tabKey')
+    }
+  }, []);
 
   useEffect(() => {
     updateSelectUsers(defaultUserSelected);
@@ -62,7 +70,9 @@ const Contacts = (props) => {
    */
   const handleSearch = (nameKey = null) => {
     if (handleSearchUser) {
-      handleSearchUser(0, nameKey, deptId,isSelectedOfMeeting);
+      let from = 'dept';
+      if(Number(tabKey) === 1 && deptId) from = 'group';
+      handleSearchUser(from, 0, nameKey, deptId,isSelectedOfMeeting);
       if(isSelectedOfMeeting){
         setOnSearch(false);
       }else{
@@ -214,12 +224,12 @@ const Contacts = (props) => {
             updateSelectDept={updateSelectDept} deptNameKey={deptNameKey} radio={radio} nameKey={nameKey}
                              disableDept={disableDept}  commonUserTextOfSmt={commonUserTextOfSmt}  
                              isSelectedOfMeeting={isSelectedOfMeeting}  setIsSelectedOfMeeting={setIsSelectedOfMeeting} 
-                             isShowUserOfSmt={isShowUserOfSmt}
+                             isShowUserOfSmt={isShowUserOfSmt} showTabs={showTabs} groupTree={groupTree} setGroupId={setGroupId}
           />}
           <Right {...props} userData={userData} onSearch={onSearch} setOnSearch={setOnSearch} loadData={loadData}
             nameKey={nameKey} setNameKey={setNameKey} selectUser={selectUser}
             handleSearch={handleSearch} userNameKey={userNameKey} deptId={deptId} isSelectedOfMeeting={isSelectedOfMeeting} 
-            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} disableUsers={disableUsers} />
+            setSelectUser={setSelectUser} radio={radio} showLeft={showLeft} disableUsers={disableUsers} tabKey={tabKey} />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false} layout='vertical'>
               <Form.Item className={styles.label} label={makeShowMsg()}>
@@ -296,6 +306,8 @@ Contacts.propTypes = {
   isShowUserOfSmt:PropTypes.bool,
   commonUserTextOfSmt:PropTypes.string,
   commonUserData:PropTypes.object,
+  showTabs: PropTypes.bool, //是否显示Tabs切换（按部门/用户组）
+  groupTree: PropTypes.array, //用户组树结构
 };
 
 Contacts.defaultProps = {
@@ -335,6 +347,8 @@ Contacts.defaultProps = {
   commonUserData: {
     records: [],
   },
+  showTabs: false,
+  groupTree: [],
 };
 
 export default Contacts;
