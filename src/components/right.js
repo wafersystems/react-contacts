@@ -47,6 +47,8 @@ export default ({
   canFrequent = false,
   setFreText = '', // 设为常用
   cancelFreText = '',
+  updateFrequentUser,
+  canDisableUpdate,
 }) => {
   const [selectAll, setSelectAll] = useState(false)
 
@@ -162,7 +164,7 @@ export default ({
    */
   const calculateSelectAll = (newSelectUser) => {
     let tmp = []
-    console.log(disableUsers, '+== console.log(disableUsers)=')
+    // console.log(disableUsers, '+== console.log(disableUsers)=')
     userData.records.forEach((value) => {
       if (!disableUsers.includes(value.userId)) {
         tmp.push(value)
@@ -198,7 +200,7 @@ export default ({
       tmp.push(value)
     })
     let newSelectUser = []
-    console.log(checked, '+===checked===')
+    // console.log(checked, '+===checked===')
     if (checked) {
       // 如果是选中，遍历添加，重复的不添加
       tmp.forEach((val) => {
@@ -223,7 +225,7 @@ export default ({
     setSelectUser(newSelectUser)
   }
   const colWidth = showLeft ? colSpan : 24;
-  console.log(userData, '===userData==')
+  // console.log(userData, '===userData==')
   return (
     <Col
       xs={colWidth}
@@ -361,6 +363,7 @@ export default ({
                           ? styles.userName_disabled
                           : styles.userName
                       }
+                      title={item.username || ''}
                     >
                       {item.username || ''}
                     </div>
@@ -381,21 +384,35 @@ export default ({
                   {/* 常用人员操作 */}
                   {canFrequent && (
                     <div
-                      style={
-                        disableUsers.includes(item.userId) ? {} : { color: 'rgb(28, 82, 151)' }
-                      }
+                      title={item.userId > 9 ? cancelFreText : setFreText}
                       className={
-                        disableUsers.includes(item.userId)
-                          ? styles.deptName_disabled
-                          : styles.deptName
+                        canDisableUpdate ||
+                        (!canDisableUpdate && !disableUsers.includes(item.userId))
+                          ? styles.setFrequent
+                          : styles.setFrequent_disabled
                       }
                     >
-                      {item.userId > 9 ? cancelFreText : setFreText}
+                      <span
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (
+                            canDisableUpdate ||
+                            (!canDisableUpdate && !disableUsers.includes(item.userId))
+                          ) {
+                            // 禁用人员可以操作 或者 禁用人员不能操作并且当前人员不是禁用人员
+                            if (updateFrequentUser) {
+                              updateFrequentUser(item,isSelectedOfMeeting);
+                            }
+                          }
+                        }}
+                      >
+                        {item.userId > 9 ? cancelFreText : setFreText}
+                      </span>
                     </div>
                   )}
                 </div>
               </List.Item>
-            )
+            );
           }}
         />
       </Card>

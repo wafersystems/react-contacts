@@ -363,6 +363,10 @@ Contacts.propTypes = {
   setFreText: PropTypes.string,
   // 取消常用文字
   cancelFreText: PropTypes.string,
+  // 更新常用联系人
+  updateFrequentUser:PropTypes.func,
+  // 禁用人员是否可以设置/取消常用
+  canDisableUpdate: PropTypes.bool,
 }
 
 Contacts.defaultProps = {
@@ -413,6 +417,7 @@ Contacts.defaultProps = {
   canFrequent: false,
   setFreText: '', // 设为常用
   cancelFreText: '',
+  canDisableUpdate:false,
 }
 
 export default Contacts
