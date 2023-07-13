@@ -7,6 +7,7 @@ import {
   message,
   Pagination,
   Radio,
+  Popover,
 } from 'antd'
 import React, { useEffect, useState } from 'react'
 import styles from './contacts.less'
@@ -37,6 +38,15 @@ export default ({
   isSelectedOfMeeting,
   allowQueryNow,
   showUserAccount = false,
+  colSpan = 12,
+  showUserPopover = false,
+  showUserAvatar = false,
+  pinyinKey = '',
+  parentStyle = '',
+  defaultAvatar = '',
+  canFrequent = false,
+  setFreText = '', // 设为常用
+  cancelFreText = '',
 }) => {
   const [selectAll, setSelectAll] = useState(false)
 
@@ -212,7 +222,7 @@ export default ({
     updateSelectUsers(newSelectUser)
     setSelectUser(newSelectUser)
   }
-  const colWidth = showLeft ? 12 : 24
+  const colWidth = showLeft ? colSpan : 24;
   console.log(userData, '===userData==')
   return (
     <Col
@@ -250,6 +260,7 @@ export default ({
           dataSource={userData.records}
           split={false}
           renderItem={(item) => {
+            const { avatar = '' } = item;
             return (
               <List.Item>
                 <div className={styles.itemDiv}>
@@ -262,7 +273,24 @@ export default ({
                         onChange={onUserRadioCheck}
                         disabled={disableUsers.includes(item.userId)}
                       >
-                        {item[userNameKey]}
+                        {showUserPopover ? (
+                          <Popover
+                            placement="right"
+                            content={
+                              <div className={parentStyle.userInfo}>
+                                {showUserAvatar && <img src={avatar || defaultAvatar} alt="" />}
+                                <div className={parentStyle.name}>{item[userNameKey]}</div>
+                                <div className={parentStyle.nameEn}>{item[enNameKey]}</div>
+                              </div>
+                            }
+                            overlayClassName={parentStyle.avatarPopover}
+                            // getPopupContainer={(triggerNode) => triggerNode}
+                          >
+                            {item[userNameKey]}
+                          </Popover>
+                        ) : (
+                          item[userNameKey]
+                        )}
                       </Radio>
                     )}
                     {!radio && (
@@ -274,10 +302,56 @@ export default ({
                         title={item[userNameKey]}
                         disabled={disableUsers.includes(item.userId)}
                       >
-                        {item[userNameKey]}
+                        {showUserPopover ? (
+                          <Popover
+                            placement="right"
+                            content={
+                              <div className={parentStyle.userInfo}>
+                                {showUserAvatar && <img src={avatar || defaultAvatar} alt="" />}
+                                <div className={parentStyle.name}>{item[userNameKey]}</div>
+                                <div className={parentStyle.nameEn}>{item[enNameKey]}</div>
+                              </div>
+                            }
+                            overlayClassName={parentStyle.avatarPopover}
+                          >
+                            {item[userNameKey]}
+                          </Popover>
+                        ) : (
+                          item[userNameKey]
+                        )}
                       </Checkbox>
                     )}
                   </div>
+
+                  {/* 拼音 */}
+                  {pinyinKey && (
+                    <div
+                      style={{ paddingLeft: '10px' }}
+                      title={item[pinyinKey]}
+                      className={
+                        disableUsers.includes(item.userId)
+                          ? styles.deptName_disabled
+                          : styles.deptName
+                      }
+                    >
+                      {item[pinyinKey]}
+                    </div>
+                  )}
+
+                  {/* 英文名 */}
+                  {/* {enNameKey && (
+                    <div
+                      style={{ paddingLeft: '10px' }}
+                      title={item[enNameKey]}
+                      className={
+                        disableUsers.includes(item.userId)
+                          ? styles.deptName_disabled
+                          : styles.deptName
+                      }
+                    >
+                      {item[enNameKey]}
+                    </div>
+                  )} */}
 
                   {/* 新加userName区分同名用户 */}
                   {showUserAccount && (
@@ -303,17 +377,20 @@ export default ({
                   >
                     {item.deptName}
                   </div>
-                  {enNameKey && (
+
+                  {/* 常用人员操作 */}
+                  {canFrequent && (
                     <div
-                      style={{ paddingLeft: '10px' }}
-                      title={item[enNameKey]}
+                      style={
+                        disableUsers.includes(item.userId) ? {} : { color: 'rgb(28, 82, 151)' }
+                      }
                       className={
                         disableUsers.includes(item.userId)
                           ? styles.deptName_disabled
                           : styles.deptName
                       }
                     >
-                      {item[enNameKey]}
+                      {item.userId > 9 ? cancelFreText : setFreText}
                     </div>
                   )}
                 </div>

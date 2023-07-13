@@ -9,7 +9,7 @@ export default ({
   searchDeptPlaceholder, deptSearch, deptCheckBox, deptTree = [],
   handleSearchUser, setDeptId, setOnSearch, deptTreeNode, setDeptTreeNode,
   updateSelectDept, deptNameKey, radio, checkStrictly, returnReducedNode, nameKey, loadData, disableDept,
-  commonUserTextOfSmt,isSelectedOfMeeting,setIsSelectedOfMeeting,isShowUserOfSmt
+  commonUserTextOfSmt,isSelectedOfMeeting,setIsSelectedOfMeeting,isShowUserOfSmt,colSpan = 12,
 }) => {
 
   const [deptSearchResult, setDeptSearchResult] = useState([]);
@@ -179,7 +179,7 @@ export default ({
   console.log(disableDept,deptTree)
 
   return (
-    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+    <Col xs={colSpan} sm={colSpan} md={colSpan} lg={colSpan} xl={colSpan}>
       <Card style={{borderBottomRightRadius:0,borderBottomLeftRadius:'6px',borderTopRightRadius:0,borderTopLeftRadius:'6px'}} className={styles.card}>
         {deptSearch && !loadData &&
           <Search placeholder={searchDeptPlaceholder} onSelect={onSearchDeptChange}

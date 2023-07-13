@@ -45,6 +45,7 @@ const Contacts = (props) => {
     commonUserData,
     allowQueryNow,
     showUserAccount,
+    layoutSize,
   } = props
 
   const [deptTreeNode, setDeptTreeNode] = useState([])
@@ -241,6 +242,7 @@ const Contacts = (props) => {
               isSelectedOfMeeting={isSelectedOfMeeting}
               setIsSelectedOfMeeting={setIsSelectedOfMeeting}
               isShowUserOfSmt={isShowUserOfSmt}
+              colSpan={layoutSize[0] || 12}
             />
           )}
           <Right
@@ -261,6 +263,7 @@ const Contacts = (props) => {
             showLeft={showLeft}
             disableUsers={disableUsers}
             allowQueryNow={allowQueryNow}
+            colSpan={layoutSize[1] || 12}
           />
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
             <Form colon={false} layout="vertical">
@@ -340,7 +343,26 @@ Contacts.propTypes = {
   commonUserData: PropTypes.object,
   // 是否允许输入后直接立刻查询用户数据（不用点按钮）
   allowQueryNow: PropTypes.bool,
+  // 是否显示人员账号
   showUserAccount: PropTypes.bool,
+  // 自定义左右布局，栅格
+  layoutSize: PropTypes.array,
+  // 是否显示用户头像
+  showUserAvatar: PropTypes.bool,
+  // 是否显示用户弹窗
+  showUserPopover: PropTypes.bool,
+  // 显示拼音名key
+  pinyinKey: PropTypes.string,
+  // 父组件样式
+  parentStyle: PropTypes.string,
+  // 默认头像
+  defaultAvatar: PropTypes.string,
+  // 是否可以操作常用
+  canFrequent: PropTypes.bool,
+  // 设为常用文字
+  setFreText: PropTypes.string,
+  // 取消常用文字
+  cancelFreText: PropTypes.string,
 }
 
 Contacts.defaultProps = {
@@ -372,7 +394,7 @@ Contacts.defaultProps = {
   // 显示左边部门树，默认显示
   showLeft: true,
   loadData: false,
-  enNameKey: 'username',
+  enNameKey: '',
   disableUsers: [],
   disableDept: [],
   commonUserTextOfSmt: '常用联系人',
@@ -382,6 +404,15 @@ Contacts.defaultProps = {
   },
   allowQueryNow: false,
   showUserAccount: false,
+  layoutSize: [12, 12],
+  showUserPopover: false,
+  showUserAvatar: false,
+  pinyinKey: '',
+  parentStyle: '',
+  defaultAvatar: '',
+  canFrequent: false,
+  setFreText: '', // 设为常用
+  cancelFreText: '',
 }
 
 export default Contacts
