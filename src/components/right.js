@@ -263,6 +263,8 @@ export default ({
           split={false}
           renderItem={(item) => {
             const { avatar = '' } = item;
+            // 当前为常用联系人数据 或者部门树数据且是常用联系人
+            const isFrequent = isSelectedOfMeeting || item.frequentFlag;
             return (
               <List.Item>
                 <div className={styles.itemDiv}>
@@ -384,7 +386,7 @@ export default ({
                   {/* 常用人员操作 */}
                   {canFrequent && (
                     <div
-                      title={item.userId > 9 ? cancelFreText : setFreText}
+                      title={isFrequent ? cancelFreText : setFreText}
                       className={
                         canDisableUpdate ||
                         (!canDisableUpdate && !disableUsers.includes(item.userId))
@@ -401,12 +403,12 @@ export default ({
                           ) {
                             // 禁用人员可以操作 或者 禁用人员不能操作并且当前人员不是禁用人员
                             if (updateFrequentUser) {
-                              updateFrequentUser(item,isSelectedOfMeeting);
+                              updateFrequentUser(item, isSelectedOfMeeting, isFrequent);
                             }
                           }
                         }}
                       >
-                        {item.userId > 9 ? cancelFreText : setFreText}
+                        {isFrequent ? cancelFreText : setFreText}
                       </span>
                     </div>
                   )}
