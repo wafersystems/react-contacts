@@ -1,3 +1,8 @@
+# ⛔️⛔️⛔️ 请访问 https://gitlab.rd.virsical.cn/virsical/h5/component/react-contacts 进行维护 ⛔️⛔️⛔️ #
+
+## ⛔️⛔️⛔️ 相关代码已经同步到了 GitLab 里面，这个库以后不保证为最新内容。⛔️⛔️⛔️ ##
+
+
 # react-contacts
 contacts  &amp; department select
 
